@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 04:46:51 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/16 06:19:29 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/09/16 06:52:57 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@ void	free_list(t_list *list, t_pars *pars)
 	if (pars)
 		free_pars(pars);
 	if (list->texture)
+	{
 		free_texture(list->texture);
+	}
 	if (list->map)
 	{
 		i = 0;

@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 21:22:08 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/16 06:32:00 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/09/16 06:53:19 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,18 +173,40 @@ void	init_texture(t_list *parsing_lst, t_pars *pars)
 	}
 }
 
+void	check_texture(t_list *parsing_lst, t_pars *pars)
+{
+	t_texture	*temp;
+
+	temp = parsing_lst->texture;
+	while (temp)
+	{
+		if (ft_strcmp(temp->key, "EA") != 0 && \
+			ft_strcmp(temp->key, "NO") != 0 && \
+			ft_strcmp(temp->key, "C") != 0 && \
+			ft_strcmp(temp->key, "F") != 0 && \
+			ft_strcmp(temp->key, "SO") != 0 && ft_strcmp(temp->key, "WE") != 0)
+		{
+			free_list(parsing_lst, pars);
+			print_error("Invalid map ! \n");
+		}
+		temp = temp->next;
+	}
+}
+
 void	parsing(t_list *parsing_lst, char **argv)
 {
 	int		fd;
 	char	*line;
 	t_pars	*pars;
 
+	parsing_lst->texture = NULL;
 	pars = init_parsing(argv, &fd, &line);
 	process_parsing(pars, fd, line);
 	clean_str(pars);
 	parsing_lst->map = NULL;
 	process_pars(parsing_lst, pars);
 	init_texture(parsing_lst, pars);
+	check_texture(parsing_lst, pars);
 	while (parsing_lst->texture)
 	{
 		printf("key = %s\n", parsing_lst->texture->key);

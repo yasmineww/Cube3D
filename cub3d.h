@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:48:52 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/16 06:38:39 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/09/16 06:45:00 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,6 @@ void		free_split(char **split);
 char		*ft_custom_strdup(const char *str);
 size_t		array_length(char **arr);
 int			ft_strcmp(const char *s1, const char *s2);
+void		free_pars(t_pars *pars);
 
 #endif
