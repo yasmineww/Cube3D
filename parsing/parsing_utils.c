@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 01:31:17 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/16 01:32:47 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/09/16 05:48:43 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,18 @@ void	print_error(char *str)
 	exit(1);
 }
 
-t_texture	*allocat_texture(void)
+t_pars	*allocat_pars(void)
 {
-	t_texture	*temp;
+	t_pars	*temp;
 
-	temp = malloc(sizeof(t_texture));
+	temp = malloc(sizeof(t_pars));
 	if (temp == NULL)
 		print_error("Allocation fails !\n");
 	temp->next = NULL;
 	return (temp);
 }
 
-int	open_file(char *argv)
+int open_file(char *argv)
 {
 	int	fd;
 
@@ -39,22 +39,28 @@ int	open_file(char *argv)
 	return (fd);
 }
 
-void	init_parsing(t_list *parsing_lst, char **argv, int *fd, char **line)
+int	check_line(char *line)
 {
-	*fd = open_file(argv[1]);
-	*line = get_next_line(*fd);
-	if (*line == NULL)
-		print_error("Empty file!\n");
-	parsing_lst->texture = allocat_texture();
+	int	i;
+
+	i = 0;
+	while (line && (line[i] == ' ' || line[i] == '	'))
+		i++;
+	if (line[i] == '1' || line[i] == '0')
+		return (1);
+	return (0);
 }
 
-char	*read_next_line(int fd, char *line)
+int	skip_line(char *line)
 {
-	while (ft_strncmp(line, "\n", 1) == 0)
-	{
-		line = get_next_line(fd);
-		if (line == NULL || line[0] == '1')
-			return (NULL);
-	}
-	return (line);
+	int	i;
+
+	i = 0;
+	if (line[0] == '\n')
+		return (1);
+	while (line && (line[i] == ' ' || line[i] == '	'))
+		i++;
+	if (line[i] == '\n' || line[i] == '\0')
+		return (1);
+	return (0);
 }

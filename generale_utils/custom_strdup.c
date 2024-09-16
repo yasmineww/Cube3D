@@ -1,29 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   custom_strdup.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/12 16:46:50 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/16 02:50:20 by youbihi          ###   ########.fr       */
+/*   Created: 2024/09/16 05:09:31 by youbihi           #+#    #+#             */
+/*   Updated: 2024/09/16 05:15:18 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
-int	main(int argc, char **argv)
+int	ft_custom_strlen(const char *str)
 {
-	t_list	*parsing_lst;
+	int	i;
 
-	parsing_lst = malloc(sizeof(t_list));
-	if (parsing_lst == NULL)
-		exit(1);
-	if (argc != 2)
+	i = 0;
+	while (str && str[i] && str[i] != '\n')
+		i++;
+	return (i);
+}
+
+char	*ft_custom_strdup(const char *str)
+{
+	int		i;
+	char	*p;
+
+	i = ft_custom_strlen(str);
+	p = (char *)malloc(i + 1 * 1);
+	if (p == NULL)
+		return (NULL);
+	i = 0;
+	while (str && str[i] && str[i] != '\n')
 	{
-		printf("invalid arguments !!\n");
-		return (1);
+		p[i] = str[i];
+		i++;
 	}
-	parsing(parsing_lst, argv);
-	return (0);
+	p[i] = '\0';
+	return (p);
 }

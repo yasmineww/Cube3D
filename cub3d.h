@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:48:52 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/16 01:35:31 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/09/16 06:04:51 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,15 @@
 #  define BUFFER_SIZE 10000000
 # endif
 
+typedef struct s_pars
+{
+	char				*value;
+	struct s_pars	*next;
+}	t_pars;
+
 typedef struct s_texture
 {
+	char				*key;
 	char				*value;
 	struct s_texture	*next;
 }	t_texture;
@@ -95,10 +102,18 @@ char		*ft_strjoin_get(char *left_str, char *buff);
 /*-------------------------------parsing-------------------------------*/
 
 void		parsing(t_list *parsing, char **argv);
-char		*read_next_line(int fd, char *line);
-void		init_parsing(t_list *parsing_lst, char **argv, int *fd,
-				char **line);
+void		print_error(char *str);
+t_pars		*allocat_pars(void);
 int			open_file(char *argv);
-t_texture	*allocat_texture(void);
+int			check_line(char *line);
+int			skip_line(char *line);
+
+/*-------------------------------generale_utils-------------------------------*/
+
+char		**ft_custom_split(char const *s);
+void		free_split(char **split);
+void		free_list(t_list *list, t_pars *pars);
+void		free_split(char **split);
+char		*ft_custom_strdup(const char *str);
 
 #endif

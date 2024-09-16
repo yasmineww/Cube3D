@@ -8,7 +8,8 @@ SRCF = main.c libft/ft_isalpha.c libft/ft_isdigit.c libft/ft_isalnum.c libft/ft_
        libft/ft_strmapi.c libft/ft_striteri.c libft/ft_putchar_fd.c libft/ft_putstr_fd.c \
        libft/ft_putendl_fd.c libft/ft_putnbr_fd.c libft/ft_strlen.c \
        get_next_line/get_next_line.c get_next_line/get_next_line_utils.c \
-       parsing/parsing.c parsing/parsing_utils.c
+       parsing/parsing.c parsing/parsing_utils.c \
+       generale_utils/ft_custom_split.c generale_utils/free_split.c generale_utils/linked_list_free.c generale_utils/custom_strdup.c
 
 OBJDIR = build
 
