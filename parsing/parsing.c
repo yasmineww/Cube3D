@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 21:22:08 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/16 06:26:17 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/09/16 06:32:00 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,6 @@ void	handel_shit(char **arr, t_list *parsing_lst, t_pars *pars)
 	exit(1);
 }
 
-size_t	arr_leght(char **arr)
-{
-	size_t	i;
-
-	i = 0;
-	while (arr[i])
-		i++;
-	return (i);
-}
-
 void	process_pars(t_list *parsing_lst, t_pars *pars)
 {
 	t_pars		*temp;
@@ -81,7 +71,7 @@ void	process_pars(t_list *parsing_lst, t_pars *pars)
 	while (temp != NULL)
 	{
 		arr = ft_custom_split(temp->value);
-		if (arr_leght(arr) != 2)
+		if (array_length(arr) != 2)
 			handel_shit(arr,parsing_lst, pars);
 		temp = temp->next;
 	}
