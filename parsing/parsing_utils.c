@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 01:31:17 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/16 05:48:43 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/09/17 09:00:37 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_pars	*allocat_pars(void)
 	return (temp);
 }
 
-int open_file(char *argv)
+int	open_file(char *argv)
 {
 	int	fd;
 

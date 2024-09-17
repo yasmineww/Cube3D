@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:48:52 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/17 00:53:55 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/09/17 08:57:11 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,21 @@ t_pars		*allocat_pars(void);
 int			open_file(char *argv);
 int			check_line(char *line);
 int			skip_line(char *line);
+t_pars		*init_parsing(char **argv, int *fd, char **line);
+char		*process_parsing(t_pars *pars, int fd, char *line);
+void		handel_shit(char **arr, t_list *parsing_lst, t_pars *pars);
+void		process_pars(t_list *parsing_lst, t_pars *pars);
+void		clean_str(t_pars *pars);
+t_texture	*create_node(void);
+t_texture	*allocate_six_nodes(int i);
+int			pars_leght(t_pars *pars);
+void		init_texture(t_list *parsing_lst, t_pars *pars);
+void		check_texture(t_list *parsing_lst, t_pars *pars);
+void		free_and_error(t_list *parsing_lst, t_pars	*temp, char *str);
+t_pars		*process_map(t_list *parsing_lst, int fd, char *line);
+void		fill_map(char **arr, int cols, int rows, t_pars *pars);
+char		**get_map(t_pars *tmp, int *num);
+void		check_for_tabs(t_list *parsing_lst, t_pars *pars);
 
 /*-------------------------------generale_utils-------------------------------*/
 

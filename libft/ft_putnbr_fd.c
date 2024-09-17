@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 17:23:16 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/12 16:56:06 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/09/17 08:59:35 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	ft_putnbr_fd(int nb, int fd)
 {
-	unsigned int	n; 
+	unsigned int	n;
 
 	if (fd >= 0)
 	{

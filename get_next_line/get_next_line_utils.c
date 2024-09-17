@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 12:27:03 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/15 22:05:42 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/09/17 08:58:56 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	count_len_for_left(char *str)
 		i++;
 	while (str[i + index])
 		index++;
-	return (index); 
+	return (index);
 }
 
 char	*ft_left_lines(char *all_lines)
@@ -93,7 +93,8 @@ char	*ft_strjoin_get(char *left_str, char *buff)
 	}
 	if (!left_str || !buff)
 		return (NULL);
-	str = malloc(sizeof(char) * ((ft_strlen_get(left_str) + ft_strlen_get(buff)) + 1));
+	str = malloc(sizeof(char) * \
+		((ft_strlen_get(left_str) + ft_strlen_get(buff)) + 1));
 	if (str == NULL)
 		return (NULL);
 	i = -1;
