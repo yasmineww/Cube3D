@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 21:22:08 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/16 06:53:19 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/09/17 06:55:00 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_pars	*init_parsing(char **argv, int *fd, char **line)
 	return (pars);
 }
 
-void	process_parsing(t_pars *pars, int fd, char *line)
+char	*process_parsing(t_pars *pars, int fd, char *line)
 {
 	int			i;
 	t_pars		*temp;
@@ -52,6 +52,7 @@ void	process_parsing(t_pars *pars, int fd, char *line)
 		if (line == NULL || line[0] == '1')
 			break ;
 	}
+	return(line);
 }
 
 void	handel_shit(char **arr, t_list *parsing_lst, t_pars *pars)
@@ -193,25 +194,147 @@ void	check_texture(t_list *parsing_lst, t_pars *pars)
 	}
 }
 
+t_pars	*process_map(t_list *parsing_lst, int fd, char *line)
+{
+	t_pars	*temp_pars;
+	t_pars	*temp;
+	int		i;
+
+	temp = malloc(sizeof(t_pars));
+	temp_pars = temp;
+	i = 0;
+	(void)parsing_lst;
+	if (line == NULL)
+	{
+		free_list(parsing_lst, NULL);
+		print_error("Invalid map !\n");
+	}
+	while (line && ft_strcmp(line, "\n") != 0 && skip_line(line) == 0)
+	{
+		temp->value = ft_strdup(line);
+		line = get_next_line(fd);
+		if (line != NULL && ft_strcmp(line, "\n") != 0 && skip_line(line) == 0)
+		{
+			temp->next = malloc(sizeof(t_pars));
+			temp = temp->next;
+			temp->next = NULL;
+		}
+		else
+			temp->next = NULL;
+	}
+	return (temp_pars);
+}
+
+void	fill_map(char **arr, int cols, int rows, t_pars *pars)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (i < rows)
+	{
+		j = 0;
+		while (pars->value[j] && j < cols)
+		{
+			arr[i][j] = pars->value[j];
+			j++;
+		}
+		while (j < cols)
+		{
+			arr[i][j] = ' ';
+			j++;
+		}
+		pars = pars->next;
+		i++;
+	}
+}
+
+char	**get_map(t_pars *tmp, int *num)
+{
+	size_t		rows;
+	size_t		cols;
+	char		**arr;
+	size_t		i;
+	t_pars		*values;
+
+	rows = 0;
+	i = 0;
+	cols = 0;
+	values = tmp;
+	while (tmp)
+	{
+		if (cols < ft_strlen(tmp->value))
+			cols = ft_strlen(tmp->value);
+		rows++;
+		tmp = tmp->next;
+	}
+	arr = (char **)malloc(rows * sizeof(char *));
+	while (i < rows)
+	{
+		arr[i] = (char *)malloc(cols * sizeof(char));
+		i++;
+	}
+	*num = cols;
+	fill_map(arr, cols, rows, values);
+	return (arr);
+}
+
+void	check_for_tabs(t_list *parsing_lst, t_pars *pars)
+{
+	int		i;
+	t_pars	*temp;
+
+	i = 0;
+	temp = pars;
+	while (temp)
+	{
+		while (temp->value[i])
+		{
+			if (temp->value[i] == '\t')
+			{
+				free_list(parsing_lst, pars);
+				print_error("Invalid Map : Tabs detected !\n");
+			}
+			i++;
+		}
+		temp = temp->next;
+		i = 0;
+	}
+}
+
 void	parsing(t_list *parsing_lst, char **argv)
 {
 	int		fd;
 	char	*line;
 	t_pars	*pars;
+	int		num;
 
 	parsing_lst->texture = NULL;
 	pars = init_parsing(argv, &fd, &line);
-	process_parsing(pars, fd, line);
+	line = process_parsing(pars, fd, line);
 	clean_str(pars);
 	parsing_lst->map = NULL;
 	process_pars(parsing_lst, pars);
 	init_texture(parsing_lst, pars);
 	check_texture(parsing_lst, pars);
-	while (parsing_lst->texture)
+	free_pars(pars);
+	pars = process_map(parsing_lst, fd, line);
+	clean_str(pars);
+	check_for_tabs(parsing_lst, pars);
+	parsing_lst->map = get_map(pars, &num);
+	size_t b = 0;
+	size_t c = 0;
+	while (b < 16)
 	{
-		printf("key = %s\n", parsing_lst->texture->key);
-		printf("value = %s\n", parsing_lst->texture->value);
+		while (c < 38)
+		{
+			printf("%c", parsing_lst->map[b][c]);
+			c++;
+		}
+		printf(".");
+		c = 0;
+		b++;
 		printf("\n");
-		parsing_lst->texture = parsing_lst->texture->next;
 	}
 }
