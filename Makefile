@@ -1,3 +1,5 @@
+NAME = cub3d
+
 SRCF = main.c libft/ft_isalpha.c libft/ft_isdigit.c libft/ft_isalnum.c libft/ft_isascii.c libft/ft_isprint.c \
        libft/ft_toupper.c libft/ft_tolower.c libft/ft_bzero.c libft/ft_strncmp.c \
        libft/ft_memset.c libft/ft_memchr.c libft/ft_memcpy.c libft/ft_strchr.c \
@@ -9,34 +11,35 @@ SRCF = main.c libft/ft_isalpha.c libft/ft_isdigit.c libft/ft_isalnum.c libft/ft_
        libft/ft_putendl_fd.c libft/ft_putnbr_fd.c libft/ft_strlen.c \
        get_next_line/get_next_line.c get_next_line/get_next_line_utils.c \
        parsing/parsing.c parsing/parsing_utils.c parsing/parsing_utils_1.c parsing/parsing_utils_2.c parsing/parsing_utils_3.c \
-       generale_utils/ft_custom_split.c generale_utils/free_split.c generale_utils/linked_list_free.c generale_utils/custom_strdup.c generale_utils/arr_lenght.c generale_utils/ft_strcmp.c
-
-OBJDIR = build
+       generale_utils/ft_custom_split.c generale_utils/free_split.c generale_utils/linked_list_free.c generale_utils/custom_strdup.c\
+	   generale_utils/arr_lenght.c generale_utils/ft_strcmp.c
 
 OBJF = $(addprefix $(OBJDIR)/, $(SRCF:.c=.o))
 
-CC = cc
+OBJDIR = build
 
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
 
 READLINEDIR = $(shell brew --prefix readline)
 
-NAME = cub3d
-
 all: $(NAME)
-
-$(NAME): $(OBJF)
-	$(CC) $(CFLAGS) $(OBJF) -o $(NAME)
 
 $(OBJDIR)/%.o: %.c cub3d.h
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $< -o $@ -I$(READLINEDIR)/include
+	@(cc $(CFLAGS) -c $< -o $@ -I $(READLINEDIR)/include)
+	@printf "\r\033[K\033[33mcompiling...\033[0m"
+
+$(NAME): $(OBJF)
+	@(cc $(CFLAGS) $(OBJF) -o $(NAME))
+	@printf "\r\033[K\033[32mcub3d compiled\033[0m\n"
 
 clean:
-	$(RM) -r $(OBJDIR)
+	@(rm -rf $(OBJDIR))
+	@printf "\r\033[K\033[31mRemove Object Files\033[0m\n"
 
 fclean: clean
-	$(RM) $(NAME)
+	@(rm -rf $(NAME))
+	@printf "\r\033[K\033[31mRemove executable\033[0m\n"
 
 re: fclean all
 
