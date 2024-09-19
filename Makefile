@@ -19,6 +19,8 @@ OBJF = $(addprefix $(OBJDIR)/, $(SRCF:.c=.o))
 OBJDIR = build
 
 CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
+FLMLX	=	-framework Cocoa -framework OpenGL -framework IOKit
+LFLAG	=	MLX42/libmlx42.a -lglfw -L/Users/$(USER)/.brew/opt/glfw/lib/
 
 READLINEDIR = $(shell brew --prefix readline)
 
@@ -30,7 +32,7 @@ $(OBJDIR)/%.o: %.c cub3d.h
 	@printf "\r\033[K\033[33mcompiling...\033[0m"
 
 $(NAME): $(OBJF)
-	@(cc $(CFLAGS) $(OBJF) -o $(NAME))
+	@(cc $(CFLAGS) $(FLMLX) $(LFLAG) $(OBJF) -o $(NAME))
 	@printf "\r\033[K\033[32mcub3d compiled\033[0m\n"
 
 clean:
