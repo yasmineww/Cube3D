@@ -3,15 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 18:01:17 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/12 16:56:06 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/09/19 15:25:00 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
-#include <stdio.h>
 #include "../cub3d.h"
 
 static char	**free_mem(char **tab)

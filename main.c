@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:46:50 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/17 06:57:32 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/09/19 16:26:05 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,19 @@ void	check_file_extention(char *file)
 	if (array_length(arr) != 2 || ft_strcmp(arr[1], "cub") != 0)
 	{
 		free_split(arr);
-		print_error("invalid file extensions !\n");
+		print_error("Invalid file extensions !\n");
 	}
+	free_split(arr);
 }
 
 int	main(int argc, char **argv)
 {
 	t_list	*parsing_lst;
+	// t_data	data;
 
 	if (argc != 2)
 	{
-		printf("invalid arguments !!\n");
+		print_error("Invalid arguments !!\n");
 		return (1);
 	}
 	check_file_extention(argv[1]);
@@ -38,5 +40,6 @@ int	main(int argc, char **argv)
 	if (parsing_lst == NULL)
 		exit(1);
 	parsing(parsing_lst, argv);
+	// data_init(&data);
 	return (0);
 }

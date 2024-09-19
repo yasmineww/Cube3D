@@ -6,23 +6,33 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:48:52 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/19 09:59:13 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/09/19 16:28:47 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
+# include "MLX42/MLX42.h"
 # include <stdio.h>
-# include <readline/readline.h>
 # include <stdlib.h>
 # include <fcntl.h>
 # include <unistd.h>
 # include <limits.h>
+# include <math.h>
+
+# define CUBE_SIZE	32
+# define HEIGHT	30
+# define WIDTH	50
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10000000
 # endif
+
+typedef struct s_data
+{
+	mlx_t	*init;
+}	t_data;
 
 typedef struct s_pars
 {
@@ -42,6 +52,8 @@ typedef struct s_list
 	t_texture	*texture;
 	char		**map;
 }	t_list;
+
+/*-------------------------------raycasting-------------------------------*/
 
 /*-------------------------------libft-------------------------------*/
 
@@ -100,13 +112,13 @@ char		*ft_strjoin_get(char *left_str, char *buff);
 
 void		parsing(t_list *parsing, char **argv);
 void		print_error(char *str);
-t_pars		*allocat_pars(void);
+t_pars		*allocate_pars(int *fd);
 int			open_file(char *argv);
 int			check_line(char *line);
 int			skip_line(char *line);
 t_pars		*init_parsing(char **argv, int *fd, char **line);
 char		*process_parsing(t_pars *pars, int fd, char *line);
-void		handel_shit(char **arr, t_list *parsing_lst, t_pars *pars);
+void		texture_syntax(char **arr, t_list *parsing_lst, t_pars *pars);
 void		process_pars(t_list *parsing_lst, t_pars *pars);
 void		clean_str(t_pars *pars);
 t_texture	*create_node(void);

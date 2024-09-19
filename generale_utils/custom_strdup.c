@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   custom_strdup.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 05:09:31 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/17 08:58:27 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/09/19 15:57:14 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_custom_strlen(const char *str)
 	return (i);
 }
 
-char	*ft_custom_strdup(const char *str)
+char	*ft_custom_strdup(const char *str)//is it useful?
 {
 	int		i;
 	char	*p;

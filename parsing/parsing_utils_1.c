@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 08:45:08 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/17 08:46:33 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/09/19 16:29:55 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,11 @@ t_pars	*init_parsing(char **argv, int *fd, char **line)
 	*fd = open_file(argv[1]);
 	*line = get_next_line(*fd);
 	if (*line == NULL)
+	{
+		close(*fd);
 		print_error("Empty file!\n");
-	pars = allocat_pars();
+	}
+	pars = allocate_pars(fd);
 	return (pars);
 }
 
@@ -41,7 +44,7 @@ char	*process_parsing(t_pars *pars, int fd, char *line)
 		{
 			if (i != 0)
 			{
-				temp->next = allocat_pars();
+				temp->next = allocate_pars(&fd);
 				temp = temp->next;
 			}
 			temp->value = ft_strdup(line);
@@ -53,7 +56,7 @@ char	*process_parsing(t_pars *pars, int fd, char *line)
 	return (line);
 }
 
-void	handel_shit(char **arr, t_list *parsing_lst, t_pars *pars)
+void	texture_syntax(char **arr, t_list *parsing_lst, t_pars *pars)
 {
 	free_split(arr);
 	free_list(parsing_lst, pars);
@@ -71,7 +74,7 @@ void	process_pars(t_list *parsing_lst, t_pars *pars)
 	{
 		arr = ft_custom_split(temp->value);
 		if (array_length(arr) != 2)
-			handel_shit(arr, parsing_lst, pars);
+			texture_syntax(arr, parsing_lst, pars);
 		temp = temp->next;
 	}
 }
@@ -84,7 +87,7 @@ void	clean_str(t_pars *pars)
 	temp = pars;
 	while (temp)
 	{
-		str = ft_custom_strdup(temp->value);
+		str = ft_custom_strdup(temp->value);// why custom???
 		free(temp->value);
 		temp->value = str;
 		temp = temp->next;

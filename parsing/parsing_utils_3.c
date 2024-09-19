@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_3.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 08:54:21 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/17 08:54:55 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/09/19 16:30:39 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_pars	*process_map(t_list *parsing_lst, int fd, char *line)
 	temp = malloc(sizeof(t_pars));
 	temp_pars = temp;
 	i = 0;
-	if (line == NULL)
+	if (line == NULL)// not necessary already checked for NULL
 		free_and_error(parsing_lst, NULL, "Invalid map !\n");
 	while (line && ft_strcmp(line, "\n") != 0 && skip_line(line) == 0)
 	{
@@ -96,6 +96,20 @@ char	**get_map(t_pars *tmp, int *num)
 	}
 	*num = cols;
 	fill_map(arr, cols, rows, values);
+	// size_t h = 0;
+	// size_t j = 0;
+
+	// while (h < rows)
+	// {
+	// 	while (j < cols)
+	// 	{
+	// 		printf("%c",arr[h][j]);
+	// 		j++;
+	// 	}
+	// 	printf("\n");
+	// 	j = 0;
+	// 	h++;
+	// }
 	return (arr);
 }
 
@@ -110,7 +124,7 @@ void	check_for_tabs(t_list *parsing_lst, t_pars *pars)
 	{
 		while (temp->value[i])
 		{
-			if (temp->value[i] == '\t')
+			if (temp->value[i] == '\t')// free fd 
 			{
 				free_list(parsing_lst, pars);
 				print_error("Invalid Map : Tabs detected !\n");

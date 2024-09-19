@@ -18,9 +18,9 @@ OBJF = $(addprefix $(OBJDIR)/, $(SRCF:.c=.o))
 
 OBJDIR = build
 
-CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
-FLMLX	=	-framework Cocoa -framework OpenGL -framework IOKit
-LFLAG	=	MLX42/libmlx42.a -lglfw -L/Users/$(USER)/.brew/opt/glfw/lib/
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+FLMLX	= -framework Cocoa -framework OpenGL -framework IOKit
+LFLAG	= MLX42/libmlx42.a -lglfw -L/Users/$(USER)/.brew/opt/glfw/lib/
 
 READLINEDIR = $(shell brew --prefix readline)
 
@@ -44,8 +44,3 @@ fclean: clean
 	@printf "\r\033[K\033[31mRemove executable\033[0m\n"
 
 re: fclean all
-
-$(OBJF): | $(OBJDIR)
-
-$(OBJDIR):
-	@mkdir -p $(OBJDIR)
