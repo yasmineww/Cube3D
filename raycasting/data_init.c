@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:44:36 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/09/20 13:32:24 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/09/20 13:51:50 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,21 @@
 
 void	my_put_pixel(t_data *data, int x, int y, int color)
 {
-	if (x >= 0 && x < data->width && y >= 0 && y < data->height)
-		mlx_put_pixel(data->mlx->img, x, y, color);
+	int i;
+	int	j;
+	
+	i = 0;
+	while (i < CUBE_SIZE)
+	{
+		j = 0;
+		while (j < CUBE_SIZE)
+		{
+			if (x >= 0 && x < data->width && y >= 0 && y < data->height)
+				mlx_put_pixel(data->mlx->img, (j + x), (i + y), color);
+			j++;
+		}
+		i++;
+	}
 }
 
 void	render_2d_map(t_data *data)
@@ -31,17 +44,7 @@ void	render_2d_map(t_data *data)
 		{
 			if (data->map[i][j] == '1')
 			{
-				int k = 0;
-				while (k < CUBE_SIZE)
-				{
-					int l = 0;
-					while (l < CUBE_SIZE)
-					{
-						my_put_pixel(data, (l + (j * CUBE_SIZE)), (k + (i * CUBE_SIZE)), 0xFF0000FF);
-						l++;
-					}
-					k++;
-				}
+				my_put_pixel(data, (j * CUBE_SIZE), (i * CUBE_SIZE), 0xFF0000FF);
 			}
 			j++;
 		}
