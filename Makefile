@@ -1,10 +1,10 @@
 NAME = cub3d
 
-SRCF = main.c libft/ft_putstr_fd.c libft/ft_split.c libft/ft_strdup.c libft/ft_strlen.c \
+SRCF = main.c utils/ft_putstr_fd.c utils/ft_split.c utils/ft_strdup.c utils/ft_strlen.c \
        get_next_line/get_next_line.c get_next_line/get_next_line_utils.c \
        parsing/parsing.c parsing/parsing_utils.c parsing/parsing_utils_1.c parsing/parsing_utils_2.c parsing/parsing_utils_3.c \
-       generale_utils/ft_custom_split.c generale_utils/free_split.c generale_utils/linked_list_free.c generale_utils/custom_strdup.c\
-	   generale_utils/arr_lenght.c generale_utils/ft_strcmp.c\
+       utils/ft_custom_split.c utils/free_split.c utils/linked_list_free.c utils/custom_strdup.c\
+	   utils/arr_lenght.c utils/ft_strcmp.c\
 	   raycasting/data_init.c
 
 OBJF = $(addprefix $(OBJDIR)/, $(SRCF:.c=.o))

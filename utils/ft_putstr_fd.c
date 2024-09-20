@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isprint.c                                       :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/30 14:20:05 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/12 16:56:06 by youbihi          ###   ########.fr       */
+/*   Created: 2023/11/05 17:16:34 by youbihi           #+#    #+#             */
+/*   Updated: 2024/09/20 15:42:04 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "../cub3d.h"
 
-int	ft_isprint(int c)
+void	ft_putstr_fd(char *s, int fd)
 {
-	if (c >= 32 && c <= 126)
+	int	i;
+
+	if (!s)
+		return ;
+	if (fd >= 0)
 	{
-		return (1);
-	}
-	else
-	{
-		return (0);
+		i = 0;
+		while (s[i])
+		{
+			write (fd, &s[i], 1);
+			i++;
+		}
 	}
 }
