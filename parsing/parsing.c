@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 21:22:08 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/19 16:20:24 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/09/20 11:48:15 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	parsing(t_list *parsing_lst, char **argv)
 	pars = process_map(parsing_lst, fd, line);
 	clean_str(pars);
 	check_for_tabs(parsing_lst, pars);
-	parsing_lst->map = get_map(pars, &num);
+	parsing_lst->map = get_map(pars, &num, parsing_lst);
 	free_pars(pars);
 	close(fd);
 }

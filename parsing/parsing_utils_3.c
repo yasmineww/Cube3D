@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 08:54:21 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/19 16:30:39 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/09/20 11:49:09 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	fill_map(char **arr, int cols, int rows, t_pars *pars)
 	}
 }
 
-char	**get_map(t_pars *tmp, int *num)
+char	**get_map(t_pars *tmp, int *num, t_list *parsing_lst)
 {
 	size_t		rows;
 	size_t		cols;
@@ -94,6 +94,8 @@ char	**get_map(t_pars *tmp, int *num)
 	{
 		arr[i++] = (char *)malloc(cols * sizeof(char));
 	}
+	parsing_lst->rows = rows;
+	parsing_lst->cols = cols;
 	*num = cols;
 	fill_map(arr, cols, rows, values);
 	// size_t h = 0;

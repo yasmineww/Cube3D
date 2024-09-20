@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:48:52 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/19 19:13:24 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/09/20 11:48:30 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include <math.h>
 
 # define CUBE_SIZE	32
-# define HEIGHT	450
-# define WIDTH	500
+# define W_HEIGHT	30
+# define W_WIDTH	50
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10000000
@@ -38,6 +38,8 @@ typedef struct s_mlx
 typedef struct s_data
 {
 	t_mlx	*mlx;
+	int		width;
+	int		height;
 }	t_data;
 
 typedef struct s_pars
@@ -57,11 +59,14 @@ typedef struct s_list
 {
 	t_texture	*texture;
 	char		**map;
+	int			rows;
+	int			cols;
 }	t_list;
 
 /*-------------------------------raycasting-------------------------------*/
 
 void		data_init(t_data **data);
+void		render_window(void *param);
 
 /*-------------------------------libft-------------------------------*/
 
@@ -137,7 +142,7 @@ void		check_texture(t_list *parsing_lst, t_pars *pars);
 void		free_and_error(t_list *parsing_lst, t_pars	*temp, char *str);
 t_pars		*process_map(t_list *parsing_lst, int fd, char *line);
 void		fill_map(char **arr, int cols, int rows, t_pars *pars);
-char		**get_map(t_pars *tmp, int *num);
+char		**get_map(t_pars *tmp, int *num, t_list *parsing_lst);
 void		check_for_tabs(t_list *parsing_lst, t_pars *pars);
 
 /*-------------------------------general_utils-------------------------------*/

@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:44:36 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/09/19 19:15:46 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/09/20 11:42:39 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,39 +17,38 @@ void	render_window(void *param)
 	t_data	*data;
 
 	data = param;
-	// data->mlx->init = mlx_init(WIDTH, HEIGHT, "CUB3D", 0);
-	// if (!data->mlx->init)
-	// {
-	// 	printf("%s", mlx_strerror(mlx_errno));
-	// 	exit(1);
-	// }
-	// data->mlx->img = mlx_new_image(data->mlx->init, 128, 128);
-	// if (!data->mlx->img)
-	// {
-	// 	mlx_close_window(data->mlx->init);
-	// 	puts(mlx_strerror(mlx_errno));
-	// 	exit(1);
-	// }
+	mlx_delete_image(data->mlx->init, data->mlx->img);
+	data->mlx->img = mlx_new_image(data->mlx->init, data->width, data->height);
+	if (!data->mlx->img)
+	{
+		mlx_close_window(data->mlx->init);
+		exit(1);
+	}
 	// if (mlx_image_to_window(data->mlx->init, data->mlx->img, 0, 0) == -1)
 	// {
 	// 	mlx_close_window(data->mlx->init);
 	// 	puts(mlx_strerror(mlx_errno));
 	// 	exit(1);
 	// }
+	// mlx_put_pixel((*data)->mlx->init, 0, 0, 0xFF0000FF);
+}
+
+void	init_var(t_data **data)
+{
+	(*data)->height = W_HEIGHT * CUBE_SIZE;
+	(*data)->width = W_WIDTH * CUBE_SIZE;
 }
 
 void	data_init(t_data **data)
 {
+	*data = malloc(sizeof(t_data));
+	if (!*data)
+		exit(1);
 	(*data)->mlx = malloc (sizeof(t_mlx));
 	if (!(*data)->mlx)
 		exit(1);
-	(*data)->mlx->init = mlx_init(WIDTH, HEIGHT, "CUBE3D", 0);
+	init_var(data);
+	(*data)->mlx->init = mlx_init((*data)->width, (*data)->height, "CUBE3D", 0);
 	if (!(*data)->mlx->init)
 		exit(1);
-	(*data)->mlx->img = mlx_new_image((*data)->mlx->init, WIDTH, HEIGHT);
-	if (!(*data)->mlx->img || (mlx_image_to_window((*data)->mlx->init, (*data)->mlx->img, 0, 0) < 0))
-		exit(1);
-	mlx_put_pixel((*data)->mlx->init, 0, 0, 0xFF0000FF);
-	mlx_loop_hook((*data)->mlx->init, &render_window, data);
-	mlx_loop((*data)->mlx->init);
 }

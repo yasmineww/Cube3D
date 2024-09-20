@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:46:50 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/19 18:32:08 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/09/20 11:50:01 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,8 @@ int	main(int argc, char **argv)
 	if (parsing_lst == NULL)
 		exit(1);
 	parsing(parsing_lst, argv);
-	data = malloc(sizeof(t_data));
-	if (!data)
-		exit(1);
 	data_init(&data);
+	mlx_loop_hook(data->mlx->init, &render_window, data);
+	mlx_loop(data->mlx->init);
 	return (0);
 }
