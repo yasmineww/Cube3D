@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:48:52 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/20 11:48:30 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/09/20 13:08:58 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@ typedef struct s_data
 	t_mlx	*mlx;
 	int		width;
 	int		height;
+	char	**map;
+	int		rows;
+	int		cols;
 }	t_data;
 
 typedef struct s_pars
@@ -65,7 +68,7 @@ typedef struct s_list
 
 /*-------------------------------raycasting-------------------------------*/
 
-void		data_init(t_data **data);
+void		data_init(t_data **data, t_list *parsing_lst);
 void		render_window(void *param);
 
 /*-------------------------------libft-------------------------------*/
