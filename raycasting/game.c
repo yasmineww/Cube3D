@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 10:37:00 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/09/21 20:50:29 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/09/21 21:53:15 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	move_player(t_player *player)
 	{
 			player->x += player->turn;
 			player->y += player->walk;
-			// player->rot_angle += player->move_speed + player->turn;
 	}
 }
 
@@ -37,13 +36,10 @@ void	draw_ray(t_data *data, t_player *player)
 		{
 			if (player->x >= 0 && player->x < W_WIDTH && player->y >= 0 && player->y < W_HEIGHT)
 			{
-				pos_x = player->x + (player->size / 2) + cos(player->rot_angle);
-				pos_y = i + player->y + sin(player->rot_angle);
+				pos_x =  player->x + (player->size / 2) + j * cos(player->rot_angle);
+				pos_y =  player->y + (player->size / 2) + j * sin(player->rot_angle);
 				mlx_put_pixel(data->mlx->img, pos_x, pos_y, 0x94F0ACFF);
-				// mlx_put_pixel(data->mlx->img, ((player->x + (player->size / 2)) + cos(player->rot_angle)),
-				// 		(( i + player->y) + sin(player->rot_angle)), 0x94F0ACFF);
 			}
-			
 		}
 		j++;
 		i--;

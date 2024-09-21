@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:48:52 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/21 12:37:13 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/09/21 21:43:54 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ typedef struct s_player
 	int	size;
 	int	turn;
 	int	walk;
-	int	rot_angle;
-	int	move_speed;
+	double	rot_angle;
 	int	rot_speed;
+	double	move_speed;
 }	t_player;
 
 typedef struct s_mlx
