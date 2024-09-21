@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:46:50 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/20 13:06:01 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/09/21 11:45:54 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	main(int argc, char **argv)
 	parsing(parsing_lst, argv);
 	data_init(&data, parsing_lst);
 	mlx_loop_hook(data->mlx->init, &render_window, data);
+	mlx_key_hook(data->mlx->init, &key_func, data);
 	mlx_loop(data->mlx->init);
 	return (0);
 }

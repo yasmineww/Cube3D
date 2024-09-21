@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:48:52 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/20 16:40:39 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/09/21 11:51:07 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include <math.h>
 
 # define CUBE_SIZE	32
-# define W_HEIGHT	30
-# define W_WIDTH	50
+# define W_HEIGHT	960
+# define W_WIDTH	1600
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10000000
@@ -33,7 +33,7 @@ typedef struct s_player
 {
 	int	x;
 	int	y;
-	int	radius;
+	int	size;
 	int	turn;
 	int	walk;
 	int	rot_angle;
@@ -50,7 +50,7 @@ typedef struct s_mlx
 typedef struct s_data
 {
 	t_mlx		*mlx;
-	t_player	*player;	
+	t_player	*player;
 	int			width;
 	int			height;
 	char		**map;
@@ -83,6 +83,7 @@ typedef struct s_list
 
 void		data_init(t_data **data, t_list *parsing_lst);
 void		render_window(void *param);
+void		key_func(mlx_key_data_t datakey, void *param);
 
 /*-------------------------------get_next_line-------------------------------*/
 
