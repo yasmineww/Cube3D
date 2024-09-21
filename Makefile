@@ -5,7 +5,7 @@ SRCF = main.c utils/ft_putstr_fd.c utils/ft_split.c utils/ft_strdup.c utils/ft_s
        parsing/parsing.c parsing/parsing_utils.c parsing/parsing_utils_1.c parsing/parsing_utils_2.c parsing/parsing_utils_3.c \
        utils/ft_custom_split.c utils/free_split.c utils/linked_list_free.c utils/custom_strdup.c\
 	   utils/arr_lenght.c utils/ft_strcmp.c\
-	   raycasting/data_init.c
+	   raycasting/data_init.c raycasting/game.c 
 
 OBJF = $(addprefix $(OBJDIR)/, $(SRCF:.c=.o))
 
