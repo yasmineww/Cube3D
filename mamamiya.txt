@@ -1,0 +1,15 @@
+ 1 1 
+
+
+ -------------------
+
+EA textures/wall8.png
+WE textures/wall7.png
+C 201,201,201
+F 136,136,136
+NO textures/wall6.png
+
+                                            11
+SO textures/wall5.png
+                                  1     1   1111
+                                       1   1N01

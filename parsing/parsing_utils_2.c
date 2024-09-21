@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 08:50:13 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/19 16:05:43 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/09/21 10:15:45 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	init_texture(t_list *parsing_lst, t_pars *pars)
 	char		**arr;
 	t_texture	*temp;
 
-	if (pars_leght(pars) > 6)//leak fd
+	if (pars_leght(pars) > 6 || pars_leght(pars) < 6)
 	{
 		free_list(parsing_lst, pars);
 		print_error("Invalid map !\n");
@@ -82,7 +82,7 @@ void	init_texture(t_list *parsing_lst, t_pars *pars)
 	temp = parsing_lst->texture;
 	while (pars)
 	{
-		arr = ft_custom_split(pars->value);
+		arr = split_texture(pars->value);
 		temp->key = ft_strdup(arr[0]);
 		temp->value = ft_strdup(arr[1]);
 		free_split(arr);

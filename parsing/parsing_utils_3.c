@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_3.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 08:54:21 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/19 16:30:39 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/09/21 10:16:24 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_pars	*process_map(t_list *parsing_lst, int fd, char *line)
 	temp = malloc(sizeof(t_pars));
 	temp_pars = temp;
 	i = 0;
-	if (line == NULL)// not necessary already checked for NULL
+	if (line == NULL)
 		free_and_error(parsing_lst, NULL, "Invalid map !\n");
 	while (line && ft_strcmp(line, "\n") != 0 && skip_line(line) == 0)
 	{
@@ -49,28 +49,56 @@ void	fill_map(char **arr, int cols, int rows, t_pars *pars)
 {
 	int	i;
 	int	j;
+	int	b;
 
-	i = 0;
 	j = 0;
-	while (i < rows)
+	i = 0;
+	b = 0;
+	while (j < cols)
+	{
+		arr[i][j] = '-';
+		j++;
+	}
+	i++;
+	j = 0;
+	while (pars)
 	{
 		j = 0;
-		while (pars->value[j] && j < cols)
+		while (pars->value[b] && j < cols)
 		{
-			arr[i][j] = pars->value[j];
-			j++;
+			if ((i != 0 && i != rows - 1) && (j == 0 || j == cols - 1))
+			{
+				arr[i][0] = '-';
+				j++;
+			}
+			else
+			{
+				arr[i][j] = pars->value[b];
+				j++;
+				b++;
+			}
 		}
 		while (j < cols)
 		{
-			arr[i][j] = ' ';
+			if (j == cols - 1)
+				arr[i][j] = '-';
+			else
+				arr[i][j] = ' ';
 			j++;
 		}
+		b = 0;
 		pars = pars->next;
 		i++;
 	}
+	j = 0;
+	while (j < cols)
+	{
+		arr[i][j] = '-';
+		j++;
+	}
 }
 
-char	**get_map(t_pars *tmp, int *num)
+char	**get_map(t_pars *tmp, int *num, t_list *parsing_lst)
 {
 	size_t		rows;
 	size_t		cols;
@@ -89,11 +117,15 @@ char	**get_map(t_pars *tmp, int *num)
 		rows++;
 		tmp = tmp->next;
 	}
+	rows = rows + 2;
+	cols = cols + 2;
 	arr = (char **)malloc(rows * sizeof(char *));
 	while (i < rows)
-	{
 		arr[i++] = (char *)malloc(cols * sizeof(char));
-	}
+	if (rows <= 4)
+		print_error("Invalid Map !\n");
+	parsing_lst->rows = rows;
+	parsing_lst->cols = cols;
 	*num = cols;
 	fill_map(arr, cols, rows, values);
 	// size_t h = 0;
@@ -124,7 +156,7 @@ void	check_for_tabs(t_list *parsing_lst, t_pars *pars)
 	{
 		while (temp->value[i])
 		{
-			if (temp->value[i] == '\t')// free fd 
+			if (temp->value[i] == '\t')
 			{
 				free_list(parsing_lst, pars);
 				print_error("Invalid Map : Tabs detected !\n");
