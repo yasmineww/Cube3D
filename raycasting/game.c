@@ -6,11 +6,21 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 10:37:00 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/09/21 12:03:36 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/09/21 13:40:16 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+void	move_player(t_player *player)
+{
+	if (player->x + player->turn < W_WIDTH && player->y + player->walk < W_HEIGHT
+		&& player->x + player->turn >= 0 && player->y + player->walk >= 0)
+	{
+			player->x += player->turn;
+			player->y += player->walk;
+	}
+}
 
 void    create_player(t_data *data)
 {
@@ -21,6 +31,9 @@ void    create_player(t_data *data)
 	i = 0;
 	j = 0;
 	player = data->player;
+	move_player(data->player);
+	// printf("x %d\n", player->x);
+	// printf("y %d\n", player->y);
 	while (i < player->size)
 	{
 		j = 0;
