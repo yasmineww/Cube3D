@@ -6,19 +6,42 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 10:37:00 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/09/21 21:53:15 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/09/22 16:53:17 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	move_player(t_player *player)
+int	is_wall(t_data *data, double x, double y)
 {
+	int	index_x = x / CUBE_SIZE;
+	int	index_y = y / CUBE_SIZE;
+
+	if (x < 0 || x > W_WIDTH || y < 0 || y > W_HEIGHT)
+		return (1);
+	if (data->map[index_y][index_x] == '1')
+		return (1);
+	return (0);
+}
+
+void	move_player(t_player *player, t_data *data)
+{
+	double	var_1;
+	double	var_2;
+	
 	if (player->x + player->turn < W_WIDTH && player->y + player->walk < W_HEIGHT
 		&& player->x + player->turn >= 0 && player->y + player->walk >= 0)
 	{
-			player->x += player->turn;
-			player->y += player->walk;
+		var_1 = player->x;
+		var_2 = player->y;
+		var_1 += player->turn * player->move_speed;
+		var_2 += player->walk * player->move_speed;
+		if (!is_wall(data, var_1, var_2))
+		{
+			player->x += player->turn * player->move_speed;
+			player->y += player->walk * player->move_speed;
+			
+		}
 	}
 }
 
@@ -26,8 +49,8 @@ void	draw_ray(t_data *data, t_player *player)
 {
 	int	i;
 	int	j;
-	int	pos_x;
-	int	pos_y;
+	int	ray_x;
+	int	ray_y;
 
 	j = 0;
 	i = -1;
@@ -36,15 +59,16 @@ void	draw_ray(t_data *data, t_player *player)
 		{
 			if (player->x >= 0 && player->x < W_WIDTH && player->y >= 0 && player->y < W_HEIGHT)
 			{
-				pos_x =  player->x + (player->size / 2) + j * cos(player->rot_angle);
-				pos_y =  player->y + (player->size / 2) + j * sin(player->rot_angle);
-				mlx_put_pixel(data->mlx->img, pos_x, pos_y, 0x94F0ACFF);
+				ray_x =  player->x + (player->size / 2) + j * cos(player->rot_angle);
+				ray_y =  player->y + (player->size / 2) + j * sin(player->rot_angle);
+				mlx_put_pixel(data->mlx->img, ray_x, ray_y, 0x94F0ACFF);
 			}
 		}
 		j++;
 		i--;
 	}
 }
+
 
 void    create_player(t_data *data)
 {
@@ -54,7 +78,7 @@ void    create_player(t_data *data)
 
 	i = 0;
 	player = data->player;
-	move_player(data->player);
+	move_player(data->player, data);
 	while (i < player->size)
 	{
 		j = 0;
