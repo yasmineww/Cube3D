@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 11:46:37 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/09/22 14:30:53 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/09/23 12:02:02 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,16 @@ void	key_func(mlx_key_data_t datakey, void *param)
 	}
 	if (action == 2)
 		action = 1;
-	if (key == 'S')
-		data->player->walk = (action * 1);
 	if (key == 'W')
-		data->player->walk = (action * -1);
+		data->player->walk = (action * 1) * 2 * M_PI;
+	if (key == 'S')
+		data->player->walk = (action * -1) * M_PI;
 	if (key == 'D')
-		data->player->turn = (action * 1);
+		data->player->turn = (action * 1) * (M_PI / 2);
 	if (key == 'A')
-		data->player->turn = (action * -1);
+		data->player->turn = (action * -1) * (M_PI / 2);
 	if (key == MLX_KEY_RIGHT)
-		data->player->rot_angle += (action * 1) * 0.3;
+		data->player->rot_angle += (action * 1) * 0.1;
 	if (key == MLX_KEY_LEFT)
-		data->player->rot_angle += (action * -1) * 0.3;
+		data->player->rot_angle += (action * -1) * 0.1;
 }

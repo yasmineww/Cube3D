@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 10:37:00 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/09/22 16:53:17 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/09/23 12:13:53 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,25 @@ void	move_player(t_player *player, t_data *data)
 {
 	double	var_1;
 	double	var_2;
-	
-	if (player->x + player->turn < W_WIDTH && player->y + player->walk < W_HEIGHT
-		&& player->x + player->turn >= 0 && player->y + player->walk >= 0)
+	double	angle;
+
+	var_1 = player->x;
+	var_2 = player->y;
+	angle = player->rot_angle + player->turn + player->walk;
+	var_1 = roundf(player->x + player->move_speed * cos(angle));
+	var_2 = roundf(player->y + player->move_speed * sin(angle));
+	if (var_1 < W_WIDTH && var_2 < W_HEIGHT
+		&& var_1 >= 0 && var_2 >= 0)
 	{
-		var_1 = player->x;
-		var_2 = player->y;
-		var_1 += player->turn * player->move_speed;
-		var_2 += player->walk * player->move_speed;
+		var_1 = roundf(player->x + player->move_speed * cos(angle));
+		var_2 = roundf(player->y + player->move_speed * sin(angle));
 		if (!is_wall(data, var_1, var_2))
 		{
-			player->x += player->turn * player->move_speed;
-			player->y += player->walk * player->move_speed;
-			
+			if (player->turn || player->walk)
+			{
+				player->x = roundf(player->x + player->move_speed * cos(angle));
+				player->y = roundf(player->y + player->move_speed * sin(angle));
+			}
 		}
 	}
 }
