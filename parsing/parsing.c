@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 21:22:08 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/21 10:15:51 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/09/24 14:24:59 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,18 +94,5 @@ void	parsing(t_list *parsing, char **argv)
 		print_error("Invalid Map !\n");
 	parsing->map = create_map(parsing->map, &parsing->rows, &parsing->cols);
 	free_pars(pars);
-	// int h = 0;
-	// int c = 0;
-	// while (h < parsing->rows)
-	// {
-	// 	while (c < parsing->cols)
-	// 	{
-	// 		printf("%c",parsing->map[h][c]);
-	// 		c++;
-	// 	}
-	// 	c = 0;
-	// 	h++;
-	// 	printf("\n");
-	// }
 	close(fd);
 }

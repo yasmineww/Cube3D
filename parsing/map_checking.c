@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:19:03 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/24 12:46:34 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/09/24 14:26:02 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	check_char(char c)
 	return (0);
 }
 
-int check_unwanted_characters(t_list *parsing_lst)
+int	check_unwanted_characters(t_list *parsing_lst)
 {
 	int	i;
 	int	j;

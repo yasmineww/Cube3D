@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:48:52 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/24 12:38:31 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/09/24 14:43:48 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ typedef struct s_pars
 
 typedef struct s_texture
 {
+	int					C[3];
+	int					F[3];
 	char				*key;
 	char				*value;
 	struct s_texture	*next;
@@ -143,7 +145,7 @@ void		texture_syntax(char **arr, t_list *parsing_lst, t_pars *pars);
 void		process_pars(t_list *parsing_lst, t_pars *pars);
 void		clean_str(t_pars *pars);
 t_texture	*create_node(void);
-t_texture	*allocate_six_nodes(int i);
+t_texture	*allocate_four_nodes(int i);
 int			pars_leght(t_pars *pars);
 void		init_texture(t_list *parsing_lst, t_pars *pars);
 void		check_texture(t_list *parsing_lst, t_pars *pars);

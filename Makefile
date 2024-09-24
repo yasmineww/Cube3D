@@ -1,6 +1,6 @@
 NAME = cub3d
 
-SRCF = main.c libft/ft_putstr_fd.c libft/ft_split.c libft/ft_strdup.c libft/ft_strlen.c \
+SRCF = main.c libft/ft_putstr_fd.c libft/ft_split.c libft/ft_strdup.c libft/ft_strlen.c libft/ft_atoi.c \
        get_next_line/get_next_line.c get_next_line/get_next_line_utils.c \
        parsing/parsing.c parsing/parsing_utils.c parsing/parsing_utils_1.c parsing/parsing_utils_2.c parsing/parsing_utils_3.c parsing/map_checking.c \
        generale_utils/ft_custom_split.c generale_utils/free_split.c generale_utils/linked_list_free.c generale_utils/custom_strdup.c\
