@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:48:52 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/24 10:54:14 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/09/24 13:08:39 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct s_player
 	double	turn;
 	double	walk;
 	double	rot_angle;
-	double	rot_speed;
+	// double	rot_speed;
 	double	move_speed;
 }	t_player;
 
@@ -89,7 +89,8 @@ typedef struct s_list
 
 void		data_init(t_data **data, t_list *parsing_lst);
 void		render_window(void *param);
-void		key_func(mlx_key_data_t datakey, void *param);
+void		key(mlx_key_data_t datakey, void *param);
+void		mouse(double mouse_x, double mouse_y, void *param);
 
 /*-------------------------------get_next_line-------------------------------*/
 

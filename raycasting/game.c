@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 10:37:00 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/09/24 10:59:55 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/09/24 11:30:27 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void    create_player(t_data *data)
 
 	i = -1;
 	player = data->player;
+	draw_ray(data, data->player);
 	move_player(data->player, data);
 	while (++i < player->size)
 	{
@@ -83,7 +84,6 @@ void    create_player(t_data *data)
 				mlx_put_pixel(data->mlx->img, (j + player->x),(i + player->y), 0x000000FF);
 		}
 	}
-	draw_ray(data, data->player);
 }
 
 void	my_put_pixel(t_data *data, int x, int y, int color)
@@ -91,17 +91,15 @@ void	my_put_pixel(t_data *data, int x, int y, int color)
 	int i;
 	int	j;
 	
-	i = 0;
-	while (i < CUBE_SIZE)
+	i = -1;
+	while (++i < CUBE_SIZE)
 	{
-		j = 0;
-		while (j < CUBE_SIZE)
+		j = -1;
+		while (++j < CUBE_SIZE)
 		{
 			if (x >= 0 && x < W_WIDTH && y >= 0 && y < W_HEIGHT)
 				mlx_put_pixel(data->mlx->img, (j + x), (i + y), color);
-			j++;
 		}
-		i++;
 	}
 }
 
