@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 10:37:00 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/09/23 12:13:53 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/09/24 10:59:55 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,27 +26,19 @@ int	is_wall(t_data *data, double x, double y)
 
 void	move_player(t_player *player, t_data *data)
 {
-	double	var_1;
-	double	var_2;
+	int		x;
+	int		y;
 	double	angle;
 
-	var_1 = player->x;
-	var_2 = player->y;
 	angle = player->rot_angle + player->turn + player->walk;
-	var_1 = roundf(player->x + player->move_speed * cos(angle));
-	var_2 = roundf(player->y + player->move_speed * sin(angle));
-	if (var_1 < W_WIDTH && var_2 < W_HEIGHT
-		&& var_1 >= 0 && var_2 >= 0)
+	x = roundf(player->x + player->move_speed * cos(angle));
+	y = roundf(player->y + player->move_speed * sin(angle));
+	if (!is_wall(data, x, y))
 	{
-		var_1 = roundf(player->x + player->move_speed * cos(angle));
-		var_2 = roundf(player->y + player->move_speed * sin(angle));
-		if (!is_wall(data, var_1, var_2))
+		if (player->turn || player->walk)
 		{
-			if (player->turn || player->walk)
-			{
-				player->x = roundf(player->x + player->move_speed * cos(angle));
-				player->y = roundf(player->y + player->move_speed * sin(angle));
-			}
+			player->x = x;
+			player->y = y;
 		}
 	}
 }
@@ -58,23 +50,20 @@ void	draw_ray(t_data *data, t_player *player)
 	int	ray_x;
 	int	ray_y;
 
-	j = 0;
+	j = -1;
 	i = -1;
-	while (j < 20)
+	while (++j < 20)
 	{
 		{
-			if (player->x >= 0 && player->x < W_WIDTH && player->y >= 0 && player->y < W_HEIGHT)
-			{
-				ray_x =  player->x + (player->size / 2) + j * cos(player->rot_angle);
-				ray_y =  player->y + (player->size / 2) + j * sin(player->rot_angle);
-				mlx_put_pixel(data->mlx->img, ray_x, ray_y, 0x94F0ACFF);
-			}
+			if (player->x < 0 || player->x > W_WIDTH || player->y < 0 || player->y > W_HEIGHT)
+				return ;
+			ray_x =  player->x + (player->size / 2) + j * cos(player->rot_angle);
+			ray_y =  player->y + (player->size / 2) + j * sin(player->rot_angle);
+			mlx_put_pixel(data->mlx->img, ray_x, ray_y, 0x94F0ACFF);
 		}
-		j++;
 		i--;
 	}
 }
-
 
 void    create_player(t_data *data)
 {
@@ -82,21 +71,17 @@ void    create_player(t_data *data)
 	int         i;
 	int         j;
 
-	i = 0;
+	i = -1;
 	player = data->player;
 	move_player(data->player, data);
-	while (i < player->size)
+	while (++i < player->size)
 	{
-		j = 0;
-		while (j < player->size)
+		j = -1;
+		while (++j < player->size)
 		{
 			if (player->x >= 0 && player->x < W_WIDTH && player->y >= 0 && player->y < W_HEIGHT)
-			{
 				mlx_put_pixel(data->mlx->img, (j + player->x),(i + player->y), 0x000000FF);
-			}
-			j++;
 		}
-		i++;
 	}
 	draw_ray(data, data->player);
 }
@@ -155,6 +140,7 @@ void	render_window(void *param)
 	}
 	render_2d_map(data);
 	create_player(data);
+	// ray_casting(data);
 	if (mlx_image_to_window(data->mlx->init, data->mlx->img, 0, 0) == -1)
 	{
 		mlx_close_window(data->mlx->init);

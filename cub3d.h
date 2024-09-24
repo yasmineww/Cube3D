@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:48:52 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/23 12:07:53 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/09/24 10:54:14 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,19 @@
 #  define BUFFER_SIZE 10000000
 # endif
 
+typedef struct s_ray
+{
+	double	pov;
+	int		num_rays;
+}	t_ray;
+
 typedef struct s_player
 {
-	double	x;
-	double	y;
+	int		x;
+	int		y;
 	int		size;
-	int		turn;
-	int		walk;
+	double	turn;
+	double	walk;
 	double	rot_angle;
 	double	rot_speed;
 	double	move_speed;
@@ -50,6 +56,7 @@ typedef struct s_data
 {
 	t_mlx		*mlx;
 	t_player	*player;
+	t_ray		*ray;
 	int			width;
 	int			height;
 	char		**map;
