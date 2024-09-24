@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 08:54:21 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/21 10:16:24 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/09/24 12:37:08 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,20 +128,6 @@ char	**get_map(t_pars *tmp, int *num, t_list *parsing_lst)
 	parsing_lst->cols = cols;
 	*num = cols;
 	fill_map(arr, cols, rows, values);
-	// size_t h = 0;
-	// size_t j = 0;
-
-	// while (h < rows)
-	// {
-	// 	while (j < cols)
-	// 	{
-	// 		printf("%c",arr[h][j]);
-	// 		j++;
-	// 	}
-	// 	printf("\n");
-	// 	j = 0;
-	// 	h++;
-	// }
 	return (arr);
 }
 

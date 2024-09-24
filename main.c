@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:46:50 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/21 10:16:03 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/09/24 12:42:54 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	check_file_extention(char *file)
 int	main(int argc, char **argv)
 {
 	t_list	*parsing_lst;
-	// t_data	data;
 
 	if (argc != 2)
 	{
@@ -40,6 +39,6 @@ int	main(int argc, char **argv)
 	if (parsing_lst == NULL)
 		exit(1);
 	parsing(parsing_lst, argv);
-	// data_init(&data);
+	printf("%f\n", parsing_lst->rot_angle);
 	return (0);
 }

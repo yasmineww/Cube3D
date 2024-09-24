@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:19:03 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/20 14:00:00 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/09/24 12:46:34 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,18 @@ int	check_first_and_last(t_list *parsing_lst)
 	return (0);
 }
 
+double	get_angle(char c)
+{
+	if (c == 'N')
+		return (3 * M_PI / 2);
+	else if (c == 'S')
+		return (M_PI / 2);
+	else if (c == 'E')
+		return (0);
+	else
+		return (M_PI);
+}
+
 int	check_start_end(t_list *parsing_lst)
 {
 	int	i;
@@ -51,8 +63,14 @@ int	check_start_end(t_list *parsing_lst)
 	{
 		while (j < parsing_lst->cols - 1)
 		{
-			if (parsing_lst->map[i][j] == '0')
+			if (parsing_lst->map[i][j] == '0' || \
+				parsing_lst->map[i][j] == 'S' || \
+				parsing_lst->map[i][j] == 'N' || \
+				parsing_lst->map[i][j] == 'W' || \
+				parsing_lst->map[i][j] == 'E')
 			{
+				if (parsing_lst->map[i][j] != '0')
+					parsing_lst->rot_angle = get_angle(parsing_lst->map[i][j]);
 				if (parsing_lst->map[i][j - 1] == ' ' || \
 					parsing_lst->map[i][j - 1] == '-' || \
 					parsing_lst->map[i][j + 1] == ' ' || \

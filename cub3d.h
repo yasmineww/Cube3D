@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:48:52 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/21 10:07:38 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/09/24 12:38:31 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct s_list
 {
 	t_texture	*texture;
 	char		**map;
+	double		rot_angle;
 	int			rows;
 	int			cols;
 }	t_list;
