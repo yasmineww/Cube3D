@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:46:50 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/24 13:03:46 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/09/24 14:47:35 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int	main(int argc, char **argv)
 	mlx_loop_hook(data->mlx->init, &render_window, data);
 	mlx_key_hook(data->mlx->init, &key, data);
 	mlx_set_cursor_mode(data->mlx->init, MLX_MOUSE_HIDDEN);
-	// mlx_set_cursor_mode(data->mlx->init, MLX_MOUSE_NORMAL);
 	mlx_cursor_hook(data->mlx->init, &mouse ,data);
 	mlx_loop(data->mlx->init);
 	return (0);

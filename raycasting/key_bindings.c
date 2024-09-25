@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 11:46:37 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/09/24 13:08:30 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:00:50 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	mouse(double mouse_x, double mouse_y, void *param)
     (void)mouse_y;
 	data = param;
 	mlx_get_mouse_pos(data->mlx->init, &x, &y);
-	data->player->rot_angle += 0.005 * (double)(x - ( W_WIDTH / 10));
+	data->player->rot_angle += 0.004 * (double)(x - ( W_WIDTH / 10));
 	mlx_set_mouse_pos(data->mlx->init, (W_WIDTH / 10), (W_HEIGHT / 10));
 }
 

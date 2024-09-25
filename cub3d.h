@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:48:52 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/24 13:08:39 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/09/25 13:37:40 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,15 @@
 typedef struct s_ray
 {
 	double	pov;
-	int		num_rays;
+	double	ray_angle;
+	double	wall_x;
+	double	wall_y;
+	double	distance;
+	int		map_content;
+	int		up;
+	int		down;
+	int		left;
+	int		right;
 }	t_ray;
 
 typedef struct s_player
@@ -87,10 +95,13 @@ typedef struct s_list
 
 /*-------------------------------raycasting-------------------------------*/
 
-void		data_init(t_data **data, t_list *parsing_lst);
-void		render_window(void *param);
-void		key(mlx_key_data_t datakey, void *param);
-void		mouse(double mouse_x, double mouse_y, void *param);
+void	data_init(t_data **data, t_list *parsing_lst);
+void	render_window(void *param);
+void	key(mlx_key_data_t datakey, void *param);
+void	mouse(double mouse_x, double mouse_y, void *param);
+int		is_wall(t_data *data, double x, double y);
+void	ray_casting(t_data *data);
+void	draw_ray(t_data *data, double distance);
 
 /*-------------------------------get_next_line-------------------------------*/
 
@@ -134,7 +145,6 @@ char		**ft_split(char const *s, char c);
 char		*ft_strdup(const char *str);
 size_t		ft_strlen(const char *str);
 char		**ft_custom_split(char const *s);
-void		free_split(char **split);
 void		free_list(t_list *list, t_pars *pars);
 void		free_split(char **split);
 char		*ft_custom_strdup(const char *str);

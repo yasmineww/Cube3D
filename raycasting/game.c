@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 10:37:00 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/09/24 11:30:27 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/09/25 15:18:22 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,17 @@ int	is_wall(t_data *data, double x, double y)
 	int	index_x = x / CUBE_SIZE;
 	int	index_y = y / CUBE_SIZE;
 
-	if (x < 0 || x > W_WIDTH || y < 0 || y > W_HEIGHT)
+	if (index_y >= 16)
+		return (0);
+	if (x < 0 || x > 30 || y < 0 || y > 16)
 		return (1);
+	printf("------ map %c\n", data->map[index_y][index_x]);
 	if (data->map[index_y][index_x] == '1')
+	{
+		printf("index_y %d\n", index_y);
+		printf("index_x %d\n", index_x);
 		return (1);
+	}
 	return (0);
 }
 
@@ -43,7 +50,7 @@ void	move_player(t_player *player, t_data *data)
 	}
 }
 
-void	draw_ray(t_data *data, t_player *player)
+void	draw_pov(t_data *data, t_player *player)
 {
 	int	i;
 	int	j;
@@ -73,7 +80,7 @@ void    create_player(t_data *data)
 
 	i = -1;
 	player = data->player;
-	draw_ray(data, data->player);
+	// draw_pov(data, data->player);
 	move_player(data->player, data);
 	while (++i < player->size)
 	{
@@ -116,7 +123,7 @@ void	render_2d_map(t_data *data)
 		{
 			if (data->map[i][j] == '1')
 			{
-				my_put_pixel(data, (j * CUBE_SIZE), (i * CUBE_SIZE), 0xFF0000FF);
+				my_put_pixel(data, (j * CUBE_SIZE), (i * CUBE_SIZE), 0xFFAA00FF);
 			}
 			j++;
 		}
@@ -138,7 +145,7 @@ void	render_window(void *param)
 	}
 	render_2d_map(data);
 	create_player(data);
-	// ray_casting(data);
+	ray_casting(data);
 	if (mlx_image_to_window(data->mlx->init, data->mlx->img, 0, 0) == -1)
 	{
 		mlx_close_window(data->mlx->init);
