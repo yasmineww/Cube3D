@@ -6,11 +6,28 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 08:50:13 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/26 18:45:34 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/09/26 20:39:16 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+int	num_len(char *str)
+{
+	int	i;
+	int	b;
+
+	i = 0;
+	b = 0;
+	while (str[i] == '0')
+		i++;
+	while (str[i])
+	{
+		i++;
+		b++;
+	}
+	return (b);
+}
 
 int	num_is_big(char *str)
 {
@@ -21,7 +38,7 @@ int	num_is_big(char *str)
 	arr = ft_split(str, ',');
 	while (arr[i])
 	{
-		if (ft_strlen(arr[i]) > 3)
+		if (num_len(arr[i]) > 3)
 			return (1);
 		if (ft_atoi(arr[i]) > 255 || ft_atoi(arr[i]) < 1)
 			return (1);
