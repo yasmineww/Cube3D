@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:48:52 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/25 13:37:40 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/09/26 12:31:27 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <math.h>
+# include <limits.h>
 
 # define CUBE_SIZE	32
 # define W_HEIGHT	960
@@ -72,6 +73,24 @@ typedef struct s_data
 	int			cols;
 }	t_data;
 
+typedef struct s_line
+{
+	int		start;
+	int		end;
+	int		new_len;
+	char	*new_line;
+	int		j;
+}	t_process_line;
+
+typedef struct s_map
+{
+	int		new_rows;
+	char	**new_map;
+	int		i;
+	int		row_index;
+	int		max;
+}	t_map_create;
+
 typedef struct s_pars
 {
 	char				*value;
@@ -80,6 +99,8 @@ typedef struct s_pars
 
 typedef struct s_texture
 {
+	int					C[3];
+	int					F[3];
 	char				*key;
 	char				*value;
 	struct s_texture	*next;
@@ -89,6 +110,7 @@ typedef struct s_list
 {
 	t_texture	*texture;
 	char		**map;
+	double		rot_angle;
 	int			rows;
 	int			cols;
 }	t_list;
@@ -128,7 +150,6 @@ void		texture_syntax(char **arr, t_list *parsing_lst, t_pars *pars);
 void		process_pars(t_list *parsing_lst, t_pars *pars);
 void		clean_str(t_pars *pars);
 t_texture	*create_node(void);
-t_texture	*allocate_six_nodes(int i);
 int			pars_leght(t_pars *pars);
 void		init_texture(t_list *parsing_lst, t_pars *pars);
 void		check_texture(t_list *parsing_lst, t_pars *pars);
@@ -137,9 +158,11 @@ t_pars		*process_map(t_list *parsing_lst, int fd, char *line);
 void		fill_map(char **arr, int cols, int rows, t_pars *pars);
 char		**get_map(t_pars *tmp, int *num, t_list *parsing_lst);
 void		check_for_tabs(t_list *parsing_lst, t_pars *pars);
+int			check_map(t_list *parsing_lst);
 
 /*-------------------------------utils-------------------------------*/
 
+int			ft_atoi(const char *s);
 void		ft_putstr_fd(char *s, int fd);
 char		**ft_split(char const *s, char c);
 char		*ft_strdup(const char *str);
@@ -151,5 +174,6 @@ char		*ft_custom_strdup(const char *str);
 size_t		array_length(char **arr);
 int			ft_strcmp(const char *s1, const char *s2);
 void		free_pars(t_pars *pars);
+char		**split_texture(char const *s);
 
 #endif

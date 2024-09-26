@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 08:45:08 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/19 16:29:55 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/09/21 10:08:07 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ t_pars	*init_parsing(char **argv, int *fd, char **line)
 char	*process_parsing(t_pars *pars, int fd, char *line)
 {
 	int			i;
+	int			b;
 	t_pars		*temp;
 
+	b = 0;
 	i = 0;
 	temp = pars;
 	while (line != NULL || line[0] != '1')
@@ -52,7 +54,12 @@ char	*process_parsing(t_pars *pars, int fd, char *line)
 			line = get_next_line(fd);
 			i++;
 		}
+		if (line == NULL)
+			print_error("Inalid map\n");
+		b++;
 	}
+	if (b < 6)
+		print_error("Invalid Map!\n");
 	return (line);
 }
 
@@ -72,7 +79,7 @@ void	process_pars(t_list *parsing_lst, t_pars *pars)
 	temp = pars;
 	while (temp != NULL)
 	{
-		arr = ft_custom_split(temp->value);
+		arr = split_texture(temp->value);
 		if (array_length(arr) != 2)
 			texture_syntax(arr, parsing_lst, pars);
 		temp = temp->next;
@@ -87,7 +94,7 @@ void	clean_str(t_pars *pars)
 	temp = pars;
 	while (temp)
 	{
-		str = ft_custom_strdup(temp->value);// why custom???
+		str = ft_custom_strdup(temp->value);
 		free(temp->value);
 		temp->value = str;
 		temp = temp->next;

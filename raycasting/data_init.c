@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:44:36 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/09/25 13:26:32 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/09/26 12:32:34 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	init_var(t_data *data, t_list *parsing_lst)
 	data->player->size = 20;
 	data->player->turn = 0;
 	data->player->walk = 0;
-	data->player->rot_angle = M_PI / 2;//parsing_lst->rot_angle
+	data->player->rot_angle = parsing_lst->rot_angle;
 	data->player->move_speed = 2;
 	data->ray->pov = 60 * (M_PI / 180);
 }
