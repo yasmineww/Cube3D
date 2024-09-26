@@ -1,33 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   custom_strdup.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/02 11:48:30 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/12 16:56:06 by youbihi          ###   ########.fr       */
+/*   Created: 2024/09/16 05:09:31 by youbihi           #+#    #+#             */
+/*   Updated: 2024/09/19 15:57:14 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
 #include "../cub3d.h"
 
-void	*ft_calloc(size_t nmemb, size_t size)
+int	ft_custom_strlen(const char *str)
 {
-	char	*p;
-	size_t	i;
+	int	i;
 
 	i = 0;
-	p = malloc(nmemb * size);
+	while (str && str[i] && str[i] != '\n')
+		i++;
+	return (i);
+}
+
+char	*ft_custom_strdup(const char *str)//is it useful?
+{
+	int		i;
+	char	*p;
+
+	i = ft_custom_strlen(str);
+	p = (char *)malloc(i + 1 * 1);
 	if (p == NULL)
-	{
 		return (NULL);
-	}
-	while (i < size * nmemb)
+	i = 0;
+	while (str && str[i] && str[i] != '\n')
 	{
-		p[i] = 0;
+		p[i] = str[i];
 		i++;
 	}
+	p[i] = '\0';
 	return (p);
 }

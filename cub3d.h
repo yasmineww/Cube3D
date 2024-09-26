@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:48:52 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/24 14:43:48 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/09/26 12:31:27 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,59 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <unistd.h>
-# include <limits.h>
 # include <math.h>
+# include <limits.h>
 
 # define CUBE_SIZE	32
-# define HEIGHT	30
-# define WIDTH	50
+# define W_HEIGHT	960
+# define W_WIDTH	1600
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10000000
 # endif
 
+typedef struct s_ray
+{
+	double	pov;
+	double	ray_angle;
+	double	wall_x;
+	double	wall_y;
+	double	distance;
+	int		map_content;
+	int		up;
+	int		down;
+	int		left;
+	int		right;
+}	t_ray;
+
+typedef struct s_player
+{
+	int		x;
+	int		y;
+	int		size;
+	double	turn;
+	double	walk;
+	double	rot_angle;
+	// double	rot_speed;
+	double	move_speed;
+}	t_player;
+
+typedef struct s_mlx
+{
+	void	*init;
+	void	*img;
+}	t_mlx;
+
 typedef struct s_data
 {
-	mlx_t	*init;
+	t_mlx		*mlx;
+	t_player	*player;
+	t_ray		*ray;
+	int			width;
+	int			height;
+	char		**map;
+	int			rows;
+	int			cols;
 }	t_data;
 
 typedef struct s_line
@@ -78,47 +117,13 @@ typedef struct s_list
 
 /*-------------------------------raycasting-------------------------------*/
 
-/*-------------------------------libft-------------------------------*/
-
-int			ft_atoi(const char *str);
-void		ft_bzero(void *s, size_t n);
-int			ft_isalpha(int c);
-int			ft_isalnum(int c);
-int			ft_isascii(int c);
-int			ft_isdigit(int c);
-int			ft_isprint(int c);
-void		*ft_memchr(const void *s, int c, size_t n);
-void		*ft_memcpy(void *destination, const void *source, size_t num);
-void		*ft_memmove(void *destination, const void *source, size_t num);
-void		*ft_memset(void *s, int c, size_t n);
-char		*ft_strchr(const char *s, int c);
-size_t		ft_strlcat(char *dst, const char *src, size_t dstsize);
-size_t		ft_strlcpy(char *dest, const char *src, size_t size);
-size_t		ft_strlen(const char *str);
-int			ft_strncmp(char *s1, char *s2, unsigned int n);
-char		*ft_strrchr(const char *s, int c);
-int			ft_tolower(int c);
-int			ft_toupper(int c);
-int			ft_memcmp(const void *ptr1, const void *ptr2, size_t num);
-char		*ft_strnstr(const char *str, const char *to_find, size_t len);
-void		*ft_calloc(size_t nmemb, size_t size);
-char		*ft_strdup(const char *str);
-char		*ft_substr(char const *s, unsigned int start, size_t len);
-char		*ft_strjoin(char const *s1, char const *s2);
-char		*ft_strtrim(char const *s1, char const *set);
-char		**ft_split(char const *s, char c);
-char		*ft_itoa(int n);
-char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
-void		ft_striteri(char *s, void (*f)(unsigned int, char*));
-void		ft_putchar_fd(char c, int fd);
-void		ft_putstr_fd(char *s, int fd);
-void		ft_putendl_fd(char *s, int fd);
-void		ft_putnbr_fd(int n, int fd);
-t_list		*ft_lstnew(void *content);
-void		ft_lstadd_front(t_list **lst, t_list *new);
-int			ft_lstsize(t_list *lst);
-t_list		*ft_lstlast(t_list *lst);
-void		ft_lstadd_back(t_list **lst, t_list *new);
+void	data_init(t_data **data, t_list *parsing_lst);
+void	render_window(void *param);
+void	key(mlx_key_data_t datakey, void *param);
+void	mouse(double mouse_x, double mouse_y, void *param);
+int		is_wall(t_data *data, double x, double y);
+void	ray_casting(t_data *data);
+void	draw_ray(t_data *data, double distance);
 
 /*-------------------------------get_next_line-------------------------------*/
 
@@ -145,7 +150,6 @@ void		texture_syntax(char **arr, t_list *parsing_lst, t_pars *pars);
 void		process_pars(t_list *parsing_lst, t_pars *pars);
 void		clean_str(t_pars *pars);
 t_texture	*create_node(void);
-t_texture	*allocate_four_nodes(int i);
 int			pars_leght(t_pars *pars);
 void		init_texture(t_list *parsing_lst, t_pars *pars);
 void		check_texture(t_list *parsing_lst, t_pars *pars);
@@ -156,10 +160,14 @@ char		**get_map(t_pars *tmp, int *num, t_list *parsing_lst);
 void		check_for_tabs(t_list *parsing_lst, t_pars *pars);
 int			check_map(t_list *parsing_lst);
 
-/*-------------------------------generale_utils-------------------------------*/
+/*-------------------------------utils-------------------------------*/
 
+int			ft_atoi(const char *s);
+void		ft_putstr_fd(char *s, int fd);
+char		**ft_split(char const *s, char c);
+char		*ft_strdup(const char *str);
+size_t		ft_strlen(const char *str);
 char		**ft_custom_split(char const *s);
-void		free_split(char **split);
 void		free_list(t_list *list, t_pars *pars);
 void		free_split(char **split);
 char		*ft_custom_strdup(const char *str);
