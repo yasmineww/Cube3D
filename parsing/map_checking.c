@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:19:03 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/24 14:26:02 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/09/26 18:50:39 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,33 +52,38 @@ double	get_angle(char c)
 		return (M_PI);
 }
 
-int	check_start_end(t_list *parsing_lst)
+int	check_character(char c)
+{
+	if (c == '0' || \
+		c == 'S' || \
+		c == 'N' || \
+		c == 'W' || \
+		c == 'E')
+	{
+		return (1);
+	}
+	return (0);
+}
+
+int	check_start_end(t_list *lst)
 {
 	int	i;
 	int	j;
 
 	i = 2;
 	j = 1;
-	while (i < parsing_lst->rows - 2)
+	while (i < lst->rows - 2)
 	{
-		while (j < parsing_lst->cols - 1)
+		while (j < lst->cols - 1)
 		{
-			if (parsing_lst->map[i][j] == '0' || \
-				parsing_lst->map[i][j] == 'S' || \
-				parsing_lst->map[i][j] == 'N' || \
-				parsing_lst->map[i][j] == 'W' || \
-				parsing_lst->map[i][j] == 'E')
+			if (check_character(lst->map[i][j]) == 1)
 			{
-				if (parsing_lst->map[i][j] != '0')
-					parsing_lst->rot_angle = get_angle(parsing_lst->map[i][j]);
-				if (parsing_lst->map[i][j - 1] == ' ' || \
-					parsing_lst->map[i][j - 1] == '-' || \
-					parsing_lst->map[i][j + 1] == ' ' || \
-					parsing_lst->map[i][j + 1] == '-' || \
-					parsing_lst->map[i - 1][j] == ' ' || \
-					parsing_lst->map[i - 1][j] == '-' || \
-					parsing_lst->map[i + 1][j] == ' ' || \
-					parsing_lst->map[i + 1][j] == '-')
+				if (lst->map[i][j] != '0')
+					lst->rot_angle = get_angle(lst->map[i][j]);
+				if (lst->map[i][j - 1] == ' ' || lst->map[i][j - 1] == '-' || \
+					lst->map[i][j + 1] == ' ' || lst->map[i][j + 1] == '-' || \
+					lst->map[i - 1][j] == ' ' || lst->map[i - 1][j] == '-' || \
+					lst->map[i + 1][j] == ' ' || lst->map[i + 1][j] == '-')
 					return (1);
 			}
 			j++;
@@ -98,51 +103,6 @@ int	check_char(char c)
 		c != 'E' && \
 		c != 'S' && \
 		c != ' ')
-		return (1);
-	return (0);
-}
-
-int	check_unwanted_characters(t_list *parsing_lst)
-{
-	int	i;
-	int	j;
-	int	h;
-
-	i = 1;
-	j = 1;
-	h = 0;
-	while (i < parsing_lst->rows - 2)
-	{
-		while (j < parsing_lst->cols - 1)
-		{
-			if (check_char(parsing_lst->map[i][j]) == 1)
-				return (1);
-			if (parsing_lst->map[i][j] == 'N' || \
-				parsing_lst->map[i][j] == 'W' || \
-				parsing_lst->map[i][j] == 'E' || parsing_lst->map[i][j] == 'S')
-				h++;
-			j++;
-		}
-		j = 1;
-		i++;
-	}
-	if (h > 1 || h == 0)
-		return (1);
-	return (0);
-}
-
-int	check_map(t_list *parsing_lst)
-{
-	int	i;
-	int	j;
-
-	i = 1;
-	j = 1;
-	if (check_first_and_last(parsing_lst) == 1)
-		return (1);
-	if (check_unwanted_characters(parsing_lst) == 1)
-		return (1);
-	if (check_start_end(parsing_lst) == 1)
 		return (1);
 	return (0);
 }

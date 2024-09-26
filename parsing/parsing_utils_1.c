@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 08:45:08 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/21 10:08:07 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/09/26 18:50:19 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,20 @@ t_pars	*init_parsing(char **argv, int *fd, char **line)
 	return (pars);
 }
 
+char	*parse_line(t_pars **temp, int *i, int fd, char *line)
+{
+	if (*i != 0)
+	{
+		(*temp)->next = allocate_pars(&fd);
+		*temp = (*temp)->next;
+	}
+	(*temp)->value = ft_strdup(line);
+	(*temp)->next = NULL;
+	line = get_next_line(fd);
+	(*i)++;
+	return (line);
+}
+
 char	*process_parsing(t_pars *pars, int fd, char *line)
 {
 	int			i;
@@ -36,32 +50,23 @@ char	*process_parsing(t_pars *pars, int fd, char *line)
 	b = 0;
 	i = 0;
 	temp = pars;
-	while (line != NULL || line[0] != '1')
+	while (line != NULL && line[0] != '1')
 	{
 		if (check_line(line) == 1)
 			break ;
 		else if (skip_line(line) == 1)
 			line = get_next_line(fd);
 		else
-		{
-			if (i != 0)
-			{
-				temp->next = allocate_pars(&fd);
-				temp = temp->next;
-			}
-			temp->value = ft_strdup(line);
-			temp->next = NULL;
-			line = get_next_line(fd);
-			i++;
-		}
+			line = parse_line(&temp, &i, fd, line);
 		if (line == NULL)
-			print_error("Inalid map\n");
+			print_error("Invalid map\n");
 		b++;
 	}
 	if (b < 6)
 		print_error("Invalid Map!\n");
 	return (line);
 }
+
 
 void	texture_syntax(char **arr, t_list *parsing_lst, t_pars *pars)
 {
@@ -82,21 +87,6 @@ void	process_pars(t_list *parsing_lst, t_pars *pars)
 		arr = split_texture(temp->value);
 		if (array_length(arr) != 2)
 			texture_syntax(arr, parsing_lst, pars);
-		temp = temp->next;
-	}
-}
-
-void	clean_str(t_pars *pars)
-{
-	t_pars		*temp;
-	char		*str;
-
-	temp = pars;
-	while (temp)
-	{
-		str = ft_custom_strdup(temp->value);
-		free(temp->value);
-		temp->value = str;
 		temp = temp->next;
 	}
 }

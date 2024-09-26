@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:48:52 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/26 12:31:27 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/09/26 18:54:30 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,15 @@ typedef struct s_list
 	int			cols;
 }	t_list;
 
+typedef struct s_process_map
+{
+	size_t		rows;
+	size_t		cols;
+	char		**arr;
+	size_t		i;
+	t_pars		*values;
+}	t_process_map;
+
 /*-------------------------------raycasting-------------------------------*/
 
 void	data_init(t_data **data, t_list *parsing_lst);
@@ -138,6 +147,8 @@ char		*ft_strjoin_get(char *left_str, char *buff);
 
 /*-------------------------------parsing-------------------------------*/
 
+int			check_first_and_last(t_list *parsing_lst);
+int			check_character(char c);
 void		parsing(t_list *parsing, char **argv);
 void		print_error(char *str);
 t_pars		*allocate_pars(int *fd);
@@ -159,6 +170,12 @@ void		fill_map(char **arr, int cols, int rows, t_pars *pars);
 char		**get_map(t_pars *tmp, int *num, t_list *parsing_lst);
 void		check_for_tabs(t_list *parsing_lst, t_pars *pars);
 int			check_map(t_list *parsing_lst);
+void		fill_map(char **arr, int cols, int rows, t_pars *pars);
+int			check_comma(char *str);
+t_texture	*allocate_four_nodes(int i);
+int			check_text(char *str);
+int			check_char(char c);
+int			check_start_end(t_list *lst);
 
 /*-------------------------------utils-------------------------------*/
 
@@ -175,5 +192,6 @@ size_t		array_length(char **arr);
 int			ft_strcmp(const char *s1, const char *s2);
 void		free_pars(t_pars *pars);
 char		**split_texture(char const *s);
+
 
 #endif
