@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 21:22:08 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/24 14:24:59 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/09/27 13:59:18 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,36 @@ char	**create_map(char **map, int *old_rows, int *cols)
 	return (arg.new_map);
 }
 
+int	check_curr_char(char c)
+{
+	if (c == 'N' || c == 'W' || c == 'E' || c == 'S')
+		return (1);
+	return (0);
+}
+
+void	get_player_position(t_list *parsing)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	y = 0;
+	while (x < parsing->rows)
+	{
+		while (y < parsing->cols)
+		{
+			if (check_curr_char(parsing->map[x][y]) == 1)
+			{
+				parsing->player_x = x;
+				parsing->player_y = y;
+			}
+			y++;
+		}
+		x++;
+		y = 0;
+	}
+}
+
 void	parsing(t_list *parsing, char **argv)
 {
 	int		fd;
@@ -93,6 +123,7 @@ void	parsing(t_list *parsing, char **argv)
 	if (check_map(parsing) == 1)
 		print_error("Invalid Map !\n");
 	parsing->map = create_map(parsing->map, &parsing->rows, &parsing->cols);
+	get_player_position(parsing);
 	free_pars(pars);
 	close(fd);
 }
