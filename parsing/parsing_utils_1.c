@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 08:45:08 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/26 18:50:19 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/09/27 11:36:25 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ char	*process_parsing(t_pars *pars, int fd, char *line)
 		print_error("Invalid Map!\n");
 	return (line);
 }
-
 
 void	texture_syntax(char **arr, t_list *parsing_lst, t_pars *pars)
 {

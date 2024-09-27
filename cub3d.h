@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:48:52 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/26 20:32:16 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/09/27 11:37:53 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ typedef struct s_pars
 
 typedef struct s_texture
 {
-	int					C[3];
-	int					F[3];
+	int					c[3];
+	int					f[3];
 	char				*key;
 	char				*value;
 	struct s_texture	*next;
@@ -126,13 +126,13 @@ typedef struct s_process_map
 
 /*-------------------------------raycasting-------------------------------*/
 
-void	data_init(t_data **data, t_list *parsing_lst);
-void	render_window(void *param);
-void	key(mlx_key_data_t datakey, void *param);
-void	mouse(double mouse_x, double mouse_y, void *param);
-int		is_wall(t_data *data, double x, double y);
-void	ray_casting(t_data *data);
-void	draw_ray(t_data *data, double distance);
+void		data_init(t_data **data, t_list *parsing_lst);
+void		render_window(void *param);
+void		key(mlx_key_data_t datakey, void *param);
+void		mouse(double mouse_x, double mouse_y, void *param);
+int			is_wall(t_data *data, double x, double y);
+void		ray_casting(t_data *data);
+void		draw_ray(t_data *data, double distance);
 
 /*-------------------------------get_next_line-------------------------------*/
 
@@ -191,6 +191,5 @@ size_t		array_length(char **arr);
 int			ft_strcmp(const char *s1, const char *s2);
 void		free_pars(t_pars *pars);
 char		**split_texture(char const *s);
-
 
 #endif

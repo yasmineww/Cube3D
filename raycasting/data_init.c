@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:44:36 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/09/26 12:32:34 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/09/27 11:44:35 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	init_var(t_data *data, t_list *parsing_lst)
 {
-	// data->height = W_HEIGHT * CUBE_SIZE;
-	// data->width = W_WIDTH * CUBE_SIZE;
 	data->map = parsing_lst->map;
 	data->rows = parsing_lst->rows;
 	data->cols = parsing_lst->cols;

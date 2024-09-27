@@ -5,7 +5,7 @@ SRCF = main.c utils/ft_putstr_fd.c utils/ft_split.c utils/ft_strdup.c utils/ft_s
        parsing/parsing.c parsing/parsing_utils.c parsing/parsing_utils_1.c parsing/parsing_utils_2.c parsing/parsing_utils_3.c parsing/parsing_utils_4.c parsing/parsing_utils_5.c parsing/parsing_utils_6.c parsing/map_checking.c \
     	utils/free_split.c utils/linked_list_free.c utils/custom_strdup.c\
 	   utils/arr_lenght.c utils/ft_strcmp.c utils/ft_atoi.c\
-	#    raycasting/data_init.c raycasting/game.c raycasting/key_bindings.c raycasting/3D_map.c
+	   raycasting/data_init.c raycasting/game.c raycasting/key_bindings.c raycasting/3D_map.c
 
 OBJF = $(addprefix $(OBJDIR)/, $(SRCF:.c=.o))
 
@@ -25,7 +25,7 @@ $(OBJDIR)/%.o: %.c cub3d.h
 	@printf "\r\033[K\033[33mcompiling...\033[0m"
 
 $(NAME): $(OBJF)
-	@(cc $(CFLAGS) $(OBJF) -o $(NAME))
+	@(cc $(CFLAGS) $(FLMLX) $(LFLAG) $(OBJF) -o $(NAME))
 	@printf "\r\033[K\033[32mcub3d compiled\033[0m\n"
 
 clean:

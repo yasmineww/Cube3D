@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_6.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 18:50:01 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/26 18:50:45 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/09/27 11:36:38 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
 
 void	clean_str(t_pars *pars)
 {

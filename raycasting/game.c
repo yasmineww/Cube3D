@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 10:37:00 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/09/26 11:37:38 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/09/27 11:51:19 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 int	is_wall(t_data *data, double x, double y)
 {
-	int	index_x = x / CUBE_SIZE;
-	int	index_y = y / CUBE_SIZE;
+	int	index_x;
+	int	index_y;
 
-	if (index_x < 0 || index_x >= data->cols || index_y < 0 || index_y >= data->rows)
-		return (1);
-	if (data->map[index_y][index_x] == '1')
+	index_x = x / CUBE_SIZE;
+	index_y = y / CUBE_SIZE;
+	if (index_x < 0 || index_x >= data->cols || index_y < 0
+		|| index_y >= data->rows || data->map[index_y][index_x] == '1')
 		return (1);
 	return (0);
 }
@@ -43,54 +44,33 @@ void	move_player(t_player *player, t_data *data)
 	}
 }
 
-void	draw_pov(t_data *data, t_player *player)
+void	create_player(t_data *data)
 {
-	int	i;
-	int	j;
-	int	ray_x;
-	int	ray_y;
-
-	j = -1;
-	i = -1;
-	while (++j < 20)
-	{
-		{
-			if (player->x < 0 || player->x > W_WIDTH || player->y < 0 || player->y > W_HEIGHT)
-				return ;
-			ray_x =  player->x + (player->size / 2) + j * cos(player->rot_angle);
-			ray_y =  player->y + (player->size / 2) + j * sin(player->rot_angle);
-			mlx_put_pixel(data->mlx->img, ray_x, ray_y, 0x94F0ACFF);
-		}
-		i--;
-	}
-}
-
-void    create_player(t_data *data)
-{
-	t_player    *player;
-	int         i;
-	int         j;
+	t_player	*player;
+	int			i;
+	int			j;
 
 	i = -1;
 	player = data->player;
-	// draw_pov(data, data->player);
 	move_player(data->player, data);
 	while (++i < player->size)
 	{
 		j = -1;
 		while (++j < player->size)
 		{
-			if (player->x >= 0 && player->x < W_WIDTH && player->y >= 0 && player->y < W_HEIGHT)
-				mlx_put_pixel(data->mlx->img, (j + player->x),(i + player->y), 0x000000FF);
+			if (player->x >= 0 && player->x < W_WIDTH && player->y >= 0
+				&& player->y < W_HEIGHT)
+				mlx_put_pixel(data->mlx->img, (j + player->x), (i + player->y),
+					0x000000FF);
 		}
 	}
 }
 
 void	my_put_pixel(t_data *data, int x, int y, int color)
 {
-	int i;
+	int	i;
 	int	j;
-	
+
 	i = -1;
 	while (++i < CUBE_SIZE)
 	{
@@ -116,7 +96,8 @@ void	render_2d_map(t_data *data)
 		{
 			if (data->map[i][j] == '1')
 			{
-				my_put_pixel(data, (j * CUBE_SIZE), (i * CUBE_SIZE), 0xFFAA00FF);
+				my_put_pixel(data, (j * CUBE_SIZE), (i * CUBE_SIZE),
+					0xFFAA00FF);
 			}
 			j++;
 		}

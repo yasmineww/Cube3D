@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 08:50:13 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/26 20:39:16 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/09/27 11:39:09 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,15 @@ void	get_color(t_list *parsing_lst, char **arr)
 	nums = ft_split(arr[1], ',');
 	if (ft_strcmp(arr[0], "C") == 0)
 	{
-		parsing_lst->texture->C[0] = ft_atoi(nums[0]);
-		parsing_lst->texture->C[1] = ft_atoi(nums[1]);
-		parsing_lst->texture->C[2] = ft_atoi(nums[2]);
+		parsing_lst->texture->c[0] = ft_atoi(nums[0]);
+		parsing_lst->texture->c[1] = ft_atoi(nums[1]);
+		parsing_lst->texture->c[2] = ft_atoi(nums[2]);
 	}
 	else
 	{
-		parsing_lst->texture->F[0] = ft_atoi(nums[0]);
-		parsing_lst->texture->F[1] = ft_atoi(nums[1]);
-		parsing_lst->texture->F[2] = ft_atoi(nums[2]);
+		parsing_lst->texture->f[0] = ft_atoi(nums[0]);
+		parsing_lst->texture->f[1] = ft_atoi(nums[1]);
+		parsing_lst->texture->f[2] = ft_atoi(nums[2]);
 	}
 }
 
