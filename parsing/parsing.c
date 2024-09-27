@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 21:22:08 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/27 13:59:18 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/09/27 14:06:19 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ void	get_player_position(t_list *parsing)
 		{
 			if (check_curr_char(parsing->map[x][y]) == 1)
 			{
-				parsing->player_x = x;
-				parsing->player_y = y;
+				parsing->x = x;
+				parsing->y = y;
 			}
 			y++;
 		}
