@@ -6,11 +6,29 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 10:37:00 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/09/27 11:51:19 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/09/30 11:10:34 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+int	player_is_wall(t_data *data, double x, double y)
+{
+	int	index_x_min = (x - data->player->rayon) / CUBE_SIZE;
+	int	index_x_max = (x + data->player->rayon) / CUBE_SIZE;
+	int	index_y_min = (y - data->player->rayon) / CUBE_SIZE;
+	int	index_y_max = (y + data->player->rayon) / CUBE_SIZE;
+
+	
+	if (index_x_min < 0 || index_x_max >= data->cols || index_y_min < 0
+		|| index_y_max >= data->rows
+		|| data->map[index_y_min][index_x_min] == '1'
+		|| data->map[index_y_max][index_x_max] == '1'
+		|| data->map[index_y_max][index_x_min] == '1'
+		|| data->map[index_y_min][index_x_max] == '1')
+		return (1);
+	return (0);
+}
 
 int	is_wall(t_data *data, double x, double y)
 {
@@ -34,7 +52,7 @@ void	move_player(t_player *player, t_data *data)
 	angle = player->rot_angle + player->turn + player->walk;
 	x = roundf(player->x + player->move_speed * cos(angle));
 	y = roundf(player->y + player->move_speed * sin(angle));
-	if (!is_wall(data, x, y))
+	if (!player_is_wall(data, x, y))
 	{
 		if (player->turn || player->walk)
 		{
@@ -50,19 +68,21 @@ void	create_player(t_data *data)
 	int			i;
 	int			j;
 
-	i = -1;
 	player = data->player;
 	move_player(data->player, data);
-	while (++i < player->size)
+	i = player->rayon * -1;
+	while (i <= player->rayon)
 	{
-		j = -1;
-		while (++j < player->size)
+		j = player->rayon * -1;
+		while (j < player->rayon)
 		{
-			if (player->x >= 0 && player->x < W_WIDTH && player->y >= 0
-				&& player->y < W_HEIGHT)
+			if (j * j + i * i <= player->rayon * player->rayon 
+				&& j + player->x < W_WIDTH && i + player->y < W_HEIGHT)
 				mlx_put_pixel(data->mlx->img, (j + player->x), (i + player->y),
 					0x000000FF);
+			j++;
 		}
+		i++;
 	}
 }
 

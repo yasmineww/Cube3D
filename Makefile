@@ -19,12 +19,13 @@ READLINEDIR = $(shell brew --prefix readline)
 
 all: $(NAME)
 
-$(NAME): $(OBJF)
-	@(cc $(CFLAGS) $(FLMLX) $(LFLAG) $(OBJF) -o $(NAME))
-	@printf "\r\033[K\033[32mcub3d compiled\033[0m\n"
+$(OBJDIR)/%.o: %.c cub3d.h
+	@mkdir -p $(dir $@)
+	@(cc $(CFLAGS) -c $< -o $@ -I $(READLINEDIR)/include)
+	@printf "\r\033[K\033[33mcompiling...\033[0m"
 
 $(NAME): $(OBJF)
-	@(cc $(CFLAGS) $(OBJF) -o $(NAME))
+	@(cc $(CFLAGS) $(FLMLX) $(LFLAG) $(OBJF) -o $(NAME))
 	@printf "\r\033[K\033[32mcub3d compiled\033[0m\n"
 
 clean:

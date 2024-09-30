@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:48:52 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/27 14:06:04 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/09/28 23:01:27 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_player
 {
 	int		x;
 	int		y;
-	int		size;
+	int		rayon;
 	double	turn;
 	double	walk;
 	double	rot_angle;
@@ -71,6 +71,7 @@ typedef struct s_data
 	char		**map;
 	int			rows;
 	int			cols;
+	double		scale;
 }	t_data;
 
 typedef struct s_line
