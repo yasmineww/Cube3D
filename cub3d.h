@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:48:52 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/28 23:01:27 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/01 11:47:06 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct s_player
 	int		rayon;
 	double	turn;
 	double	walk;
-	double	rot_angle;
+	double	view_angle;
 	// double	rot_speed;
 	double	move_speed;
 }	t_player;
@@ -111,7 +111,7 @@ typedef struct s_list
 {
 	t_texture	*texture;
 	char		**map;
-	double		rot_angle;
+	double		view_angle;
 	int			rows;
 	int			cols;
 	int			x;

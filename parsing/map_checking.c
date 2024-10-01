@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_checking.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:19:03 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/26 18:50:39 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/01 11:47:06 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	check_start_end(t_list *lst)
 			if (check_character(lst->map[i][j]) == 1)
 			{
 				if (lst->map[i][j] != '0')
-					lst->rot_angle = get_angle(lst->map[i][j]);
+					lst->view_angle = get_angle(lst->map[i][j]);
 				if (lst->map[i][j - 1] == ' ' || lst->map[i][j - 1] == '-' || \
 					lst->map[i][j + 1] == ' ' || lst->map[i][j + 1] == '-' || \
 					lst->map[i - 1][j] == ' ' || lst->map[i - 1][j] == '-' || \

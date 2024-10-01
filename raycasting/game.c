@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 10:37:00 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/09/30 11:10:34 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/01 13:10:17 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 int	player_is_wall(t_data *data, double x, double y)
 {
-	int	index_x_min = (x - data->player->rayon) / CUBE_SIZE;
-	int	index_x_max = (x + data->player->rayon) / CUBE_SIZE;
-	int	index_y_min = (y - data->player->rayon) / CUBE_SIZE;
-	int	index_y_max = (y + data->player->rayon) / CUBE_SIZE;
-
+	int	index_x_min = (x - data->player->rayon) / (CUBE_SIZE * 1);
+	int	index_x_max = (x + data->player->rayon) / (CUBE_SIZE * 1);
+	int	index_y_min = (y - data->player->rayon) / (CUBE_SIZE * 1);
+	int	index_y_max = (y + data->player->rayon) / (CUBE_SIZE * 1);
 	
 	if (index_x_min < 0 || index_x_max >= data->cols || index_y_min < 0
 		|| index_y_max >= data->rows
@@ -48,11 +47,12 @@ void	move_player(t_player *player, t_data *data)
 	int		x;
 	int		y;
 	double	angle;
-
-	angle = player->rot_angle + player->turn + player->walk;
+	// int v = 1;
+	angle = player->view_angle + player->turn + player->walk;
 	x = roundf(player->x + player->move_speed * cos(angle));
 	y = roundf(player->y + player->move_speed * sin(angle));
 	if (!player_is_wall(data, x, y))
+		// v = 0;
 	{
 		if (player->turn || player->walk)
 		{
@@ -92,10 +92,10 @@ void	my_put_pixel(t_data *data, int x, int y, int color)
 	int	j;
 
 	i = -1;
-	while (++i < CUBE_SIZE)
+	while (++i < CUBE_SIZE * 1)
 	{
 		j = -1;
-		while (++j < CUBE_SIZE)
+		while (++j < CUBE_SIZE * 1)
 		{
 			if (x >= 0 && x < W_WIDTH && y >= 0 && y < W_HEIGHT)
 				mlx_put_pixel(data->mlx->img, (j + x), (i + y), color);
@@ -116,7 +116,7 @@ void	render_2d_map(t_data *data)
 		{
 			if (data->map[i][j] == '1')
 			{
-				my_put_pixel(data, (j * CUBE_SIZE), (i * CUBE_SIZE),
+				my_put_pixel(data, (j * CUBE_SIZE* 1), (i * CUBE_SIZE * 1),
 					0xFFAA00FF);
 			}
 			j++;

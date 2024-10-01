@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 11:46:37 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/09/27 11:44:06 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/01 11:47:06 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	mouse(double mouse_x, double mouse_y, void *param)
 	(void)mouse_y;
 	data = param;
 	mlx_get_mouse_pos(data->mlx->init, &x, &y);
-	data->player->rot_angle += 0.004 * (double)(x - (W_WIDTH / 10));
+	data->player->view_angle += 0.004 * (double)(x - (W_WIDTH / 10));
 	mlx_set_mouse_pos(data->mlx->init, (W_WIDTH / 10), (W_HEIGHT / 10));
 }
 
@@ -53,7 +53,7 @@ void	key(mlx_key_data_t datakey, void *param)
 	if (key == 'A')
 		data->player->turn = (action * -1) * (M_PI / 2);
 	if (key == MLX_KEY_RIGHT)
-		data->player->rot_angle += (action * 1) * 0.1;
+		data->player->view_angle += (action * 1) * 0.1;
 	if (key == MLX_KEY_LEFT)
-		data->player->rot_angle += (action * -1) * 0.1;
+		data->player->view_angle += (action * -1) * 0.1;
 }
