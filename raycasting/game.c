@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 10:37:00 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/10/01 13:10:17 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/01 15:00:19 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,25 +65,25 @@ void	move_player(t_player *player, t_data *data)
 void	create_player(t_data *data)
 {
 	t_player	*player;
-	int			i;
-	int			j;
+	// int			i;
+	// int			j;
 
 	player = data->player;
 	move_player(data->player, data);
-	i = player->rayon * -1;
-	while (i <= player->rayon)
-	{
-		j = player->rayon * -1;
-		while (j < player->rayon)
-		{
-			if (j * j + i * i <= player->rayon * player->rayon 
-				&& j + player->x < W_WIDTH && i + player->y < W_HEIGHT)
-				mlx_put_pixel(data->mlx->img, (j + player->x), (i + player->y),
-					0x000000FF);
-			j++;
-		}
-		i++;
-	}
+	// i = player->rayon * -1;
+	// while (i <= player->rayon)
+	// {
+	// 	j = player->rayon * -1;
+	// 	while (j < player->rayon)
+	// 	{
+	// 		if (j * j + i * i <= player->rayon * player->rayon 
+	// 			&& j + player->x < W_WIDTH && i + player->y < W_HEIGHT)
+	// 			mlx_put_pixel(data->mlx->img, (j + player->x), (i + player->y),
+	// 				0x000000FF);
+	// 		j++;
+	// 	}
+	// 	i++;
+	// }
 }
 
 void	my_put_pixel(t_data *data, int x, int y, int color)
@@ -137,7 +137,7 @@ void	render_window(void *param)
 		mlx_close_window(data->mlx->init);
 		exit(1);
 	}
-	render_2d_map(data);
+	// render_2d_map(data);
 	create_player(data);
 	ray_casting(data);
 	if (mlx_image_to_window(data->mlx->init, data->mlx->img, 0, 0) == -1)

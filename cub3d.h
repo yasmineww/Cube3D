@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:48:52 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/01 11:47:06 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/01 15:25:58 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ void		mouse(double mouse_x, double mouse_y, void *param);
 int			is_wall(t_data *data, double x, double y);
 void		ray_casting(t_data *data);
 void		draw_ray(t_data *data, double distance);
+void		render_wall(t_data *data, double distance, int nmbr_rays);
 
 /*-------------------------------get_next_line-------------------------------*/
 

@@ -6,28 +6,28 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 12:53:56 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/10/01 13:17:40 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/01 15:17:54 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	draw_ray(t_data *data, double distance)
-{
-	int	ray_x;
-	int	ray_y;
+// void	draw_ray(t_data *data, double distance)
+// {
+// 	int	ray_x;
+// 	int	ray_y;
 
-	while (--distance >= 0)
-	{
-		{
-			if (data->player->x < 0 || data->player->x > W_WIDTH || data->player->y < 0 || data->player->y > W_HEIGHT)
-				return ;
-			ray_x = ((data->player->x ) + cos(data->ray->ray_angle) * distance) * 1;
-			ray_y = ((data->player->y ) + sin(data->ray->ray_angle) * distance) * 1;
-			mlx_put_pixel(data->mlx->img, ray_x,  ray_y, 0x94C8F0FF);
-		}
-	}
-}
+// 	while (--distance >= 0)
+// 	{
+// 		{
+// 			if (data->player->x < 0 || data->player->x > W_WIDTH || data->player->y < 0 || data->player->y > W_HEIGHT)
+// 				return ;
+// 			ray_x = (data->player->x + cos(data->ray->ray_angle) * distance) * 1;
+// 			ray_y = (data->player->y + sin(data->ray->ray_angle) * distance) * 1;
+// 			mlx_put_pixel(data->mlx->img, ray_x,  ray_y, 0x94C8F0FF);
+// 		}
+// 	}
+// }
 
 float	normalize(float angle, t_ray *ray)
 {
@@ -94,45 +94,6 @@ double	v_intersect(t_data *data, t_ray *ray)
 	return (hypot(pos_x - data->player->x, pos_y - data->player->y));
 }
 
-void	render_wall(t_data *data, double distance, int numbr_rays)
-{
-	t_ray	*ray;
-	double	wall_height;
-	double	top;
-	double	bot;
-	int		i;
-
-	ray = data->ray;
-	wall_height = (CUBE_SIZE / distance) * (W_WIDTH / 2) / tan(ray->pov / 2);
-	top = (W_HEIGHT / 2) - (wall_height / 2);
-	bot = (W_HEIGHT / 2) + (wall_height / 2);
-	if (bot > W_HEIGHT)
-		bot = W_HEIGHT;
-	if (top < 0)
-		top = 0;
-	while (top < bot)
-	{
-		if (numbr_rays >= 0 && numbr_rays < W_WIDTH && top >= 0 && top < W_HEIGHT)
-			mlx_put_pixel(data->mlx->img, numbr_rays, top, 0X000000FF);
-		top++;
-	}
-	i = bot;
-	while (i < W_HEIGHT)
-	{
-		if (numbr_rays >= 0 && numbr_rays < W_WIDTH && top >= 0 && top < W_HEIGHT)
-			mlx_put_pixel(data->mlx->img, numbr_rays, i, 0XFF0000FF);
-		i++;
-	}
-	// i = 0;
-	// while (i < top)
-	// {
-	// 	if (numbr_rays >= 0 && numbr_rays < W_WIDTH && top >= 0 && top < W_HEIGHT)
-	// 		mlx_put_pixel(data->mlx->img, numbr_rays, i, 0XFFFFFFFF);
-	// 	i++;
-	// }
-	
-}
-
 void	cast_one_ray(t_data *data, int nmbr_rays)
 {
 	t_ray	*ray;
@@ -148,9 +109,9 @@ void	cast_one_ray(t_data *data, int nmbr_rays)
 	distance = distance_h;
 	if (distance_h > distance_v)
 		distance = distance_v;
-	draw_ray(data, distance);
+	distance *= cos(ray->ray_angle - data->player->view_angle);//fish eye
+	// draw_ray(data, distance);
 	render_wall(data, distance, nmbr_rays);
-	// distance *= cos(ray->ray_angle - data->player->view_angle);//fish eye
 }
 
 void	ray_casting(t_data *data)

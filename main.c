@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:46:50 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/27 14:02:20 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/01 15:24:07 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	check_file_extention(char *file)
 int	main(int argc, char **argv)
 {
 	t_list	*parsing_lst;
-	// t_data	*data;
+	t_data	*data;
 
 	if (argc != 2)
 	{
@@ -40,11 +40,11 @@ int	main(int argc, char **argv)
 	if (parsing_lst == NULL)
 		exit(1);
 	parsing(parsing_lst, argv);
-	// data_init(&data, parsing_lst);
-	// mlx_loop_hook(data->mlx->init, &render_window, data);
-	// mlx_key_hook(data->mlx->init, &key, data);
-	// mlx_set_cursor_mode(data->mlx->init, MLX_MOUSE_HIDDEN);
-	// mlx_cursor_hook(data->mlx->init, &mouse ,data);
-	// mlx_loop(data->mlx->init);
+	data_init(&data, parsing_lst);
+	mlx_loop_hook(data->mlx->init, &render_window, data);
+	mlx_key_hook(data->mlx->init, &key, data);
+	mlx_set_cursor_mode(data->mlx->init, MLX_MOUSE_HIDDEN);
+	mlx_cursor_hook(data->mlx->init, &mouse ,data);
+	mlx_loop(data->mlx->init);
 	return (0);
 }
