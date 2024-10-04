@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_bindings.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 11:46:37 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/10/01 15:04:20 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/04 15:15:39 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	mouse(double mouse_x, double mouse_y, void *param)
 	(void)mouse_y;
 	data = param;
 	mlx_get_mouse_pos(data->mlx->init, &x, &y);
-	data->player->view_angle += 0.001 * (double)(x - data->player->x);
+	data->player->view_angle += 0.0009 * (double)(x - data->player->x);
 	mlx_set_mouse_pos(data->mlx->init, data->player->x, data->player->y);
 }
 

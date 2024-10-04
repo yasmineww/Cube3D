@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:48:52 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/01 15:25:58 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/04 18:20:39 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ typedef struct s_ray
 {
 	double	pov;
 	double	ray_angle;
-	double	wall_x;
-	double	wall_y;
-	double	distance;
 	int		map_content;
+	double	distance_v;
+	double	distance_h;
 	int		up;
 	int		down;
 	int		left;
 	int		right;
+	int		is_v;
 }	t_ray;
 
 typedef struct s_player
@@ -61,17 +61,49 @@ typedef struct s_mlx
 	void	*img;
 }	t_mlx;
 
+typedef struct s_wall_render
+{
+	t_ray			*ray;
+	double			wall_height;
+	double			top;
+	double			bot;
+	mlx_texture_t	*the_texture;
+	int				*arr;
+	double			factor;
+	double			y_offset;
+	double			x_offset;
+}	t_wall_render;
+
+typedef struct s_texture
+{
+	int					c[3];
+	int					f[3];
+	char				*key;
+	char				*value;
+	struct s_texture	*next;
+}	t_texture;
+
+typedef struct s_walls_texture
+{
+	mlx_texture_t	*ea;
+	mlx_texture_t	*no;
+	mlx_texture_t	*so;
+	mlx_texture_t	*we;
+}	t_walls_texture;
+
 typedef struct s_data
 {
-	t_mlx		*mlx;
-	t_player	*player;
-	t_ray		*ray;
-	int			width;
-	int			height;
-	char		**map;
-	int			rows;
-	int			cols;
-	double		scale;
+	t_mlx			*mlx;
+	t_player		*player;
+	t_ray			*ray;
+	t_texture		*texture;
+	t_walls_texture	*open_textures;
+	int				width;
+	int				height;
+	char			**map;
+	int				rows;
+	int				cols;
+	double			scale;
 }	t_data;
 
 typedef struct s_line
@@ -97,15 +129,6 @@ typedef struct s_pars
 	char				*value;
 	struct s_pars		*next;
 }	t_pars;
-
-typedef struct s_texture
-{
-	int					c[3];
-	int					f[3];
-	char				*key;
-	char				*value;
-	struct s_texture	*next;
-}	t_texture;
 
 typedef struct s_list
 {
@@ -137,6 +160,7 @@ int			is_wall(t_data *data, double x, double y);
 void		ray_casting(t_data *data);
 void		draw_ray(t_data *data, double distance);
 void		render_wall(t_data *data, double distance, int nmbr_rays);
+float		normalize(float angle, t_ray *ray);
 
 /*-------------------------------get_next_line-------------------------------*/
 
