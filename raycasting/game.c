@@ -26,6 +26,16 @@ int	player_is_wall(t_data *data, double x, double y)
 		|| data->map[index_y_max][index_x_min] == '1'
 		|| data->map[index_y_min][index_x_max] == '1')
 		return (1);
+	// else if (index_x_min < 0 || index_x_max >= data->cols || index_y_min < 0
+	// 	|| index_y_max >= data->rows
+	// 	|| data->map[index_y_min][index_x_min] == 'D'
+	// 	|| data->map[index_y_max][index_x_max] == 'D'
+	// 	|| data->map[index_y_max][index_x_min] == 'D'
+	// 	|| data->map[index_y_min][index_x_max] == 'D')
+	// 	{
+	// 		data->ray->door = 1;
+	// 		return (1);
+	// 	}
 	return (0);
 }
 
@@ -38,7 +48,20 @@ int	is_wall(t_data *data, double x, double y)
 	index_y = y / CUBE_SIZE;
 	if (index_x < 0 || index_x >= data->cols || index_y < 0
 		|| index_y >= data->rows || data->map[index_y][index_x] == '1')
-		return (1);
+			return (1);
+	else if (index_x < 0 || index_x >= data->cols || index_y < 0
+		|| index_y >= data->rows || data->map[index_y][index_x] == 'D')
+		{
+			if ((data->player->x >= x - 50 && data->player->y >= y + 50)
+			|| (data->player->x >= x + 50 && data->player->y >= y - 50)
+			|| (data->player->x <= x - 50 && data->player->y <= y + 50)
+			|| (data->player->x <= x + 50 && data->player->y <= y - 50))
+			{
+				data->ray->door = 1;
+				return (1);
+			}
+			
+		}
 	return (0);
 }
 

@@ -27,6 +27,7 @@ void	init_var(t_data *data, t_list *parsing_lst)
 	data->player->view_angle = parsing_lst->view_angle;
 	data->player->move_speed = 4;
 	data->ray->pov = (60 * M_PI) / 180;
+	data->ray->door = 0;
 }
 
 void	data_init(t_data **data, t_list *parsing_lst)

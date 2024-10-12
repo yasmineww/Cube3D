@@ -100,6 +100,32 @@ void	get_player_position(t_list *parsing)
 	}
 }
 
+void get_dor_position(t_list *parsing)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	y = 0;
+	while (x < parsing->rows)
+	{
+		while (y < parsing->cols)
+		{
+			if (parsing->map[x][y] == 'D')
+			{
+				if ((parsing->map[x - 1][y] != '1' && \
+					parsing->map[x + 1][y] != '1') && \
+					(parsing->map[x][y + 1] != '1' && \
+					parsing->map[x][y + 1] != '1'))
+				print_error("Invalid Dor position !\n");
+			}
+			y++;
+		}
+		x++;
+		y = 0;
+	}
+}
+
 void	parsing(t_list *parsing, char **argv)
 {
 	int		fd;
@@ -124,6 +150,7 @@ void	parsing(t_list *parsing, char **argv)
 		print_error("Invalid Map !\n");
 	parsing->map = create_map(parsing->map, &parsing->rows, &parsing->cols);
 	get_player_position(parsing);
+	get_dor_position(parsing);
 	free_pars(pars);
 	close(fd);
 }

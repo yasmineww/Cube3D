@@ -102,7 +102,9 @@ int	check_char(char c)
 		c != 'W' && \
 		c != 'E' && \
 		c != 'S' && \
-		c != ' ')
+		c != ' '&& \
+		c != 'D'
+		)
 		return (1);
 	return (0);
 }

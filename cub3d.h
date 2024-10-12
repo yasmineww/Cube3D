@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:48:52 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/04 18:20:39 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/10 10:14:28 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@
 # define CUBE_SIZE	32
 # define W_HEIGHT	960
 # define W_WIDTH	1600
+# define MAX_FRAMES	8
+# define FRAME_DELAY	10
+# define STAR_PROBABILITY 100
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10000000
@@ -36,6 +39,7 @@ typedef struct s_ray
 	int		map_content;
 	double	distance_v;
 	double	distance_h;
+	int		door;
 	int		up;
 	int		down;
 	int		left;
@@ -89,6 +93,8 @@ typedef struct s_walls_texture
 	mlx_texture_t	*no;
 	mlx_texture_t	*so;
 	mlx_texture_t	*we;
+	mlx_texture_t	*door;
+	mlx_texture_t	*img;
 }	t_walls_texture;
 
 typedef struct s_data
@@ -98,13 +104,37 @@ typedef struct s_data
 	t_ray			*ray;
 	t_texture		*texture;
 	t_walls_texture	*open_textures;
+	t_walls_texture	*open_textures2;
 	int				width;
 	int				height;
 	char			**map;
 	int				rows;
 	int				cols;
 	double			scale;
+	int				mouse_clicked;
+	mlx_texture_t    *images[MAX_FRAMES];
+	int              current_frame;
+    int              frame_counter;
+	int              animation_phase;
+	int              animation_direction;
+	int				frame_delay;
+	int				frame_delay_counter;
 }	t_data;
+
+typedef struct s_animation
+{
+	uint32_t 		y;
+	uint32_t		x;
+	mlx_texture_t	*texture;
+	uint32_t		pixel_index;
+	uint8_t			r;
+	uint8_t			g;
+	uint8_t			b_color;
+	uint8_t			a;
+	uint32_t		color;
+	int				target_x;
+	int				target_y;
+}	t_animation;
 
 typedef struct s_line
 {
@@ -161,6 +191,9 @@ void		ray_casting(t_data *data);
 void		draw_ray(t_data *data, double distance);
 void		render_wall(t_data *data, double distance, int nmbr_rays);
 float		normalize(float angle, t_ray *ray);
+void		mouse_click_handler(mouse_key_t button, action_t action, modifier_key_t mods, void *param);
+int			reverse_bytes(int c);
+void		load_animation_frames(t_data *data);
 
 /*-------------------------------get_next_line-------------------------------*/
 
@@ -219,5 +252,8 @@ size_t		array_length(char **arr);
 int			ft_strcmp(const char *s1, const char *s2);
 void		free_pars(t_pars *pars);
 char		**split_texture(char const *s);
+char		*ft_strjoin(char const *s1, char const *s2);
+char		*ft_itoa(int n);
+void		*ft_memcpy(void *destination, const void *source, size_t num);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:46:50 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/01 15:24:07 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/05 10:32:03 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,19 @@ int	main(int argc, char **argv)
 		exit(1);
 	parsing(parsing_lst, argv);
 	data_init(&data, parsing_lst);
+	load_animation_frames(data);
+	data->animation_phase = 0;
+	data->current_frame = 1;
+    data->animation_direction = 1;
+    data->animation_phase = 0;
+	data->frame_counter = 0;
+	data->frame_delay = 0;
+	data->frame_delay_counter = 0;
 	mlx_loop_hook(data->mlx->init, &render_window, data);
 	mlx_key_hook(data->mlx->init, &key, data);
 	mlx_set_cursor_mode(data->mlx->init, MLX_MOUSE_HIDDEN);
 	mlx_cursor_hook(data->mlx->init, &mouse ,data);
+	mlx_mouse_hook(data->mlx->init, mouse_click_handler, data);
 	mlx_loop(data->mlx->init);
 	return (0);
 }
