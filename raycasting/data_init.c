@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:44:36 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/10/13 17:19:41 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/13 18:57:49 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	init_var(t_data *data, t_list *parsing_lst)
 	data->rows = parsing_lst->rows;
 	data->cols = parsing_lst->cols;
 	data->texture = parsing_lst->texture;
-	data->scale = 1;
 	data->player->x = parsing_lst->x * CUBE_SIZE + CUBE_SIZE / 2;
 	data->player->y = parsing_lst->y * CUBE_SIZE + CUBE_SIZE / 2;
 	data->player->turn = 0;

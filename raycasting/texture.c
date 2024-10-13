@@ -6,37 +6,33 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 17:47:15 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/10/13 17:57:53 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/13 19:20:17 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-t_walls_texture	*load_textures(t_texture *texture)
+void	load_textures(t_data *data)
 {
-	t_walls_texture	*var;
-	t_texture		*tmp;
+	t_texture	*texture;
 
-	var = malloc(sizeof(t_walls_texture));
-	tmp = texture;
-	while (tmp)
+	texture = data->texture;
+	while (texture)
 	{
-		if (ft_strcmp(tmp->key, "EA") == 0)
-			var->ea = mlx_load_png(tmp->value);
-		else if (ft_strcmp(tmp->key, "NO") == 0)
-			var->no = mlx_load_png(tmp->value);
-		else if (ft_strcmp(tmp->key, "SO") == 0)
-			var->so = mlx_load_png(tmp->value);
-		else if (ft_strcmp(tmp->key, "WE") == 0)
-			var->we = mlx_load_png(tmp->value);
-		tmp = tmp->next;
+		if (ft_strcmp(texture->key, "EA") == 0)
+			data->mlx->ea = mlx_load_png(texture->value);
+		else if (ft_strcmp(texture->key, "NO") == 0)
+			data->mlx->no = mlx_load_png(texture->value);
+		else if (ft_strcmp(texture->key, "SO") == 0)
+			data->mlx->so = mlx_load_png(texture->value);
+		else if (ft_strcmp(texture->key, "WE") == 0)
+			data->mlx->we = mlx_load_png(texture->value);
+		texture = texture->next;
 	}
-	var->door = mlx_load_png("textures/door.png");
-	var->img = mlx_load_png("textures/1.png");
-	if (var->ea == NULL || var->no == NULL || \
-		var->so == NULL || var->we == NULL)
+	data->mlx->door = mlx_load_png("textures/door.png");
+	if (data->mlx->ea == NULL || data->mlx->no == NULL || \
+		data->mlx->so == NULL || data->mlx->we == NULL)
 		print_error("Failed to load textures!");
-	return (var);
 }
 
 void	load_animation_frames(t_data *data)

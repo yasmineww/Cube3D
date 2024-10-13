@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 10:37:00 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/10/13 17:58:17 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/13 18:54:15 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,25 +123,19 @@ void	render_2d_map(t_data *data)
 
 	var_x = M_WIDTH / 2 - data->player->x;
 	var_y = M_HEIGHT / 2 - data->player->y;
-	i = 0;
-	while (i < data->rows)
+	i = -1;
+	while (++i < data->rows)
 	{
-		j = 0;
-		while (j < data->cols)
+		j = -1;
+		while (++j < data->cols)
 		{
 			if (data->map[i][j] == '1')
-			{
 				my_put_pixel(data, (j * CUBE_SIZE + var_x), (i * CUBE_SIZE + var_y),
 					0xFFAA00FF);
-			}
 			else if (data->map[i][j] == 'D')
-			{
 				my_put_pixel(data, (j * CUBE_SIZE + var_x), (i * CUBE_SIZE + var_y),
 					0xFFEA7FFF);
-			}
-			j++;
 		}
-		i++;
 	}
 }
 

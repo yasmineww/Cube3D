@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 12:53:56 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/10/13 17:56:59 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/13 19:19:45 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,13 +119,11 @@ void	ray_casting(t_data *data)
 {
 	t_ray			*ray;
 	int				nmbr_rays;
-	t_walls_texture	*textures;
 
 	nmbr_rays = 0;
 	ray = data->ray;
 	ray->ray_angle = data->player->view_angle - (ray->pov / 2);
-	textures = load_textures(data->texture);
-	data->open_textures = textures;
+	load_textures(data);
 	while (nmbr_rays < W_WIDTH)
 	{
 		cast_one_ray(data, nmbr_rays);

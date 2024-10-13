@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:48:52 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/13 18:34:04 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/13 19:21:02 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,13 @@ typedef struct s_player
 
 typedef struct s_mlx
 {
-	void	*init;
-	void	*img;
+	void			*init;
+	void			*img;
+	mlx_texture_t	*ea;
+	mlx_texture_t	*no;
+	mlx_texture_t	*so;
+	mlx_texture_t	*we;
+	mlx_texture_t	*door;
 }	t_mlx;
 
 typedef struct s_wall_render
@@ -73,6 +78,8 @@ typedef struct s_wall_render
 	double			x_offset;
 }	t_wall_render;
 
+
+
 typedef struct s_texture
 {
 	int					c[3];
@@ -82,30 +89,15 @@ typedef struct s_texture
 	struct s_texture	*next;
 }	t_texture;
 
-typedef struct s_walls_texture
-{
-	mlx_texture_t	*ea;
-	mlx_texture_t	*no;
-	mlx_texture_t	*so;
-	mlx_texture_t	*we;
-	mlx_texture_t	*door;
-	mlx_texture_t	*img;
-}	t_walls_texture;
-
 typedef struct s_data
 {
 	t_mlx			*mlx;
 	t_player		*player;
 	t_ray			*ray;
 	t_texture		*texture;
-	t_walls_texture	*open_textures;
-	t_walls_texture	*open_textures2;
-	int				width;
-	int				height;
 	char			**map;
 	int				rows;
 	int				cols;
-	double			scale;
 	int				mouse_clicked;
 	mlx_texture_t	*images[MAX_FRAMES];
 	int				current_frame;
@@ -130,6 +122,7 @@ typedef struct s_animation
 	int				target_x;
 	int				target_y;
 }	t_animation;
+
 
 typedef struct s_line
 {
@@ -182,7 +175,7 @@ void		draw_texture_with_put_pixel(t_data *data, float scale_factor);
 void		load_animation_frames(t_data *data);
 void		mouse_click_handler(mouse_key_t button, action_t action, modifier_key_t mods, void *param);
 int			reverse_bytes(int c);
-t_walls_texture	*load_textures(t_texture *texture);
+void		load_textures(t_data *data);
 
 /*-------------------------------raycasting-------------------------------*/
 

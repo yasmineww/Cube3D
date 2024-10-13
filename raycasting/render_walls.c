@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 11:40:08 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/10/13 18:41:43 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/13 19:10:59 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	reverse_bytes(int c)
 	return (b);
 }
 
-double	get_x_offset(mlx_texture_t	*ea, t_data *data)
+double	get_x_offset(mlx_texture_t *ea, t_data *data)
 {
 	double	x_offeset;
 
@@ -81,17 +81,17 @@ mlx_texture_t	*get_curr_texture(t_data *data)
 			{
 				if (data->ray->door == 1)
 				{
-					return (data->open_textures->door);
+					return (data->mlx->door);
 				}
-				return (data->open_textures->ea);
+				return (data->mlx->ea);
 			}
 		else
 		{
 			if (data->ray->door == 1)
 			{
-				return (data->open_textures->door);
+				return (data->mlx->door);
 			}
-			return (data->open_textures->we);
+			return (data->mlx->we);
 		}
 	}
 	else
@@ -100,17 +100,17 @@ mlx_texture_t	*get_curr_texture(t_data *data)
 		{
 			if (data->ray->door == 1)
 			{
-				return (data->open_textures->door);
+				return (data->mlx->door);
 			}
-			return (data->open_textures->so);
+			return (data->mlx->so);
 		}
 		else
 		{
 			if (data->ray->door == 1)
 			{
-				return (data->open_textures->door);
+				return (data->mlx->door);
 			}
-			return (data->open_textures->no);
+			return (data->mlx->no);
 		}
 	}
 }
