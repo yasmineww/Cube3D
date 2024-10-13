@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 10:37:00 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/10/13 16:57:44 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/13 17:58:17 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,11 @@ void	render_2d_map(t_data *data)
 			{
 				my_put_pixel(data, (j * CUBE_SIZE + var_x), (i * CUBE_SIZE + var_y),
 					0xFFAA00FF);
+			}
+			else if (data->map[i][j] == 'D')
+			{
+				my_put_pixel(data, (j * CUBE_SIZE + var_x), (i * CUBE_SIZE + var_y),
+					0xFFEA7FFF);
 			}
 			j++;
 		}

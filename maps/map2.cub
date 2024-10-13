@@ -1,7 +1,7 @@
 
 
-EA textures/wall8.png
-NO textures/wall6.png
+EA textures/wall1.png
+NO textures/wall2.png
 
 
 
@@ -10,10 +10,10 @@ C 201,201,201
 F       136,136,136
 
 
-SO textures/wall5.png
+SO textures/wall3.png
 
 
-WE textures/wall7.png
+WE textures/wall4.png
 
 
 
@@ -24,7 +24,7 @@ WE textures/wall7.png
 10000010000000000000010001
 10000010000000000000000001
 10000010000000000000010001
-11101111111011111111110001
+111D1111111011111111110001
 110000110000001      10001
 100000010000001      10001
 100000010000001      10001

@@ -1,19 +1,20 @@
 
 
 
-
-	EA textures/wall.png
-     NO	 	  	 	 textures/wall.png
-
-
-C 42,42,53
-
-F 41,39,32
-
-SO textures/wall.png
+EA textures/wall1.png
+NO textures/wall2.png
 
 
-WE textures/wall.png
+
+C 201,201,201
+
+F       136,136,136
+
+
+SO textures/wall3.png
+
+
+WE textures/wall4.png
 
 
 111111111111111111111111111111111

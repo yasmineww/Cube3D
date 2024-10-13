@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:48:52 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/13 16:51:14 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/13 17:57:54 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <limits.h>
 
 # define CUBE_SIZE	32
+# define M_SIZE	22
 # define W_HEIGHT	960
 # define W_WIDTH	1600
 # define MAX_FRAMES	8
@@ -180,6 +181,15 @@ typedef struct s_process_map
 	t_pars		*values;
 }	t_process_map;
 
+/*-------------------------------textures-------------------------------*/
+
+int			reverse_bytes(int c);
+void		draw_texture_with_put_pixel(t_data *data, float scale_factor);
+void		load_animation_frames(t_data *data);
+void		mouse_click_handler(mouse_key_t button, action_t action, modifier_key_t mods, void *param);
+int			reverse_bytes(int c);
+t_walls_texture	*load_textures(t_texture *texture);
+
 /*-------------------------------raycasting-------------------------------*/
 
 void		data_init(t_data **data, t_list *parsing_lst);
@@ -191,9 +201,6 @@ void		ray_casting(t_data *data);
 void		draw_ray(t_data *data, double distance);
 void		render_wall(t_data *data, double distance, int nmbr_rays);
 float		normalize(float angle, t_ray *ray);
-void		mouse_click_handler(mouse_key_t button, action_t action, modifier_key_t mods, void *param);
-int			reverse_bytes(int c);
-void		load_animation_frames(t_data *data);
 
 /*-------------------------------get_next_line-------------------------------*/
 
