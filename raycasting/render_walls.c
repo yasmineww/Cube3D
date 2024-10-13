@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 11:40:08 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/10/13 19:10:59 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/13 19:29:29 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ void	render_wall(t_data *data, double distance, int nmbr_rays)
 	double			bot;
 	double			wall_height;
 
-	var.the_texture = get_curr_texture(data);
+	var.texture = get_curr_texture(data);
 	wall_height = (CUBE_SIZE / distance) * (W_WIDTH / 2) / tan(data->ray->pov / 2);
 	top = (W_HEIGHT / 2) - (wall_height / 2);
 	bot = (W_HEIGHT / 2) + (wall_height / 2);
@@ -131,16 +131,16 @@ void	render_wall(t_data *data, double distance, int nmbr_rays)
 	if (top < 0)
 		top = 0;
 	render_bot_top(data, nmbr_rays, bot, top);
-	var.factor = (double)var.the_texture->height / wall_height;
-	var.arr = (int *)var.the_texture->pixels;
-	var.x_offset = get_x_offset(var.the_texture, data);
+	var.factor = (double)var.texture->height / wall_height;
+	var.arr = (int *)var.texture->pixels;
+	var.x_offset = get_x_offset(var.texture, data);
 	var.y_offset = (top - (W_HEIGHT / 2) + (wall_height / 2)) * var.factor;
 	if (var.y_offset < 0)
 		var.y_offset = 0;
 	while (top < bot)
 	{
 		if (nmbr_rays >= M_WIDTH || top >= M_HEIGHT)
-			mlx_put_pixel(data->mlx->img, nmbr_rays, top, reverse_bytes(var.arr[(int) var.y_offset * var.the_texture->width + (int)var.x_offset]));
+			mlx_put_pixel(data->mlx->img, nmbr_rays, top, reverse_bytes(var.arr[(int) var.y_offset * var.texture->width + (int)var.x_offset]));
 		var.y_offset += var.factor;
 		top++;
 	}

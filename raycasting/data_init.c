@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:44:36 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/10/13 18:57:49 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/14 00:25:39 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,13 @@ void	init_var(t_data *data, t_list *parsing_lst)
 	data->player->y = parsing_lst->y * CUBE_SIZE + CUBE_SIZE / 2;
 	data->player->turn = 0;
 	data->player->walk = 0;
-	data->player->rayon = 6;
+	data->player->rayon = 3;
 	data->player->view_angle = parsing_lst->view_angle;
 	data->player->move_speed = 7;
 	data->ray->pov = (60 * M_PI) / 180;
 	data->ray->door = 0;
+	data->current_frame = 1;
+    data->animation_phase = 1;
 }
 
 void	data_init(t_data **data, t_list *parsing_lst)
@@ -44,6 +46,9 @@ void	data_init(t_data **data, t_list *parsing_lst)
 	if (!(*data)->ray)
 		exit(1);
 	(*data)->texture = malloc (sizeof(t_texture));
+	if (!(*data)->texture)
+		exit(1);
+	(*data)->animation = malloc (sizeof(t_animation));
 	if (!(*data)->texture)
 		exit(1);
 	init_var(*data, parsing_lst);

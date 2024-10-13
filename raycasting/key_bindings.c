@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_bindings.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 11:46:37 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/10/04 15:15:39 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/13 23:26:10 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	key(mlx_key_data_t datakey, void *param)
 	if (key == 'A')
 		data->player->turn = (action * -1) * (M_PI / 2);
 	if (key == MLX_KEY_RIGHT)
-		data->player->view_angle += (action * 1) * 0.1;
+		data->player->view_angle += (action * 1) * 0.05;
 	if (key == MLX_KEY_LEFT)
-		data->player->view_angle += (action * -1) * 0.1;
+		data->player->view_angle += (action * -1) * 0.05;
 }

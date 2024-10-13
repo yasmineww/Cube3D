@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 17:47:15 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/10/13 19:20:17 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/14 00:34:08 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	load_animation_frames(t_data *data)
 	int		i;
 
 	i = 1;
-	while (i <= MAX_FRAMES)
+	while (i <= 6)
 	{
 		filename = ft_strjoin("textures/", ft_itoa(i));
 		tmp = filename;
@@ -60,8 +60,9 @@ void	mouse_click_handler(mouse_key_t button, action_t action, modifier_key_t mod
 {
 	t_data	*data;
 
-	data = (t_data *)param;
+	data = param;
 	(void)mods;
+	data->mouse_clicked = 0;
 	if (button == MLX_MOUSE_BUTTON_LEFT && action == MLX_PRESS)
 	{
 		data->mouse_clicked = 1;
@@ -69,159 +70,80 @@ void	mouse_click_handler(mouse_key_t button, action_t action, modifier_key_t mod
 		{
 			data->animation_phase = 2;
 			data->current_frame = 2;
-			data->animation_direction = 1;
 		}
 		else
 		{
 			data->animation_phase = 1;
 			data->current_frame = 1;
-			data->animation_direction = 1;
 		}
 	}
-}
-
-void	handle_animation_phase(t_data *data)
-{
-	if (data->animation_phase == 1)
-	{
-		data->current_frame += data->animation_direction;
-		if (data->current_frame >= 1)
-		{
-			data->current_frame = 2;
-			data->animation_direction = -1;
-		}
-		else if (data->current_frame <= 1)
-		{
-			data->current_frame = 1;
-			data->animation_direction = 1;
-		}
-	}
-	else if (data->animation_phase == 2)
-	{
-		data->current_frame++;
-		if (data->current_frame > 8)
-		{
-			data->current_frame = 7;
-			data->animation_phase = 1;
-		}
-	}
-	if (data->current_frame > MAX_FRAMES)
-		data->current_frame = 1;
-}
-
-void	handle_mouse_click(t_data *data)
-{
-	if (data->mouse_clicked)
-	{
-		data->current_frame = 1;
-		data->animation_phase = 2;
-		data->mouse_clicked = 0;
-	}
-}
-
-void increment_frame_delay_counter(t_data *data)
-{
-	data->frame_delay_counter++;
-	if (data->frame_delay_counter >= data->frame_delay)
-		data->frame_delay_counter = 0;
 }
 
 void	manage_animation_frame(t_data *data)
 {
-	increment_frame_delay_counter(data);//name shouldnt have more than 3 words
-	if (data->frame_delay_counter == 0)
+	if (data->animation_phase == 1)
+		data->current_frame = 1;
+	else if (data->animation_phase == 2)
 	{
-		handle_mouse_click(data);
-		handle_animation_phase(data);
+		data->current_frame++;
+		if (data->current_frame > 6)
+		{
+			data->current_frame = 1;
+			data->animation_phase = 1;
+		}
 	}
 }
 
-void	process_pixel_data(t_animation *var, int x_offset, int y_offset, float scale_factor, t_data *data)
+void	process_pixel_data(t_animation *animation, t_data *data)
 {
 	int	dy;
 	int	dx;
 	int	scaled_x;
 	int	scaled_y;
 
-	if (var->a != 0)
+	if (animation->a != 0)
 	{
-		var->target_x = x_offset + (var->x * scale_factor);
-		var->target_y = y_offset + (var->y * scale_factor);
-		dy = 0;
-		while (dy < scale_factor)
+		dy = -1;
+		while (++dy < 3)
 		{
-			dx = 0;
-			while (dx < scale_factor)
+			dx = -1;
+			while (++dx < 3)
 			{
-				scaled_x = var->target_x + dx;
-				scaled_y = var->target_y + dy;
+				scaled_x = 700 + (animation->x * 3) + dx;
+				scaled_y = 680 + (animation->y * 3) + dy;
 				if (scaled_x >= 0 && scaled_x < W_WIDTH && scaled_y >= 0 \
 					&& scaled_y < W_HEIGHT)
 				{
-					var->color = (var->a << 24) | \
-					(var->b_color << 16) | (var->g << 8) | var->r;
-					var->color = reverse_bytes(var->color);
+					animation->color = (animation->a << 24) | \
+					(animation->b << 16) | (animation->g << 8) | animation->r;
+					animation->color = reverse_bytes(animation->color);
 					mlx_put_pixel(data->mlx->img, \
-						scaled_x, scaled_y, var->color);
+						scaled_x, scaled_y, animation->color);
 				}
-				dx++;
 			}
-			dy++;
 		}
 	}
 }
 
-void	draw_scaled_pixels(t_animation var, t_data *data, float scale_factor)
+void	draw_sprite(t_data *data)
 {
-	int	x_offset;
-	int	y_offset;
+	t_animation	*animation;
 
-	x_offset = 150;
-	y_offset = 210;
-	while (var.y < var.texture->height)
+	animation = data->animation;
+	data->animation->frame = data->images[data->current_frame - 1];
+	animation->y = -1;
+	while (++animation->y < animation->frame->height)
 	{
-		var.x = 0;
-		while (var.x < var.texture->width)
+		animation->x = -1;
+		while (++animation->x < animation->frame->width)
 		{
-			var.pixel_index = (var.y * var.texture->width + var.x) * 4;
-			var.r = var.texture->pixels[var.pixel_index + 0];
-			var.g = var.texture->pixels[var.pixel_index + 1];
-			var.b_color = var.texture->pixels[var.pixel_index + 2];
-			var.a = var.texture->pixels[var.pixel_index + 3];
-			process_pixel_data(&var, x_offset, y_offset, scale_factor, data);
-			var.x++;
+			animation->pixel_index = (animation->y * animation->frame->width + animation->x) * 4;
+			animation->r = animation->frame->pixels[animation->pixel_index + 0];
+			animation->g = animation->frame->pixels[animation->pixel_index + 1];
+			animation->b = animation->frame->pixels[animation->pixel_index + 2];
+			animation->a = animation->frame->pixels[animation->pixel_index + 3];
+			process_pixel_data(animation, data);
 		}
-		var.y++;
 	}
-}
-
-t_animation	prepare_texture(t_data *data)
-{
-	t_animation	var;
-
-	var.x = 0;
-	var.y = 0;
-	if (data->current_frame > MAX_FRAMES)
-		data->current_frame = 1;
-	if (!data->images[data->current_frame - 1])
-		return (var);
-	var.texture = data->images[data->current_frame - 1];
-	if (!var.texture || !data->mlx->img)
-		return (var);
-	return (var);
-}
-
-void	draw_texture_with_put_pixel(t_data *data, float scale_factor)
-{
-	t_animation	var;
-	int			x_offset;
-	int			y_offset;
-
-	x_offset = 150;
-	y_offset = 210;
-	var = prepare_texture(data);
-	if (!var.texture || !data->mlx->img)
-		return ;
-	draw_scaled_pixels(var, data, scale_factor);
 	manage_animation_frame(data);
 }

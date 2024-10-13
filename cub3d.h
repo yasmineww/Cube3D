@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:48:52 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/13 19:21:02 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/14 00:30:59 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,9 @@
 # include <math.h>
 
 # define CUBE_SIZE	32
-# define M_SIZE	22
+# define M_SIZE		22
 # define W_HEIGHT	960
 # define W_WIDTH	1600
-# define MAX_FRAMES	8
-# define FRAME_DELAY 10
 # define M_WIDTH	320
 # define M_HEIGHT	192
 
@@ -71,14 +69,12 @@ typedef struct s_mlx
 
 typedef struct s_wall_render
 {
-	mlx_texture_t	*the_texture;
+	mlx_texture_t	*texture;
 	int				*arr;
 	double			factor;
 	double			y_offset;
 	double			x_offset;
 }	t_wall_render;
-
-
 
 typedef struct s_texture
 {
@@ -89,40 +85,35 @@ typedef struct s_texture
 	struct s_texture	*next;
 }	t_texture;
 
+
+typedef struct s_animation
+{
+	uint32_t 		y;
+	uint32_t		x;
+	mlx_texture_t	*frame;
+	uint32_t		pixel_index;
+	uint8_t			r;
+	uint8_t			g;
+	uint8_t			b;
+	uint8_t			a;
+	uint32_t		color;
+}	t_animation;
+
 typedef struct s_data
 {
 	t_mlx			*mlx;
 	t_player		*player;
 	t_ray			*ray;
 	t_texture		*texture;
+	t_animation		*animation;
+	mlx_texture_t	*images[6];
 	char			**map;
 	int				rows;
 	int				cols;
 	int				mouse_clicked;
-	mlx_texture_t	*images[MAX_FRAMES];
 	int				current_frame;
-    int				frame_counter;
 	int				animation_phase;
-	int				animation_direction;
-	int				frame_delay;
-	int				frame_delay_counter;
 }	t_data;
-
-typedef struct s_animation
-{
-	uint32_t 		y;
-	uint32_t		x;
-	mlx_texture_t	*texture;
-	uint32_t		pixel_index;
-	uint8_t			r;
-	uint8_t			g;
-	uint8_t			b_color;
-	uint8_t			a;
-	uint32_t		color;
-	int				target_x;
-	int				target_y;
-}	t_animation;
-
 
 typedef struct s_line
 {
@@ -171,7 +162,7 @@ typedef struct s_process_map
 /*-------------------------------textures-------------------------------*/
 
 int			reverse_bytes(int c);
-void		draw_texture_with_put_pixel(t_data *data, float scale_factor);
+void		draw_sprite(t_data *data);
 void		load_animation_frames(t_data *data);
 void		mouse_click_handler(mouse_key_t button, action_t action, modifier_key_t mods, void *param);
 int			reverse_bytes(int c);

@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 12:53:56 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/10/13 19:19:45 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/13 23:32:10 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,5 +130,5 @@ void	ray_casting(t_data *data)
 		ray->ray_angle += (ray->pov / W_WIDTH);
 		nmbr_rays++;
 	}
-	draw_texture_with_put_pixel(data, 2);//name shouldnt have more than 3 words
+	draw_sprite(data);
 }
