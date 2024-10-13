@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:48:52 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/13 17:57:54 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/13 18:34:04 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <math.h>
-# include <limits.h>
 
 # define CUBE_SIZE	32
 # define M_SIZE	22
@@ -27,7 +26,6 @@
 # define W_WIDTH	1600
 # define MAX_FRAMES	8
 # define FRAME_DELAY 10
-# define STAR_PROBABILITY 100
 # define M_WIDTH	320
 # define M_HEIGHT	192
 
@@ -68,10 +66,6 @@ typedef struct s_mlx
 
 typedef struct s_wall_render
 {
-	t_ray			*ray;
-	double			wall_height;
-	double			top;
-	double			bot;
 	mlx_texture_t	*the_texture;
 	int				*arr;
 	double			factor;
@@ -113,11 +107,11 @@ typedef struct s_data
 	int				cols;
 	double			scale;
 	int				mouse_clicked;
-	mlx_texture_t    *images[MAX_FRAMES];
-	int              current_frame;
-    int              frame_counter;
-	int              animation_phase;
-	int              animation_direction;
+	mlx_texture_t	*images[MAX_FRAMES];
+	int				current_frame;
+    int				frame_counter;
+	int				animation_phase;
+	int				animation_direction;
 	int				frame_delay;
 	int				frame_delay_counter;
 }	t_data;

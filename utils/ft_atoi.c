@@ -6,62 +6,35 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 17:13:17 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/26 12:28:06 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/13 18:36:18 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-static int	func(char c)
+int	ft_atoi(const char *str)
 {
-	return (c == '\t' || c == '\n' || c == '\v' || c == '\r' || c == '\f');
-}
-
-static int	func0(const char	*s, int i, int neg)
-{
-	unsigned long long	res;
-	int					digitnbr;
+	size_t	res;
+	int		sign;
 
 	res = 0;
-	digitnbr = 0;
-	while (s[i] && s[i] >= '0' && s[i] <= '9')
+	sign = 1;
+	while ((*str >= 9 && *str <= 13) || *str == ' ')
+		str++;
+	if (*str == '-' || *str == '+')
 	{
-		digitnbr++;
-		if (digitnbr == 20)
-		{
-			if (neg == -1)
-				return (0);
-			else
-				return (-1);
-		}
-		res = (res * 10) + (s[i++] - '0');
+		if (*str == '-')
+			sign *= -1;
+		str++;
 	}
-	if (res > LONG_MAX)
+	while (*str >= '0' && *str <= '9')
 	{
-		if (neg == -1)
-			return (0);
-		else
+		res = (res * 10) + (*str - '0');
+		if (res > 9223372036854775807ULL && sign == 1)
 			return (-1);
+		else if (res > 9223372036854775808ULL && sign == -1)
+			return (0);
+		str++;
 	}
-	return (((int) res) * neg);
-}
-
-int	ft_atoi(const char *s)
-{
-	int	i;
-	int	neg;
-
-	i = 0;
-	neg = 1;
-	while (s[i] && (s[i] == ' ' || func(s[i])))
-		i++;
-	if (s[i] == '+' || s[i] == '-')
-	{
-		if (s[i] == '-')
-			neg *= -1;
-		i++;
-	}
-	while (s[i] && s[i] == '0')
-		i++;
-	return (func0(s, i, neg));
+	return (res * sign);
 }
