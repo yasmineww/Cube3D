@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:48:52 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/10 10:14:28 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/13 16:51:14 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@
 # define W_HEIGHT	960
 # define W_WIDTH	1600
 # define MAX_FRAMES	8
-# define FRAME_DELAY	10
+# define FRAME_DELAY 10
 # define STAR_PROBABILITY 100
+# define M_WIDTH	320
+# define M_HEIGHT	192
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10000000
@@ -36,7 +38,6 @@ typedef struct s_ray
 {
 	double	pov;
 	double	ray_angle;
-	int		map_content;
 	double	distance_v;
 	double	distance_h;
 	int		door;
@@ -55,7 +56,6 @@ typedef struct s_player
 	double	turn;
 	double	walk;
 	double	view_angle;
-	// double	rot_speed;
 	double	move_speed;
 }	t_player;
 

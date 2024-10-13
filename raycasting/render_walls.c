@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_walls.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 11:40:08 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/10/05 11:34:38 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/13 16:34:03 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,23 +69,26 @@ void	render_bot_top(t_data *data, int nmbr_rays, double bot, double top)
 	i = 0;
 	while (i < top)
 	{
-		rand_num = rand() % STAR_PROBABILITY;
-		if (nmbr_rays >= 0 && nmbr_rays < W_WIDTH && top >= 0 && top < W_HEIGHT)
+		if (nmbr_rays >= M_WIDTH || i >= M_HEIGHT)
 		{
-			if (rand_num == 0)
+			rand_num = rand() % STAR_PROBABILITY;
+			if (nmbr_rays >= 0 && nmbr_rays < W_WIDTH && top >= 0 && top < W_HEIGHT)
 			{
-				while (i < top && c < 4)
+				if (rand_num == 0)
 				{
-					mlx_put_pixel(data->mlx->img, nmbr_rays, i, 0xFFFF00);
-					c++;
-					i++;
+					while (i < top && c < 4)
+					{
+						mlx_put_pixel(data->mlx->img, nmbr_rays, i, 0xFFFF00);
+						c++;
+						i++;
+					}
 				}
-			}
-			else
-			{
-				mlx_put_pixel(data->mlx->img, nmbr_rays, i, 0x0000FF);
-			}
-			c = 0;
+				else
+				{
+					mlx_put_pixel(data->mlx->img, nmbr_rays, i, 0x0000FF);
+				}
+				c = 0;
+			}	
 		}
 		i++;
 	}
@@ -164,6 +167,13 @@ void	render_wall(t_data *data, double distance, int nmbr_rays)
 	rand_num = rand() % STAR_PROBABILITY;
 	while (var.top < var.bot)
 	{
+		if (nmbr_rays >= M_WIDTH || var.top >= M_HEIGHT)
+		{
+			mlx_put_pixel(data->mlx->img, nmbr_rays, var.top, reverse_bytes(var.arr[(int) var.y_offset * var.the_texture->width + (int)var.x_offset]));
+			
+		}
+		var.y_offset += var.factor;
+		var.top++;
 		// if (rand_num == 0)
 		// {
 		// 	while (var.top < var.bot && c < 4 && ((int)var.top % 2 == 0 ))
@@ -174,9 +184,6 @@ void	render_wall(t_data *data, double distance, int nmbr_rays)
 		// 	}
 		// 	c = 0;
 		// }
-		mlx_put_pixel(data->mlx->img, nmbr_rays, var.top, reverse_bytes(var.arr[(int) var.y_offset * var.the_texture->width + (int)var.x_offset]));
-		var.y_offset += var.factor;
-		var.top++;
 	}
 	
 }
