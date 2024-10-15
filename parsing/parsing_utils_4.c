@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_4.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 18:43:14 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/26 18:43:38 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/15 19:29:10 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_pars	*process_map(t_list *parsing_lst, int fd, char *line)
 	t_pars	*temp;
 	int		i;
 
-	temp = malloc(sizeof(t_pars));
+	temp = malloc(sizeof(t_pars));//unprotected malloc + there is 3 malloc for t_pars
 	temp_pars = temp;
 	i = 0;
 	if (line == NULL)
@@ -35,7 +35,7 @@ t_pars	*process_map(t_list *parsing_lst, int fd, char *line)
 		line = get_next_line(fd);
 		if (line != NULL && ft_strcmp(line, "\n") != 0 && skip_line(line) == 0)
 		{
-			temp->next = malloc(sizeof(t_pars));
+			temp->next = malloc(sizeof(t_pars));//unprotected malloc + there is 3 malloc for t_pars
 			temp = temp->next;
 			temp->next = NULL;
 		}

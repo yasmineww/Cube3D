@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_walls_helper.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 06:06:17 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/15 06:09:47 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/15 18:50:40 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ void	render_top(t_data *data, int nmbr_rays, double top)
 	int	rand_num;
 	int	c;
 
-	i = 0;
-	while (i < top)
+	i = -1;
+	while (++i < top)
 	{
 		if (nmbr_rays >= M_WIDTH || i >= M_HEIGHT)
 		{
@@ -75,7 +75,6 @@ void	render_top(t_data *data, int nmbr_rays, double top)
 					mlx_put_pixel(data->mlx->img, nmbr_rays, i, 0x0000FF);
 			}
 		}
-		i++;
 	}
 }
 

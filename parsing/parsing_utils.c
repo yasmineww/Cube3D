@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 01:31:17 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/19 16:31:13 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/15 19:11:47 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_pars	*allocate_pars(int *fd)
 {
 	t_pars	*temp;
 
-	temp = malloc(sizeof(t_pars));
+	temp = malloc(sizeof(t_pars));//another malloc for t_pars
 	if (temp == NULL)
 	{
 		close(*fd);

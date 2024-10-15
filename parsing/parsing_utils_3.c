@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_3.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 08:54:21 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/26 18:43:35 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/15 19:10:28 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ char	**get_map(t_pars *tmp, int *num, t_list *parsing_lst)
 	}
 	data.rows = data.rows + 2;
 	data.cols = data.cols + 2;
-	data.arr = (char **)malloc(data.rows * sizeof(char *));
+	data.arr = (char **)malloc(data.rows * sizeof(char *));//protect malloc
 	while (data.i < data.rows)
-		data.arr[data.i++] = (char *)malloc(data.cols * sizeof(char));
+		data.arr[data.i++] = (char *)malloc(data.cols * sizeof(char));//protect malloc
 	if (data.rows <= 4)
 		print_error("Invalid Map !\n");
 	parsing_lst->rows = data.rows;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_texture.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 10:06:10 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/21 10:13:18 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/15 19:34:13 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static char	*get_word(const char *s, size_t *index)
 	return (word);
 }
 
-char	**split_texture(char const *s)
+char	**split_texture(char const *s)//need norm
 {
 	size_t	index;
 	char	**result;

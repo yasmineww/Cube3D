@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:48:52 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/15 08:31:03 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/15 19:10:06 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10000000
 # endif
+
+// #define malloc(x) NULL;
 
 typedef struct s_ray
 {
