@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:44:36 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/10/14 00:25:39 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/15 04:19:01 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	init_var(t_data *data, t_list *parsing_lst)
 	data->ray->pov = (60 * M_PI) / 180;
 	data->ray->door = 0;
 	data->current_frame = 1;
-    data->animation_phase = 1;
+	data->animation_phase = 1;
 }
 
 void	data_init(t_data **data, t_list *parsing_lst)

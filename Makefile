@@ -6,7 +6,7 @@ SRCF = main.c utils/ft_putstr_fd.c utils/ft_split.c utils/ft_strdup.c utils/ft_s
 	   parsing/parsing_utils_4.c parsing/parsing_utils_5.c parsing/parsing_utils_6.c parsing/map_checking.c \
 	   utils/free_split.c utils/linked_list_free.c utils/custom_strdup.c\
 	   utils/arr_lenght.c utils/ft_strcmp.c utils/ft_atoi.c utils/ft_strjoin.c utils/ft_itoa.c utils/ft_memcpy.c\
-	   raycasting/data_init.c raycasting/game.c raycasting/key_bindings.c raycasting/raycasting.c raycasting/render_walls.c\
+	   raycasting/data_init.c raycasting/game.c raycasting/key_bindings.c raycasting/raycasting.c raycasting/render_walls.c raycasting/render_walls_helper.c\
 	   raycasting/texture.c
 
 OBJF = $(addprefix $(OBJDIR)/, $(SRCF:.c=.o))

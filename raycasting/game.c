@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 10:37:00 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/10/13 23:31:35 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/15 04:19:11 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	player_is_wall(t_data *data, double x, double y)
 	int	index_x_max = (x + data->player->rayon) / CUBE_SIZE;
 	int	index_y_min = (y - data->player->rayon) / CUBE_SIZE;
 	int	index_y_max = (y + data->player->rayon) / CUBE_SIZE;
-	
 	if (index_x_min < 0 || index_x_max >= data->cols || index_y_min < 0
 		|| index_y_max >= data->rows
 		|| data->map[index_y_min][index_x_min] == '1'

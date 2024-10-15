@@ -6,40 +6,11 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 21:22:08 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/27 14:06:19 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/15 04:18:03 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-char	*process_line(char *line, int *max_cols, int cols)
-{
-	t_process_line	arg;
-
-	arg.start = 0;
-	arg.end = cols - 1;
-	while (line[arg.start] == '-' && arg.start <= arg.end)
-		arg.start++;
-	while (line[arg.end] == '-' && arg.end >= arg.start)
-		arg.end--;
-	arg.new_len = arg.end - arg.start + 1;
-	if (arg.new_len > *max_cols)
-		*max_cols = arg.new_len;
-	arg.new_line = (char *)malloc((arg.new_len + 1) * sizeof(char));
-	if (!arg.new_line)
-		print_error("Allocation fails!\n");
-	arg.j = 0;
-	while (arg.j < arg.new_len)
-	{
-		if (line[arg.start + arg.j] == ' ')
-			arg.new_line[arg.j] = '-';
-		else
-			arg.new_line[arg.j] = line[arg.start + arg.j];
-		arg.j++;
-	}
-	arg.new_line[arg.j] = '\0';
-	return (arg.new_line);
-}
 
 char	**create_map(char **map, int *old_rows, int *cols)
 {
@@ -100,7 +71,7 @@ void	get_player_position(t_list *parsing)
 	}
 }
 
-void get_dor_position(t_list *parsing)
+void	get_dor_position(t_list *parsing)
 {
 	int	x;
 	int	y;
@@ -117,7 +88,7 @@ void get_dor_position(t_list *parsing)
 					parsing->map[x + 1][y] != '1') && \
 					(parsing->map[x][y + 1] != '1' && \
 					parsing->map[x][y + 1] != '1'))
-				print_error("Invalid Dor position !\n");
+					print_error("Invalid Dor position !\n");
 			}
 			y++;
 		}

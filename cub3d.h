@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:48:52 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/14 00:30:59 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/15 08:31:03 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ typedef struct s_texture
 	struct s_texture	*next;
 }	t_texture;
 
-
 typedef struct s_animation
 {
 	uint32_t 		y;
@@ -159,86 +158,101 @@ typedef struct s_process_map
 	t_pars		*values;
 }	t_process_map;
 
+typedef struct s_wall_var
+{
+	t_wall_render	var;
+	double			top;
+	double			bot;
+	double			wall_height;
+}	t_wall_var;
+
 /*-------------------------------textures-------------------------------*/
 
-int			reverse_bytes(int c);
-void		draw_sprite(t_data *data);
-void		load_animation_frames(t_data *data);
-void		mouse_click_handler(mouse_key_t button, action_t action, modifier_key_t mods, void *param);
-int			reverse_bytes(int c);
-void		load_textures(t_data *data);
+int				reverse_bytes(int c);
+void			draw_sprite(t_data *data);
+void			load_animation_frames(t_data *data);
+void			mouse_click_handler(mouse_key_t button, action_t action,
+					modifier_key_t mods, void *param);
+void			render_top(t_data *data, int nmbr_rays, double top);
+int				reverse_bytes(int c);
+double			get_x_offset(mlx_texture_t *ea, t_data *data);
+int				reverse_bytes(int c);
+void			render_bottom(t_data *data, int nmbr_rays, double bot);
+void			load_textures(t_data *data);
+mlx_texture_t	*get_vertical_texture(t_data *data);
 
 /*-------------------------------raycasting-------------------------------*/
 
-void		data_init(t_data **data, t_list *parsing_lst);
-void		render_window(void *param);
-void		key(mlx_key_data_t datakey, void *param);
-void		mouse(double mouse_x, double mouse_y, void *param);
-int			is_wall(t_data *data, double x, double y);
-void		ray_casting(t_data *data);
-void		draw_ray(t_data *data, double distance);
-void		render_wall(t_data *data, double distance, int nmbr_rays);
-float		normalize(float angle, t_ray *ray);
+void			data_init(t_data **data, t_list *parsing_lst);
+void			render_window(void *param);
+void			key(mlx_key_data_t datakey, void *param);
+void			mouse(double mouse_x, double mouse_y, void *param);
+int				is_wall(t_data *data, double x, double y);
+void			ray_casting(t_data *data);
+void			draw_ray(t_data *data, double distance);
+void			render_wall(t_data *data, double distance, int nmbr_rays);
+float			normalize(float angle, t_ray *ray);
 
 /*-------------------------------get_next_line-------------------------------*/
 
-size_t		ft_strlen_get(char *s);
-int			ft_line_len(char *str);
-char		*ft_line_insert(char *return_line, char *all_line);
-char		*line_maker(char *str);
-char		*ft_read_lines(int fd, char *all_lines);
-char		*get_next_line(int fd);
-char		*ft_left_lines(char *all_lines);
-char		*ft_strjoin_get(char *left_str, char *buff);
+size_t			ft_strlen_get(char *s);
+int				ft_line_len(char *str);
+char			*ft_line_insert(char *return_line, char *all_line);
+char			*line_maker(char *str);
+char			*ft_read_lines(int fd, char *all_lines);
+char			*get_next_line(int fd);
+char			*ft_left_lines(char *all_lines);
+char			*ft_strjoin_get(char *left_str, char *buff);
 
 /*-------------------------------parsing-------------------------------*/
 
-int			check_first_and_last(t_list *parsing_lst);
-int			check_character(char c);
-void		parsing(t_list *parsing, char **argv);
-void		print_error(char *str);
-t_pars		*allocate_pars(int *fd);
-int			open_file(char *argv);
-int			check_line(char *line);
-int			skip_line(char *line);
-t_pars		*init_parsing(char **argv, int *fd, char **line);
-char		*process_parsing(t_pars *pars, int fd, char *line);
-void		texture_syntax(char **arr, t_list *parsing_lst, t_pars *pars);
-void		process_pars(t_list *parsing_lst, t_pars *pars);
-void		clean_str(t_pars *pars);
-t_texture	*create_node(void);
-int			pars_leght(t_pars *pars);
-void		init_texture(t_list *parsing_lst, t_pars *pars);
-void		check_texture(t_list *parsing_lst, t_pars *pars);
-void		free_and_error(t_list *parsing_lst, t_pars	*temp, char *str);
-t_pars		*process_map(t_list *parsing_lst, int fd, char *line);
-void		fill_map(char **arr, int cols, int rows, t_pars *pars);
-char		**get_map(t_pars *tmp, int *num, t_list *parsing_lst);
-void		check_for_tabs(t_list *parsing_lst, t_pars *pars);
-int			check_map(t_list *parsing_lst);
-void		fill_map(char **arr, int cols, int rows, t_pars *pars);
-int			check_comma(char *str);
-t_texture	*allocate_four_nodes(int i);
-int			check_text(char *str);
-int			check_char(char c);
-int			check_start_end(t_list *lst);
+int				check_first_and_last(t_list *parsing_lst);
+int				check_character(char c);
+void			parsing(t_list *parsing, char **argv);
+void			print_error(char *str);
+t_pars			*allocate_pars(int *fd);
+int				open_file(char *argv);
+int				check_line(char *line);
+int				skip_line(char *line);
+t_pars			*init_parsing(char **argv, int *fd, char **line);
+char			*process_parsing(t_pars *pars, int fd, char *line);
+void			texture_syntax(char **arr, t_list *parsing_lst, t_pars *pars);
+void			process_pars(t_list *parsing_lst, t_pars *pars);
+void			clean_str(t_pars *pars);
+t_texture		*create_node(void);
+int				pars_leght(t_pars *pars);
+void			init_texture(t_list *parsing_lst, t_pars *pars);
+void			check_texture(t_list *parsing_lst, t_pars *pars);
+void			free_and_error(t_list *parsing_lst, t_pars	*temp, char *str);
+t_pars			*process_map(t_list *parsing_lst, int fd, char *line);
+void			fill_map(char **arr, int cols, int rows, t_pars *pars);
+char			**get_map(t_pars *tmp, int *num, t_list *parsing_lst);
+void			check_for_tabs(t_list *parsing_lst, t_pars *pars);
+int				check_map(t_list *parsing_lst);
+void			fill_map(char **arr, int cols, int rows, t_pars *pars);
+int				check_comma(char *str);
+t_texture		*allocate_four_nodes(int i);
+int				check_text(char *str);
+int				check_char(char c);
+int				check_start_end(t_list *lst);
+char			*process_line(char *line, int *max_cols, int cols);
 
 /*-------------------------------utils-------------------------------*/
 
-int			ft_atoi(const char *s);
-void		ft_putstr_fd(char *s, int fd);
-char		**ft_split(char const *s, char c);
-char		*ft_strdup(const char *str);
-size_t		ft_strlen(const char *str);
-void		free_list(t_list *list, t_pars *pars);
-void		free_split(char **split);
-char		*ft_custom_strdup(const char *str);
-size_t		array_length(char **arr);
-int			ft_strcmp(const char *s1, const char *s2);
-void		free_pars(t_pars *pars);
-char		**split_texture(char const *s);
-char		*ft_strjoin(char const *s1, char const *s2);
-char		*ft_itoa(int n);
-void		*ft_memcpy(void *destination, const void *source, size_t num);
+int				ft_atoi(const char *s);
+void			ft_putstr_fd(char *s, int fd);
+char			**ft_split(char const *s, char c);
+char			*ft_strdup(const char *str);
+size_t			ft_strlen(const char *str);
+void			free_list(t_list *list, t_pars *pars);
+void			free_split(char **split);
+char			*ft_custom_strdup(const char *str);
+size_t			array_length(char **arr);
+int				ft_strcmp(const char *s1, const char *s2);
+void			free_pars(t_pars *pars);
+char			**split_texture(char const *s);
+char			*ft_strjoin(char const *s1, char const *s2);
+char			*ft_itoa(int n);
+void			*ft_memcpy(void *destination, const void *source, size_t num);
 
 #endif
