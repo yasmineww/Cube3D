@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:48:52 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/15 19:10:06 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/17 16:09:24 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,21 @@ typedef struct s_wall_var
 	double			bot;
 	double			wall_height;
 }	t_wall_var;
+
+typedef struct s_map_handling
+{
+	t_pars	*temp_pars;
+	t_pars	*temp;
+	int		i;
+}	t_map_handling;
+
+typedef struct s_pixel_data
+{
+	int	dy;
+	int	dx;
+	int	scaled_x;
+	int	scaled_y;
+}	t_pixel_data;
 
 /*-------------------------------textures-------------------------------*/
 

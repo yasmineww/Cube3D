@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 12:53:56 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/10/13 23:32:10 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/17 16:04:56 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,10 @@ void	cast_one_ray(t_data *data, int nmbr_rays)
 	distance = distance_h;
 	ray->is_v = 0;
 	if (distance_h > distance_v)
-		{
-			distance = distance_v;
-			ray->is_v = 1;
-		}
+	{
+		distance = distance_v;
+		ray->is_v = 1;
+	}
 	draw_ray(data, distance);
 	distance *= cos(ray->ray_angle - data->player->view_angle);//fish eye
 	render_wall(data, distance, nmbr_rays);

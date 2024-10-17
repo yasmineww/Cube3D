@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_4.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 18:43:14 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/15 19:29:10 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/17 16:09:30 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,29 +20,31 @@ void	free_and_error(t_list *parsing_lst, t_pars	*temp, char *str)
 
 t_pars	*process_map(t_list *parsing_lst, int fd, char *line)
 {
-	t_pars	*temp_pars;
-	t_pars	*temp;
-	int		i;
+	t_map_handling	v;
 
-	temp = malloc(sizeof(t_pars));//unprotected malloc + there is 3 malloc for t_pars
-	temp_pars = temp;
-	i = 0;
+	v.temp = malloc(sizeof(t_pars));
+	if (v.temp == NULL)
+		print_error("Allocation Fails !\n");
+	v.temp_pars = v.temp;
+	v.i = 0;
 	if (line == NULL)
 		free_and_error(parsing_lst, NULL, "Invalid map !\n");
 	while (line && ft_strcmp(line, "\n") != 0 && skip_line(line) == 0)
 	{
-		temp->value = ft_strdup(line);
+		v.temp->value = ft_strdup(line);
 		line = get_next_line(fd);
 		if (line != NULL && ft_strcmp(line, "\n") != 0 && skip_line(line) == 0)
 		{
-			temp->next = malloc(sizeof(t_pars));//unprotected malloc + there is 3 malloc for t_pars
-			temp = temp->next;
-			temp->next = NULL;
+			v.temp->next = malloc(sizeof(t_pars));
+			if (v.temp->next == NULL)
+				print_error("Allocation Fails !\n");
+			v.temp = v.temp->next;
+			v.temp->next = NULL;
 		}
 		else
-			temp->next = NULL;
+			v.temp->next = NULL;
 	}
-	return (temp_pars);
+	return (v.temp_pars);
 }
 
 void	fill_top_border(char **arr, int cols)

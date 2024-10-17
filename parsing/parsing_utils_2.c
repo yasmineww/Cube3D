@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 08:50:13 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/15 19:32:53 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/17 15:38:18 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	num_is_big(char *str)
 	int		i;
 
 	i = 0;
-	arr = ft_split(str, ',');//protect spliiit
+	arr = ft_split(str, ',');
 	while (arr[i])
 	{
 		if (num_len(arr[i]) > 3)
@@ -55,7 +55,7 @@ void	get_color(t_list *parsing_lst, char **arr)
 		print_error("Invalid Map More or less than 2 comma! \n");
 	if (num_is_big(arr[1]) == 1)
 		print_error("Invalid Map Color map number not valid !\n");
-	nums = ft_split(arr[1], ',');//protect spliiit
+	nums = ft_split(arr[1], ',');
 	if (ft_strcmp(arr[0], "C") == 0)
 	{
 		parsing_lst->texture->c[0] = ft_atoi(nums[0]);
@@ -84,7 +84,7 @@ void	init_texture(t_list *parsing_lst, t_pars *pars)
 	temp = parsing_lst->texture;
 	while (pars)
 	{
-		arr = split_texture(pars->value);//pprotect spliiit
+		arr = split_texture(pars->value);
 		if (check_text((arr[0])) != 1)
 		{
 			temp->key = ft_strdup(arr[0]);

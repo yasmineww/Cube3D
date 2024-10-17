@@ -3,37 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 17:47:15 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/10/14 00:34:08 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/17 16:08:29 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-void	load_textures(t_data *data)
-{
-	t_texture	*texture;
-
-	texture = data->texture;
-	while (texture)
-	{
-		if (ft_strcmp(texture->key, "EA") == 0)
-			data->mlx->ea = mlx_load_png(texture->value);
-		else if (ft_strcmp(texture->key, "NO") == 0)
-			data->mlx->no = mlx_load_png(texture->value);
-		else if (ft_strcmp(texture->key, "SO") == 0)
-			data->mlx->so = mlx_load_png(texture->value);
-		else if (ft_strcmp(texture->key, "WE") == 0)
-			data->mlx->we = mlx_load_png(texture->value);
-		texture = texture->next;
-	}
-	data->mlx->door = mlx_load_png("textures/door.png");
-	if (data->mlx->ea == NULL || data->mlx->no == NULL || \
-		data->mlx->so == NULL || data->mlx->we == NULL)
-		print_error("Failed to load textures!");
-}
 
 void	load_animation_frames(t_data *data)
 {
@@ -56,7 +33,8 @@ void	load_animation_frames(t_data *data)
 	}
 }
 
-void	mouse_click_handler(mouse_key_t button, action_t action, modifier_key_t mods, void *param)
+void	mouse_click_handler(mouse_key_t button, action_t action, \
+	modifier_key_t mods, void *param)
 {
 	t_data	*data;
 
@@ -96,29 +74,27 @@ void	manage_animation_frame(t_data *data)
 
 void	process_pixel_data(t_animation *animation, t_data *data)
 {
-	int	dy;
-	int	dx;
-	int	scaled_x;
-	int	scaled_y;
+	t_pixel_data	var;
 
 	if (animation->a != 0)
 	{
-		dy = -1;
-		while (++dy < 3)
+		var.dy = -1;
+		while (++var.dy < 3)
 		{
-			dx = -1;
-			while (++dx < 3)
+			var.dx = -1;
+			while (++var.dx < 3)
 			{
-				scaled_x = 700 + (animation->x * 3) + dx;
-				scaled_y = 680 + (animation->y * 3) + dy;
-				if (scaled_x >= 0 && scaled_x < W_WIDTH && scaled_y >= 0 \
-					&& scaled_y < W_HEIGHT)
+				var.scaled_x = 700 + (animation->x * 3) + var.dx;
+				var.scaled_y = 680 + (animation->y * 3) + var.dy;
+				if (var.scaled_x >= 0 && var.scaled_x < W_WIDTH \
+					&& var.scaled_y >= 0 \
+					&& var.scaled_y < W_HEIGHT)
 				{
 					animation->color = (animation->a << 24) | \
 					(animation->b << 16) | (animation->g << 8) | animation->r;
 					animation->color = reverse_bytes(animation->color);
 					mlx_put_pixel(data->mlx->img, \
-						scaled_x, scaled_y, animation->color);
+						var.scaled_x, var.scaled_y, animation->color);
 				}
 			}
 		}
@@ -137,7 +113,8 @@ void	draw_sprite(t_data *data)
 		animation->x = -1;
 		while (++animation->x < animation->frame->width)
 		{
-			animation->pixel_index = (animation->y * animation->frame->width + animation->x) * 4;
+			animation->pixel_index = (animation->y * \
+				animation->frame->width + animation->x) * 4;
 			animation->r = animation->frame->pixels[animation->pixel_index + 0];
 			animation->g = animation->frame->pixels[animation->pixel_index + 1];
 			animation->b = animation->frame->pixels[animation->pixel_index + 2];

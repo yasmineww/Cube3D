@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 18:01:17 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/19 15:25:00 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/17 15:44:50 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	**ft_split(char const *s, char c)
 	word = ft_countword(s, c);
 	str = (char **)malloc((word + 1) * sizeof(char *));
 	if (!str)
-		return (NULL);
+		print_error("Allocation Fails !\n");
 	w = 0;
 	id = 0;
 	while (w < word)

@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 15:21:42 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/15 22:05:29 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/17 15:51:59 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ char	*ft_read_lines(int fd, char *all_lines)
 		}
 		buff[num_of_read] = '\0';
 		all_lines = ft_strjoin_get(all_lines, buff);
+		if (all_lines == NULL)
+			print_error("Allocation Failed for columns!\n");
 	}
 	free (buff);
 	return (all_lines);

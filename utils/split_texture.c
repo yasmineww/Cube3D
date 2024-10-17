@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_texture.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 10:06:10 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/15 19:34:13 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/17 16:13:17 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,23 +46,17 @@ static char	*get_word(const char *s, size_t *index)
 	len = *index - start;
 	word = (char *)malloc((len + 1) * sizeof(char));
 	if (!word)
-		return (NULL);
+		print_error("Allocation Fails !\n");
 	word[len] = '\0';
 	while (len--)
 		word[len] = s[start + len];
 	return (word);
 }
 
-char	**split_texture(char const *s)//need norm
+char	**allocate_and_split(char const *s, char **result)
 {
 	size_t	index;
-	char	**result;
 
-	if (!s)
-		return (NULL);
-	result = (char **)malloc(3 * sizeof(char *));
-	if (!result)
-		return (NULL);
 	index = 0;
 	result[0] = get_word(s, &index);
 	if (!result[0])
@@ -78,9 +72,21 @@ char	**split_texture(char const *s)//need norm
 	{
 		result[1] = (char *)malloc(1 * sizeof(char));
 		if (!result[1])
-			return (free_mem(result));
+			print_error("Allocation Fails!\n");
 		result[1][0] = '\0';
 	}
 	result[2] = NULL;
 	return (result);
+}
+
+char	**split_texture(char const *s)
+{
+	char	**result;
+
+	if (!s)
+		return (NULL);
+	result = (char **)malloc(3 * sizeof(char *));
+	if (!result)
+		print_error("Allocation Fails!\n");
+	return (allocate_and_split(s, result));
 }

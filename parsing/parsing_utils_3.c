@@ -3,22 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_3.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 08:54:21 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/15 19:10:28 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/17 16:02:04 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-char	**get_map(t_pars *tmp, int *num, t_list *parsing_lst)
+t_process_map	initialize_map_dimensions(t_pars *tmp, t_process_map data)
 {
-	t_process_map	data;
-
 	data.rows = 0;
-	data.i = 0;
 	data.cols = 0;
+	data.i = 0;
 	data.values = tmp;
 	while (tmp)
 	{
@@ -27,11 +25,30 @@ char	**get_map(t_pars *tmp, int *num, t_list *parsing_lst)
 		data.rows++;
 		tmp = tmp->next;
 	}
-	data.rows = data.rows + 2;
-	data.cols = data.cols + 2;
-	data.arr = (char **)malloc(data.rows * sizeof(char *));//protect malloc
+	data.rows += 2;
+	data.cols += 2;
+	data.arr = (char **)malloc(data.rows * sizeof(char *));
+	if (data.arr == NULL)
+		print_error("Allocation Fails for rows!\n");
 	while (data.i < data.rows)
-		data.arr[data.i++] = (char *)malloc(data.cols * sizeof(char));//protect malloc
+	{
+		data.arr[data.i] = (char *)malloc(data.cols * sizeof(char));
+		if (data.arr[data.i] == NULL)
+			print_error("Allocation Failed for columns!\n");
+		data.i++;
+	}
+	return (data);
+}
+
+char	**get_map(t_pars *tmp, int *num, t_list *parsing_lst)
+{
+	t_process_map	data;
+
+	data.rows = 0;
+	data.cols = 0;
+	data.i = 0;
+	data.values = tmp;
+	data = initialize_map_dimensions(tmp, data);
 	if (data.rows <= 4)
 		print_error("Invalid Map !\n");
 	parsing_lst->rows = data.rows;
