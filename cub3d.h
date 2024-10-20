@@ -108,6 +108,7 @@ typedef struct s_data
 	t_texture		*texture;
 	t_animation		*animation;
 	mlx_texture_t	*images[6];
+	mlx_texture_t	*cross_aim;
 	char			**map;
 	int				rows;
 	int				cols;
@@ -182,6 +183,16 @@ typedef struct s_pixel_data
 	int	scaled_x;
 	int	scaled_y;
 }	t_pixel_data;
+
+typedef struct s_keys
+{
+	int		x;
+	int		y;
+	int		window_width;
+	int		window_height;
+	int		center_x;
+	int		center_y;
+}	t_keys;
 
 /*-------------------------------textures-------------------------------*/
 

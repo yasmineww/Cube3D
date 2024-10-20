@@ -61,8 +61,8 @@ void	get_player_position(t_list *parsing)
 		{
 			if (check_curr_char(parsing->map[x][y]) == 1)
 			{
-				parsing->x = x;
-				parsing->y = y;
+				parsing->x = y;
+				parsing->y = x;
 			}
 			y++;
 		}

@@ -45,7 +45,7 @@ void	render_bottom(t_data *data, int nmbr_rays, double bot)
 	while (i < W_HEIGHT)
 	{
 		if (nmbr_rays >= 0 && nmbr_rays < W_WIDTH && bot >= 0 && bot < W_HEIGHT)
-			mlx_put_pixel(data->mlx->img, nmbr_rays, i, 0x555555);
+			mlx_put_pixel(data->mlx->img, nmbr_rays, i, 0xFFFFF1DB);
 		i++;
 	}
 }

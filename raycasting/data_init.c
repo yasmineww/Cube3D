@@ -55,4 +55,5 @@ void	data_init(t_data **data, t_list *parsing_lst)
 	(*data)->mlx->init = mlx_init(W_WIDTH, W_HEIGHT, "CUBE3D", 0);
 	if (!(*data)->mlx->init)
 		exit(1);
+
 }

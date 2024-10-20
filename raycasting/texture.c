@@ -19,6 +19,7 @@ void	load_animation_frames(t_data *data)
 	int		i;
 
 	i = 1;
+	data->cross_aim = mlx_load_png("textures/crosshair.png");
 	while (i <= 6)
 	{
 		filename = ft_strjoin("textures/", ft_itoa(i));
@@ -72,10 +73,25 @@ void	manage_animation_frame(t_data *data)
 	}
 }
 
-void	process_pixel_data(t_animation *animation, t_data *data)
+void	process_pixel_data(t_animation *animation, t_data *data, int flag)
 {
 	t_pixel_data	var;
+	int				x;
+	int				y;
+	int				c;
 
+	if (flag == 0)
+	{
+		x = 800;
+		y = 680;
+		c = 3;
+	}
+	else
+	{
+		x = 700;
+		y = 500;
+		c = 2;
+	}
 	if (animation->a != 0)
 	{
 		var.dy = -1;
@@ -84,8 +100,8 @@ void	process_pixel_data(t_animation *animation, t_data *data)
 			var.dx = -1;
 			while (++var.dx < 3)
 			{
-				var.scaled_x = 700 + (animation->x * 3) + var.dx;
-				var.scaled_y = 680 + (animation->y * 3) + var.dy;
+				var.scaled_x = x + (animation->x * c) + var.dx;
+				var.scaled_y = y + (animation->y * c) + var.dy;
 				if (var.scaled_x >= 0 && var.scaled_x < W_WIDTH \
 					&& var.scaled_y >= 0 \
 					&& var.scaled_y < W_HEIGHT)
@@ -104,7 +120,9 @@ void	process_pixel_data(t_animation *animation, t_data *data)
 void	draw_sprite(t_data *data)
 {
 	t_animation	*animation;
+	int			flag;
 
+	flag = 0;
 	animation = data->animation;
 	data->animation->frame = data->images[data->current_frame - 1];
 	animation->y = -1;
@@ -119,7 +137,23 @@ void	draw_sprite(t_data *data)
 			animation->g = animation->frame->pixels[animation->pixel_index + 1];
 			animation->b = animation->frame->pixels[animation->pixel_index + 2];
 			animation->a = animation->frame->pixels[animation->pixel_index + 3];
-			process_pixel_data(animation, data);
+			process_pixel_data(animation, data, flag);
+		}
+	}
+	animation->y = -1;
+	while (++animation->y < data->cross_aim->height)
+	{
+		flag = 1;
+		animation->x = -1;
+		while (++animation->x < data->cross_aim->width)
+		{
+			animation->pixel_index = (animation->y * \
+				data->cross_aim->width + animation->x) * 4;
+			animation->r = data->cross_aim->pixels[animation->pixel_index + 0];
+			animation->g = data->cross_aim->pixels[animation->pixel_index + 1];
+			animation->b = data->cross_aim->pixels[animation->pixel_index + 2];
+			animation->a = data->cross_aim->pixels[animation->pixel_index + 3];
+			process_pixel_data(animation, data, flag);
 		}
 	}
 	manage_animation_frame(data);

@@ -15,15 +15,18 @@
 void	mouse(double mouse_x, double mouse_y, void *param)
 {
 	t_data	*data;
-	int		x;
-	int		y;
+	t_keys	key;
 
 	(void)mouse_x;
 	(void)mouse_y;
 	data = param;
-	mlx_get_mouse_pos(data->mlx->init, &x, &y);
-	data->player->view_angle += 0.0009 * (double)(x - data->player->x);
-	mlx_set_mouse_pos(data->mlx->init, data->player->x, data->player->y);
+	key.window_width = W_HEIGHT;
+	key.window_height = W_WIDTH;
+	key.center_x = key.window_width / 2;
+	key.center_y = key.window_height / 2;
+	mlx_get_mouse_pos(data->mlx->init, &key.x, &key.y);
+	data->player->view_angle += 0.0009 * (double)(key.x - key.center_x);
+	mlx_set_mouse_pos(data->mlx->init, key.center_x, key.center_y);
 }
 
 void	key(mlx_key_data_t datakey, void *param)
