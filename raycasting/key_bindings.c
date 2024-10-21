@@ -62,6 +62,7 @@ void	key(mlx_key_data_t datakey, void *param)
 	data = param;
 	key = datakey.key;
 	action = datakey.action;
+
 	if (key == 256)
 	{
 		mlx_delete_image(data->mlx->init, data->mlx->img);
@@ -71,6 +72,7 @@ void	key(mlx_key_data_t datakey, void *param)
 	}
 	if (action == 2)
 		action = 1;
+
 	if (key == 'W')
 		data->player->walk = (action * 1) * 2 * M_PI;
 	if (key == 'S')
@@ -83,4 +85,12 @@ void	key(mlx_key_data_t datakey, void *param)
 		data->player->view_angle += (action * 1) * 0.05;
 	if (key == MLX_KEY_LEFT)
 		data->player->view_angle += (action * -1) * 0.05;
+	if (key == 'O' && action == 1)
+	{
+		if (data->O_key == 0)
+			data->O_key = 1;
+		else if (data->O_key == 1)
+			data->O_key = 0;
+	}
 }
+

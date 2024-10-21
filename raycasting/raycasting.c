@@ -34,7 +34,7 @@ double	h_intersect(t_data *data, t_ray *ray)
 	{
 		dist = hypot(pos_x - data->player->x, pos_y - data->player->y);
 		res = is_wall(data, pos_x, pos_y - data->ray->up);
-		if (res == 2 && dist >= 50)
+		if (res == 2 && data->O_key != 1)
 		{
 			data->ray->door_h = 1;
 			break ;
@@ -68,7 +68,7 @@ double	v_intersect(t_data *data, t_ray *ray)
 	{
 		dist = hypot(pos_x - data->player->x, pos_y - data->player->y);
 		res = is_wall(data, pos_x - data->ray->left, pos_y);
-		if (res == 2 && dist >= 50)
+		if (res == 2 && data->O_key != 1)
 		{
 			data->ray->door_v = 1;
 			break ;

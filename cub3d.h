@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:48:52 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/21 11:12:21 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/21 16:53:02 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ typedef struct s_data
 	int				mouse_clicked;
 	int				current_frame;
 	int				animation_phase;
+	int				O_key;
 }	t_data;
 
 typedef struct s_line
@@ -267,6 +268,11 @@ int				check_text(char *str);
 int				check_char(char c);
 int				check_start_end(t_list *lst);
 char			*process_line(char *line, int *max_cols, int cols);
+void			process_pixel_data(t_animation *animation, \
+				t_data *data, int flag);
+void			process_sprite_frame(t_data *data, \
+				t_animation *animation, int flag);
+void			manage_animation_frame(t_data *data);
 
 /*-------------------------------utils-------------------------------*/
 

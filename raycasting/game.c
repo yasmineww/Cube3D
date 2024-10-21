@@ -30,6 +30,13 @@ int	wall_collision(t_data *data, double x, double y)
 		|| data->map[index_y_max][index_x_min] == '1'
 		|| data->map[index_y_min][index_x_max] == '1')
 		return (1);
+	if ((index_x_min < 0 || index_x_max >= data->cols || index_y_min < 0
+		|| index_y_max >= data->rows
+		|| data->map[index_y_min][index_x_min] == 'D'
+		|| data->map[index_y_max][index_x_max] == 'D'
+		|| data->map[index_y_max][index_x_min] == 'D'
+		|| data->map[index_y_min][index_x_max] == 'D') && data->O_key != 1)
+		return (1);
 	return (0);
 }
 

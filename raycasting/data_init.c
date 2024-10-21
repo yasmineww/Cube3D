@@ -67,6 +67,7 @@ void	init_var(t_data *data, t_list *parsing_lst)
 	data->player->y = parsing_lst->y * CUBE_SIZE + CUBE_SIZE / 2;
 	data->player->turn = 0;
 	data->player->walk = 0;
+	data->O_key = 0;
 	data->player->rayon = 3;
 	data->player->view_angle = parsing_lst->view_angle;
 	data->player->move_speed = 7;
