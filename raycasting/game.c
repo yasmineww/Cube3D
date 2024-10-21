@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 10:37:00 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/10/21 11:16:54 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/21 11:44:20 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ void	move_player(t_player *player, t_data *data)
 	angle = player->view_angle + player->turn + player->walk;
 	x = player->x + player->move_speed * cos(angle);
 	y = player->y + player->move_speed * sin(angle);
-	// x = roundf(player->x + player->move_speed * cos(angle));
-	// y = roundf(player->y + player->move_speed * sin(angle));
 	if (!wall_collision(data, x, y))
 	{
 		if (player->turn || player->walk)
@@ -70,8 +68,7 @@ void	create_player(t_data *data)
 		j = size * -1;
 		while (j <= size)
 		{
-			if (j * j + i * i <= size * size && j + player->x < W_WIDTH
-				&& i + player->y < W_HEIGHT)
+			if (j * j + i * i <= size * size)
 				mlx_put_pixel(data->mlx->img, (j + M_WIDTH / 2),
 					(i + M_HEIGHT / 2), 0x949494FF);
 			j++;
