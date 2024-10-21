@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:48:52 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/17 16:09:24 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/21 11:12:21 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ typedef struct s_ray
 	double	distance_v;
 	double	distance_h;
 	int		door;
+	int		door_h;
+	int		door_v;
 	int		up;
 	int		down;
 	int		left;
@@ -198,7 +200,6 @@ typedef struct s_keys
 
 int				reverse_bytes(int c);
 void			draw_sprite(t_data *data);
-void			load_animation_frames(t_data *data);
 void			mouse_click_handler(mouse_key_t button, action_t action,
 					modifier_key_t mods, void *param);
 void			render_top(t_data *data, int nmbr_rays, double top);
@@ -220,6 +221,8 @@ void			ray_casting(t_data *data);
 void			draw_ray(t_data *data, double distance);
 void			render_wall(t_data *data, double distance, int nmbr_rays);
 float			normalize(float angle, t_ray *ray);
+void			my_put_pixel(t_data *data, int x, int y, int color);
+void			draw_ray(t_data *data, double distance);
 
 /*-------------------------------get_next_line-------------------------------*/
 

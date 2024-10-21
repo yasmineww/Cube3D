@@ -3,45 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 12:53:56 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/10/17 16:04:56 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/21 11:34:05 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-void	draw_ray(t_data *data, double distance)
-{
-	int		ray_x;
-	int		ray_y;
-
-	while (--distance >= 0)
-	{
-		ray_x = (M_WIDTH / 2 + cos(data->ray->ray_angle) * distance);
-		ray_y = (M_HEIGHT / 2 + sin(data->ray->ray_angle) * distance);
-		if (ray_x < 0 || ray_x > M_WIDTH || ray_y < 0 || ray_y > M_HEIGHT)
-			continue ;
-		mlx_put_pixel(data->mlx->img, ray_x, ray_y, 0x94C8F0FF);
-	}
-}
-
-float	normalize(float angle, t_ray *ray)
-{
-	ray->down = 0;
-	ray->left = 0;
-	angle = fmod(angle, 2 * M_PI);
-	if (angle < 0)
-		angle += 2 * M_PI;
-	if (angle > 0 && angle < M_PI)
-		ray->down = 1;
-	if (angle > M_PI / 2 && angle < 3 * M_PI / 2)
-		ray->left = 1;
-	ray->up = !ray->down;
-	ray->right = !ray->left;
-	return (angle);
-}
 
 double	h_intersect(t_data *data, t_ray *ray)
 {
@@ -49,7 +18,10 @@ double	h_intersect(t_data *data, t_ray *ray)
 	double	ystep;
 	double	pos_x;
 	double	pos_y;
+	int		res;
+	double	dist;
 
+	data->ray->door_h = 0;
 	ystep = CUBE_SIZE;
 	if (data->ray->up)
 		ystep *= -1;
@@ -58,8 +30,15 @@ double	h_intersect(t_data *data, t_ray *ray)
 		xstep *= -1;
 	pos_y = (data->player->y / CUBE_SIZE + ray->down) * CUBE_SIZE;
 	pos_x = data->player->x + (pos_y - data->player->y) / tan(ray->ray_angle);
-	while (!is_wall(data, pos_x, pos_y - data->ray->up))
+	while (is_wall(data, pos_x, pos_y - data->ray->up) != 1)
 	{
+		dist = hypot(pos_x - data->player->x, pos_y - data->player->y);
+		res = is_wall(data, pos_x, pos_y - data->ray->up);
+		if (res == 2 && dist >= 50)
+		{
+			data->ray->door_h = 1;
+			break ;
+		}
 		pos_x += xstep;
 		pos_y += ystep;
 	}
@@ -73,7 +52,10 @@ double	v_intersect(t_data *data, t_ray *ray)
 	double	ystep;
 	double	pos_x;
 	double	pos_y;
+	int		res;
+	double	dist;
 
+	data->ray->door_v = 0;
 	xstep = CUBE_SIZE;
 	if (data->ray->left)
 		xstep *= -1;
@@ -82,8 +64,15 @@ double	v_intersect(t_data *data, t_ray *ray)
 		ystep *= -1;
 	pos_x = (data->player->x / CUBE_SIZE + ray->right) * CUBE_SIZE;
 	pos_y = data->player->y + (pos_x - data->player->x) * tan(ray->ray_angle);
-	while (!is_wall(data, pos_x - data->ray->left, pos_y))
+	while (is_wall(data, pos_x - data->ray->left, pos_y) != 1)
 	{
+		dist = hypot(pos_x - data->player->x, pos_y - data->player->y);
+		res = is_wall(data, pos_x - data->ray->left, pos_y);
+		if (res == 2 && dist >= 50)
+		{
+			data->ray->door_v = 1;
+			break ;
+		}
 		pos_x += xstep;
 		pos_y += ystep;
 	}
@@ -104,26 +93,27 @@ void	cast_one_ray(t_data *data, int nmbr_rays)
 	distance_h = h_intersect(data, ray);
 	distance_v = v_intersect(data, ray);
 	distance = distance_h;
+	data->ray->door = data->ray->door_h;
 	ray->is_v = 0;
 	if (distance_h > distance_v)
 	{
+		data->ray->door = data->ray->door_v;
 		distance = distance_v;
 		ray->is_v = 1;
 	}
 	draw_ray(data, distance);
-	distance *= cos(ray->ray_angle - data->player->view_angle);//fish eye
+	distance *= cos(ray->ray_angle - data->player->view_angle);
 	render_wall(data, distance, nmbr_rays);
 }
 
 void	ray_casting(t_data *data)
 {
-	t_ray			*ray;
-	int				nmbr_rays;
+	t_ray	*ray;
+	int		nmbr_rays;
 
 	nmbr_rays = 0;
 	ray = data->ray;
 	ray->ray_angle = data->player->view_angle - (ray->pov / 2);
-	load_textures(data);
 	while (nmbr_rays < W_WIDTH)
 	{
 		cast_one_ray(data, nmbr_rays);

@@ -6,11 +6,35 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 11:46:37 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/10/13 23:26:10 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/21 10:32:54 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+void	mouse_click_handler(mouse_key_t button, action_t action, \
+	modifier_key_t mods, void *param)
+{
+	t_data	*data;
+
+	data = param;
+	(void)mods;
+	data->mouse_clicked = 0;
+	if (button == MLX_MOUSE_BUTTON_LEFT && action == MLX_PRESS)
+	{
+		data->mouse_clicked = 1;
+		if (data->animation_phase == 1)
+		{
+			data->animation_phase = 2;
+			data->current_frame = 2;
+		}
+		else
+		{
+			data->animation_phase = 1;
+			data->current_frame = 1;
+		}
+	}
+}
 
 void	mouse(double mouse_x, double mouse_y, void *param)
 {

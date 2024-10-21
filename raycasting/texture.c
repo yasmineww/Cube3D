@@ -3,60 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 17:47:15 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/10/17 16:08:29 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/21 10:32:49 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-void	load_animation_frames(t_data *data)
-{
-	char	*filename;
-	char	*tmp;
-	int		i;
-
-	i = 1;
-	data->cross_aim = mlx_load_png("textures/crosshair.png");
-	while (i <= 6)
-	{
-		filename = ft_strjoin("textures/", ft_itoa(i));
-		tmp = filename;
-		filename = ft_strjoin(tmp, ".png");
-		free(tmp);
-		data->images[i - 1] = mlx_load_png(filename);
-		free(filename);
-		if (!data->images[i - 1])
-			print_error("Failed to load image \n");
-		i++;
-	}
-}
-
-void	mouse_click_handler(mouse_key_t button, action_t action, \
-	modifier_key_t mods, void *param)
-{
-	t_data	*data;
-
-	data = param;
-	(void)mods;
-	data->mouse_clicked = 0;
-	if (button == MLX_MOUSE_BUTTON_LEFT && action == MLX_PRESS)
-	{
-		data->mouse_clicked = 1;
-		if (data->animation_phase == 1)
-		{
-			data->animation_phase = 2;
-			data->current_frame = 2;
-		}
-		else
-		{
-			data->animation_phase = 1;
-			data->current_frame = 1;
-		}
-	}
-}
 
 void	manage_animation_frame(t_data *data)
 {

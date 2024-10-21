@@ -3,21 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 10:37:00 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/10/15 04:19:11 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/21 11:16:54 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	player_is_wall(t_data *data, double x, double y)
+int	wall_collision(t_data *data, double x, double y)
 {
-	int	index_x_min = (x - data->player->rayon) / CUBE_SIZE;
-	int	index_x_max = (x + data->player->rayon) / CUBE_SIZE;
-	int	index_y_min = (y - data->player->rayon) / CUBE_SIZE;
-	int	index_y_max = (y + data->player->rayon) / CUBE_SIZE;
+	int	index_x_min;
+	int	index_x_max;
+	int	index_y_min;
+	int	index_y_max;
+
+	index_x_min = (x - data->player->rayon) / CUBE_SIZE;
+	index_x_max = (x + data->player->rayon) / CUBE_SIZE;
+	index_y_min = (y - data->player->rayon) / CUBE_SIZE;
+	index_y_max = (y + data->player->rayon) / CUBE_SIZE;
 	if (index_x_min < 0 || index_x_max >= data->cols || index_y_min < 0
 		|| index_y_max >= data->rows
 		|| data->map[index_y_min][index_x_min] == '1'
@@ -28,31 +33,6 @@ int	player_is_wall(t_data *data, double x, double y)
 	return (0);
 }
 
-int	is_wall(t_data *data, double x, double y)
-{
-	int	index_x;
-	int	index_y;
-
-	index_x = x / CUBE_SIZE;
-	index_y = y / CUBE_SIZE;
-	if (index_x < 0 || index_x >= data->cols || index_y < 0
-		|| index_y >= data->rows || data->map[index_y][index_x] == '1')
-			return (1);
-	else if (index_x < 0 || index_x >= data->cols || index_y < 0
-		|| index_y >= data->rows || data->map[index_y][index_x] == 'D')
-		{
-			if ((data->player->x >= x - 50 && data->player->y >= y + 50)
-			|| (data->player->x >= x + 50 && data->player->y >= y - 50)
-			|| (data->player->x <= x - 50 && data->player->y <= y + 50)
-			|| (data->player->x <= x + 50 && data->player->y <= y - 50))
-			{
-				data->ray->door = 1;
-				return (1);
-			}
-		}
-	return (0);
-}
-
 void	move_player(t_player *player, t_data *data)
 {
 	int		x;
@@ -60,9 +40,11 @@ void	move_player(t_player *player, t_data *data)
 	double	angle;
 
 	angle = player->view_angle + player->turn + player->walk;
-	x = roundf(player->x + player->move_speed * cos(angle));
-	y = roundf(player->y + player->move_speed * sin(angle));
-	if (!player_is_wall(data, x, y))
+	x = player->x + player->move_speed * cos(angle);
+	y = player->y + player->move_speed * sin(angle);
+	// x = roundf(player->x + player->move_speed * cos(angle));
+	// y = roundf(player->y + player->move_speed * sin(angle));
+	if (!wall_collision(data, x, y))
 	{
 		if (player->turn || player->walk)
 		{
@@ -86,32 +68,15 @@ void	create_player(t_data *data)
 	while (i <= size)
 	{
 		j = size * -1;
-		while (j < size)
+		while (j <= size)
 		{
 			if (j * j + i * i <= size * size && j + player->x < W_WIDTH
 				&& i + player->y < W_HEIGHT)
-				mlx_put_pixel(data->mlx->img, (j + M_WIDTH / 2), (i + M_HEIGHT / 2),
-					0x949494FF);
+				mlx_put_pixel(data->mlx->img, (j + M_WIDTH / 2),
+					(i + M_HEIGHT / 2), 0x949494FF);
 			j++;
 		}
 		i++;
-	}
-}
-
-void	my_put_pixel(t_data *data, int x, int y, int color)
-{
-	int	i;
-	int	j;
-
-	i = -1;
-	while (++i < CUBE_SIZE)
-	{
-		j = -1;
-		while (++j < CUBE_SIZE)
-		{
-			if ((j + x) >= 0 && (i + y) >= 0 && (j + x) < M_WIDTH && (i + y) < M_HEIGHT)
-				mlx_put_pixel(data->mlx->img, (j + x), (i + y), color);
-		}
 	}
 }
 
@@ -131,11 +96,11 @@ void	render_2d_map(t_data *data)
 		while (++j < data->cols)
 		{
 			if (data->map[i][j] == '1')
-				my_put_pixel(data, (j * CUBE_SIZE + var_x), (i * CUBE_SIZE + var_y),
-					0xFFAA00FF);
+				my_put_pixel(data, (j * CUBE_SIZE + var_x),
+					(i * CUBE_SIZE + var_y), 0xFFAA00FF);
 			else if (data->map[i][j] == 'D')
-				my_put_pixel(data, (j * CUBE_SIZE + var_x), (i * CUBE_SIZE + var_y),
-					0xFFEA7FFF);
+				my_put_pixel(data, (j * CUBE_SIZE + var_x),
+					(i * CUBE_SIZE + var_y), 0xFFEA7FFF);
 		}
 	}
 }
