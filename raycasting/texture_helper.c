@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_helper.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:49:28 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/21 16:50:02 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/23 22:52:05 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	process_cross_aim(t_data *data, t_animation *animation, int flag)
 			animation->g = data->cross_aim->pixels[animation->pixel_index + 1];
 			animation->b = data->cross_aim->pixels[animation->pixel_index + 2];
 			animation->a = data->cross_aim->pixels[animation->pixel_index + 3];
-			process_pixel_data(animation, data, flag);
+			process_pixel_data(data, flag);
 		}
 	}
 }

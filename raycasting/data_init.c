@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:44:36 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/10/22 16:39:28 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/23 22:44:47 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	init_var(t_data *data, t_list *parsing_lst)
 	data->player->y = parsing_lst->y * CUBE_SIZE + CUBE_SIZE / 2;
 	data->player->turn = 0;
 	data->player->walk = 0;
-	data->O_key = 0;
+	data->open = 0;
 	data->player->rayon = 3;
 	data->player->view_angle = parsing_lst->view_angle;
 	data->player->move_speed = 7;
@@ -80,23 +80,11 @@ void	init_var(t_data *data, t_list *parsing_lst)
 void	data_init(t_data **data, t_list *parsing_lst)
 {
 	*data = gc_malloc(&parsing_lst->gc, sizeof(t_data));
-	if (!*data)
-		exit(1);
-	(*data)->mlx = gc_malloc (&parsing_lst->gc,sizeof(t_mlx));
-	if (!(*data)->mlx)
-		exit(1);
-	(*data)->player = gc_malloc (&parsing_lst->gc,sizeof(t_player));
-	if (!(*data)->player)
-		exit(1);
-	(*data)->ray = gc_malloc (&parsing_lst->gc,sizeof(t_ray));
-	if (!(*data)->ray)
-		exit(1);
-	(*data)->texture = gc_malloc (&parsing_lst->gc,sizeof(t_texture));
-	if (!(*data)->texture)
-		exit(1);
-	(*data)->animation = gc_malloc (&parsing_lst->gc,sizeof(t_animation));
-	if (!(*data)->texture)
-		exit(1);
+	(*data)->mlx = gc_malloc (&parsing_lst->gc, sizeof(t_mlx));
+	(*data)->player = gc_malloc (&parsing_lst->gc, sizeof(t_player));
+	(*data)->ray = gc_malloc (&parsing_lst->gc, sizeof(t_ray));
+	(*data)->texture = gc_malloc (&parsing_lst->gc, sizeof(t_texture));
+	(*data)->animation = gc_malloc (&parsing_lst->gc, sizeof(t_animation));
 	init_var(*data, parsing_lst);
 	(*data)->mlx->init = mlx_init(W_WIDTH, W_HEIGHT, "CUBE3D", 0);
 	if (!(*data)->mlx->init)

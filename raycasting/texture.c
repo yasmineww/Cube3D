@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 17:47:15 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/10/21 16:49:58 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/23 22:51:10 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ void	set_pixel_parameters(int flag, int *x, int *y, int *c)
 	}
 }
 
-void	process_pixel(t_animation *animation, t_data *data, int x, int y, int c)
+void	process_pixel(t_data *data, int x, int y, int c)
 {
 	t_pixel_data	var;
 
-	if (animation->a != 0)
+	if (data->animation->a != 0)
 	{
 		var.dy = -1;
 		while (++var.dy < 3)
@@ -55,23 +55,23 @@ void	process_pixel(t_animation *animation, t_data *data, int x, int y, int c)
 			var.dx = -1;
 			while (++var.dx < 3)
 			{
-				var.scaled_x = x + (animation->x * c) + var.dx;
-				var.scaled_y = y + (animation->y * c) + var.dy;
+				var.scaled_x = x + (data->animation->x * c) + var.dx;
+				var.scaled_y = y + (data->animation->y * c) + var.dy;
 				if (var.scaled_x >= 0 && var.scaled_x < W_WIDTH \
 					&& var.scaled_y >= 0 && var.scaled_y < W_HEIGHT)
 				{
-					animation->color = (animation->a << 24) | \
-					(animation->b << 16) | (animation->g << 8) | animation->r;
-					animation->color = reverse_bytes(animation->color);
+					data->animation->color = (data->animation->a << 24) | \
+					(data->animation->b << 16) | (data->animation->g << 8) | data->animation->r;
+					data->animation->color = reverse_bytes(data->animation->color);
 					mlx_put_pixel(data->mlx->img, \
-						var.scaled_x, var.scaled_y, animation->color);
+						var.scaled_x, var.scaled_y, data->animation->color);
 				}
 			}
 		}
 	}
 }
 
-void	process_pixel_data(t_animation *animation, t_data *data, int flag)
+void	process_pixel_data(t_data *data, int flag)
 {
 	int	x;
 	int	y;
@@ -81,7 +81,7 @@ void	process_pixel_data(t_animation *animation, t_data *data, int flag)
 	y = 0;
 	c = 0;
 	set_pixel_parameters(flag, &x, &y, &c);
-	process_pixel(animation, data, x, y, c);
+	process_pixel(data, x, y, c);
 }
 
 void	process_sprite_frame(t_data *data, t_animation *animation, int flag)
@@ -98,7 +98,7 @@ void	process_sprite_frame(t_data *data, t_animation *animation, int flag)
 			animation->g = animation->frame->pixels[animation->pixel_index + 1];
 			animation->b = animation->frame->pixels[animation->pixel_index + 2];
 			animation->a = animation->frame->pixels[animation->pixel_index + 3];
-			process_pixel_data(animation, data, flag);
+			process_pixel_data(data, flag);
 		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 10:08:15 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/10/21 11:11:42 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/21 13:13:49 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	draw_ray(t_data *data, double distance)
 	{
 		ray_x = (M_WIDTH / 2 + cos(data->ray->ray_angle) * distance);
 		ray_y = (M_HEIGHT / 2 + sin(data->ray->ray_angle) * distance);
-		if (ray_x < 0 || ray_x > M_WIDTH || ray_y < 0 || ray_y > M_HEIGHT)
+		if (ray_x < 0 || ray_x >= M_WIDTH || ray_y < 0 || ray_y >= M_HEIGHT)
 			continue ;
-		mlx_put_pixel(data->mlx->img, ray_x, ray_y, 0x94C8F0FF);
+		mlx_put_pixel(data->mlx->img, ray_x, ray_y, 0xFFFF72FF);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 10:37:00 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/10/21 11:44:20 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/23 22:03:41 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,10 @@ int	wall_collision(t_data *data, double x, double y)
 		|| data->map[index_y_max][index_x_min] == '1'
 		|| data->map[index_y_min][index_x_max] == '1')
 		return (1);
-	if ((index_x_min < 0 || index_x_max >= data->cols || index_y_min < 0
-		|| index_y_max >= data->rows
-		|| data->map[index_y_min][index_x_min] == 'D'
+	else if ((data->map[index_y_min][index_x_min] == 'D'
 		|| data->map[index_y_max][index_x_max] == 'D'
 		|| data->map[index_y_max][index_x_min] == 'D'
-		|| data->map[index_y_min][index_x_max] == 'D') && data->O_key != 1)
+		|| data->map[index_y_min][index_x_max] == 'D') && data->open != 1)
 		return (1);
 	return (0);
 }
@@ -66,9 +64,8 @@ void	create_player(t_data *data)
 	int			i;
 	int			j;
 
-	size = 7;
+	size = 8;
 	player = data->player;
-	move_player(data->player, data);
 	i = size * -1;
 	while (i <= size)
 	{
@@ -77,7 +74,7 @@ void	create_player(t_data *data)
 		{
 			if (j * j + i * i <= size * size)
 				mlx_put_pixel(data->mlx->img, (j + M_WIDTH / 2),
-					(i + M_HEIGHT / 2), 0x949494FF);
+					(i + M_HEIGHT / 2), 0xFFFFFFFF);
 			j++;
 		}
 		i++;
@@ -91,6 +88,7 @@ void	render_2d_map(t_data *data)
 	float	var_x;
 	float	var_y;
 
+	move_player(data->player, data);
 	var_x = M_WIDTH / 2 - data->player->x;
 	var_y = M_HEIGHT / 2 - data->player->y;
 	i = -1;
@@ -103,6 +101,9 @@ void	render_2d_map(t_data *data)
 				my_put_pixel(data, (j * CUBE_SIZE + var_x),
 					(i * CUBE_SIZE + var_y), 0xFFAA00FF);
 			else if (data->map[i][j] == 'D')
+				my_put_pixel(data, (j * CUBE_SIZE + var_x),
+					(i * CUBE_SIZE + var_y), 0xFE641CFF);
+			else
 				my_put_pixel(data, (j * CUBE_SIZE + var_x),
 					(i * CUBE_SIZE + var_y), 0xFFEA7FFF);
 		}
@@ -121,8 +122,8 @@ void	render_window(void *param)
 		mlx_close_window(data->mlx->init);
 		exit(1);
 	}
-	create_player(data);
 	render_2d_map(data);
+	create_player(data);
 	ray_casting(data);
 	if (mlx_image_to_window(data->mlx->init, data->mlx->img, 0, 0) == -1)
 	{

@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 11:46:37 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/10/21 10:32:54 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/23 22:57:00 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,28 @@ void	mouse(double mouse_x, double mouse_y, void *param)
 	mlx_set_mouse_pos(data->mlx->init, key.center_x, key.center_y);
 }
 
+void	open_key(t_data *data, int key, int action)
+{
+	if (key == 'O' && action == 1)
+	{
+		if (data->open == 0)
+			data->open = 1;
+		else if (data->open == 1)
+			data->open = 0;
+	}
+}
+
+void	esc_key(t_data *data, int key)
+{
+	if (key == 256)
+	{
+		mlx_delete_image(data->mlx->init, data->mlx->img);
+		mlx_close_window(data->mlx->init);
+		printf("Sad to see you leave :(\n");
+		exit(1);
+	}
+}
+
 void	key(mlx_key_data_t datakey, void *param)
 {
 	t_data	*data;
@@ -62,17 +84,9 @@ void	key(mlx_key_data_t datakey, void *param)
 	data = param;
 	key = datakey.key;
 	action = datakey.action;
-
-	if (key == 256)
-	{
-		mlx_delete_image(data->mlx->init, data->mlx->img);
-		mlx_close_window(data->mlx->init);
-		printf("Sad to see you leave :(\n");
-		exit(1);
-	}
+	esc_key(data, key);
 	if (action == 2)
 		action = 1;
-
 	if (key == 'W')
 		data->player->walk = (action * 1) * 2 * M_PI;
 	if (key == 'S')
@@ -85,12 +99,5 @@ void	key(mlx_key_data_t datakey, void *param)
 		data->player->view_angle += (action * 1) * 0.05;
 	if (key == MLX_KEY_LEFT)
 		data->player->view_angle += (action * -1) * 0.05;
-	if (key == 'O' && action == 1)
-	{
-		if (data->O_key == 0)
-			data->O_key = 1;
-		else if (data->O_key == 1)
-			data->O_key = 0;
-	}
+	open_key(data, key, action);
 }
-

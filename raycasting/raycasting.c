@@ -6,11 +6,35 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 12:53:56 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/10/21 11:34:05 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/23 22:48:40 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+int	is_door(t_data *data, double pos_x, double pos_y, int index)
+{
+	int	res;
+
+	res = is_wall(data, pos_x, pos_y);
+	if (index == 1)
+	{
+		if (res == 2 && data->open != 1)
+		{
+			data->ray->door_h = 1;
+			return (1);
+		}
+	}
+	else if (index == 2)
+	{
+		if (res == 2 && data->open != 1)
+		{
+			data->ray->door_v = 1;
+			return (1);
+		}
+	}
+	return (0);
+}
 
 double	h_intersect(t_data *data, t_ray *ray)
 {
@@ -18,8 +42,6 @@ double	h_intersect(t_data *data, t_ray *ray)
 	double	ystep;
 	double	pos_x;
 	double	pos_y;
-	int		res;
-	double	dist;
 
 	data->ray->door_h = 0;
 	ystep = CUBE_SIZE;
@@ -32,13 +54,8 @@ double	h_intersect(t_data *data, t_ray *ray)
 	pos_x = data->player->x + (pos_y - data->player->y) / tan(ray->ray_angle);
 	while (is_wall(data, pos_x, pos_y - data->ray->up) != 1)
 	{
-		dist = hypot(pos_x - data->player->x, pos_y - data->player->y);
-		res = is_wall(data, pos_x, pos_y - data->ray->up);
-		if (res == 2 && data->O_key != 1)
-		{
-			data->ray->door_h = 1;
+		if (is_door(data, pos_x, pos_y - data->ray->up, 1))
 			break ;
-		}
 		pos_x += xstep;
 		pos_y += ystep;
 	}
@@ -52,8 +69,6 @@ double	v_intersect(t_data *data, t_ray *ray)
 	double	ystep;
 	double	pos_x;
 	double	pos_y;
-	int		res;
-	double	dist;
 
 	data->ray->door_v = 0;
 	xstep = CUBE_SIZE;
@@ -66,13 +81,8 @@ double	v_intersect(t_data *data, t_ray *ray)
 	pos_y = data->player->y + (pos_x - data->player->x) * tan(ray->ray_angle);
 	while (is_wall(data, pos_x - data->ray->left, pos_y) != 1)
 	{
-		dist = hypot(pos_x - data->player->x, pos_y - data->player->y);
-		res = is_wall(data, pos_x - data->ray->left, pos_y);
-		if (res == 2 && data->O_key != 1)
-		{
-			data->ray->door_v = 1;
+		if (is_door(data, pos_x - data->ray->left, pos_y, 2))
 			break ;
-		}
 		pos_x += xstep;
 		pos_y += ystep;
 	}
