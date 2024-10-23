@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:48:52 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/22 16:43:15 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/23 11:43:25 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,7 +206,7 @@ typedef struct s_keys
 
 /*-------------------------------textures-------------------------------*/
 void			*gc_malloc(t_garbage **list, size_t size);
-void			gc_free_all(t_garbage **list)
+void			gc_free_all(t_garbage **list);
 int				reverse_bytes(int c);
 void			draw_sprite(t_data *data);
 void			mouse_click_handler(mouse_key_t button, action_t action,
