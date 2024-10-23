@@ -6,13 +6,13 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 18:50:01 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/17 16:04:32 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/23 11:39:02 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	clean_str(t_pars *pars)
+void	clean_str(t_pars *pars, t_list *parsing)
 {
 	t_pars		*temp;
 	char		*str;
@@ -20,8 +20,7 @@ void	clean_str(t_pars *pars)
 	temp = pars;
 	while (temp)
 	{
-		str = ft_custom_strdup(temp->value);
-		free(temp->value);
+		str = ft_custom_strdup(temp->value, parsing);
 		temp->value = str;
 		temp = temp->next;
 	}
@@ -72,7 +71,7 @@ int	check_map(t_list *parsing_lst)
 	return (0);
 }
 
-char	*process_line(char *line, int *max_cols, int cols)
+char	*process_line(t_list *parsing, char *line, int *max_cols, int cols)
 {
 	t_process_line	arg;
 
@@ -85,7 +84,7 @@ char	*process_line(char *line, int *max_cols, int cols)
 	arg.new_len = arg.end - arg.start + 1;
 	if (arg.new_len > *max_cols)
 		*max_cols = arg.new_len;
-	arg.new_line = (char *)malloc((arg.new_len + 1) * sizeof(char));
+	arg.new_line = (char *)gc_malloc(&parsing->gc, (arg.new_len + 1) * sizeof(char));
 	if (!arg.new_line)
 		print_error("Allocation fails!\n");
 	arg.j = 0;

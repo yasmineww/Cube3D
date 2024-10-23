@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 01:31:17 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/17 15:44:01 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/22 14:35:30 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	print_error(char *str)
 	exit(1);
 }
 
-t_pars	*allocate_pars(int *fd)
+t_pars	*allocate_pars(int *fd, t_list *parsing)
 {
 	t_pars	*temp;
 
-	temp = malloc(sizeof(t_pars));
+	temp = gc_malloc(&parsing->gc, sizeof(t_pars));
 	if (temp == NULL)
 	{
 		close(*fd);

@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 12:00:05 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/19 15:52:52 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/22 14:03:59 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-char	*ft_strdup(const char *str)
+char	*ft_strdup(const char *str, t_list *parsing_lst)
 {
 	int		i;
 	char	*p;
 
 	i = ft_strlen(str);
-	p = (char *)malloc(i + 1 * 1);
+	p = (char *)gc_malloc(&parsing_lst->gc, i + 1 * 1);
 	if (p == NULL)
 		return (NULL);
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 18:43:14 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/17 16:09:30 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/22 14:13:22 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_pars	*process_map(t_list *parsing_lst, int fd, char *line)
 {
 	t_map_handling	v;
 
-	v.temp = malloc(sizeof(t_pars));
+	v.temp = gc_malloc(&parsing_lst->gc, sizeof(t_pars));
 	if (v.temp == NULL)
 		print_error("Allocation Fails !\n");
 	v.temp_pars = v.temp;
@@ -31,11 +31,11 @@ t_pars	*process_map(t_list *parsing_lst, int fd, char *line)
 		free_and_error(parsing_lst, NULL, "Invalid map !\n");
 	while (line && ft_strcmp(line, "\n") != 0 && skip_line(line) == 0)
 	{
-		v.temp->value = ft_strdup(line);
-		line = get_next_line(fd);
+		v.temp->value = ft_strdup(line, parsing_lst);
+		line = get_next_line(fd, parsing_lst);
 		if (line != NULL && ft_strcmp(line, "\n") != 0 && skip_line(line) == 0)
 		{
-			v.temp->next = malloc(sizeof(t_pars));
+			v.temp->next = gc_malloc(&parsing_lst->gc, sizeof(t_pars));
 			if (v.temp->next == NULL)
 				print_error("Allocation Fails !\n");
 			v.temp = v.temp->next;

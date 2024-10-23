@@ -6,17 +6,17 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 18:45:01 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/26 18:45:39 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/22 14:13:36 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-t_texture	*create_node(void)
+t_texture	*create_node(t_list *parsing_lst)
 {
 	t_texture	*node;
 
-	node = (t_texture *)malloc(sizeof(t_texture));
+	node = (t_texture *)gc_malloc(&parsing_lst->gc, sizeof(t_texture));
 	if (!node)
 		return (NULL);
 	node->key = NULL;
@@ -25,7 +25,7 @@ t_texture	*create_node(void)
 	return (node);
 }
 
-t_texture	*allocate_four_nodes(int i)
+t_texture	*allocate_four_nodes(int i, t_list *parsing_lst)
 {
 	t_texture	*head;
 	t_texture	*current;
@@ -35,7 +35,7 @@ t_texture	*allocate_four_nodes(int i)
 	current = NULL;
 	while (i < 4)
 	{
-		new_node = create_node();
+		new_node = create_node(parsing_lst);
 		if (!new_node)
 			return (NULL);
 		if (head == NULL)

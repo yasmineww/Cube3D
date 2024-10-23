@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 15:21:42 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/17 15:51:59 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/22 14:31:12 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*ft_strchr_get(char *s, int c)
 	return (0);
 }
 
-char	*line_maker(char *all_lines)
+char	*line_maker(char *all_lines, t_list *parsing)
 {
 	int		line_len;
 	char	*return_line;
@@ -57,7 +57,7 @@ char	*line_maker(char *all_lines)
 		return (NULL);
 	while (all_lines[line_len] && all_lines[line_len] != '\n')
 		line_len++;
-	return_line = (char *)malloc(sizeof(char) * (line_len + 2));
+	return_line = (char *)gc_malloc(&parsing->gc, sizeof(char) * (line_len + 2));
 	if (!return_line)
 		return (NULL);
 	line_len = 0;
@@ -75,12 +75,12 @@ char	*line_maker(char *all_lines)
 	return (return_line);
 }
 
-char	*ft_read_lines(int fd, char *all_lines)
+char	*ft_read_lines(int fd, char *all_lines, t_list *parsing)
 {
 	int		num_of_read;
 	char	*buff;
 
-	buff = (char *)malloc(BUFFER_SIZE + 1 * (sizeof(char)));
+	buff = (char *)gc_malloc(&parsing->gc, BUFFER_SIZE + 1 * (sizeof(char)));
 	if (!buff)
 		return (NULL);
 	num_of_read = 1;
@@ -93,7 +93,7 @@ char	*ft_read_lines(int fd, char *all_lines)
 			return (NULL);
 		}
 		buff[num_of_read] = '\0';
-		all_lines = ft_strjoin_get(all_lines, buff);
+		all_lines = ft_strjoin_get(all_lines, buff, parsing);
 		if (all_lines == NULL)
 			print_error("Allocation Failed for columns!\n");
 	}
@@ -101,7 +101,7 @@ char	*ft_read_lines(int fd, char *all_lines)
 	return (all_lines);
 }
 
-char	*get_next_line(int fd)
+char	*get_next_line(int fd, t_list *parsing)
 {
 	char		*line_to_write;
 	static char	*all_lines;
@@ -112,12 +112,12 @@ char	*get_next_line(int fd)
 		all_lines = NULL;
 		return (0);
 	}
-	all_lines = ft_read_lines(fd, all_lines);
+	all_lines = ft_read_lines(fd, all_lines, parsing);
 	if (!all_lines)
 	{
 		return (NULL);
 	}
-	line_to_write = line_maker(all_lines);
-	all_lines = ft_left_lines(all_lines);
+	line_to_write = line_maker(all_lines, parsing);
+	all_lines = ft_left_lines(all_lines, parsing);
 	return (line_to_write);
 }

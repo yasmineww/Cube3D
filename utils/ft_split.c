@@ -6,25 +6,11 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 18:01:17 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/17 15:44:50 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/22 16:37:34 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-static char	**free_mem(char **tab)
-{
-	unsigned int	i;
-
-	i = 0;
-	if (tab)
-	{
-		while (tab[i])
-			free(tab[i++]);
-		free(tab);
-	}
-	return (NULL);
-}
 
 static size_t	ft_countword(char const *s, char c)
 {
@@ -45,7 +31,7 @@ static size_t	ft_countword(char const *s, char c)
 	return (wc);
 }
 
-static char	*words_len(const char *s, char c, size_t *w)
+static char	*words_len(const char *s, char c, size_t *w, t_list *parsing_lst)
 {
 	char		*word;
 	size_t		len;
@@ -60,7 +46,7 @@ static char	*words_len(const char *s, char c, size_t *w)
 	while (s[*w] && s[*w] != c)
 		(*w)++;
 	len = *w - i;
-	word = (char *)malloc((len + 1) * sizeof(char));
+	word = (char *)gc_malloc(&parsing_lst->gc, (len + 1) * sizeof(char));
 	if (word == NULL)
 		return (NULL);
 	while (i + j < *w)
@@ -72,7 +58,7 @@ static char	*words_len(const char *s, char c, size_t *w)
 	return (word);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c, t_list *parsing_lst)
 {
 	size_t	word;
 	char	**str;
@@ -82,16 +68,14 @@ char	**ft_split(char const *s, char c)
 	if (!s)
 		return (NULL);
 	word = ft_countword(s, c);
-	str = (char **)malloc((word + 1) * sizeof(char *));
+	str = (char **)gc_malloc(&parsing_lst->gc, (word + 1) * sizeof(char *));
 	if (!str)
 		print_error("Allocation Fails !\n");
 	w = 0;
 	id = 0;
 	while (w < word)
 	{
-		str[w] = words_len(s, c, &id);
-		if (!str[w])
-			return (free_mem(str));
+		str[w] = words_len(s, c, &id, parsing_lst);
 		w++;
 	}
 	str[word] = NULL;

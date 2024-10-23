@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 10:06:10 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/17 16:13:17 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/22 14:38:06 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static size_t	skip_spaces(const char *s, size_t index)
 	return (index);
 }
 
-static char	*get_word(const char *s, size_t *index)
+static char	*get_word(const char *s, size_t *index, t_list *parsing_lst)
 {
 	size_t		start;
 	size_t		len;
@@ -44,7 +44,7 @@ static char	*get_word(const char *s, size_t *index)
 	while (s[*index] && s[*index] != ' ' && s[*index] != '\t')
 		(*index)++;
 	len = *index - start;
-	word = (char *)malloc((len + 1) * sizeof(char));
+	word = (char *)gc_malloc(&parsing_lst->gc, (len + 1) * sizeof(char));
 	if (!word)
 		print_error("Allocation Fails !\n");
 	word[len] = '\0';
@@ -53,18 +53,18 @@ static char	*get_word(const char *s, size_t *index)
 	return (word);
 }
 
-char	**allocate_and_split(char const *s, char **result)
+char	**allocate_and_split(char const *s, char **result, t_list *parsing_lst)
 {
 	size_t	index;
 
 	index = 0;
-	result[0] = get_word(s, &index);
+	result[0] = get_word(s, &index, parsing_lst);
 	if (!result[0])
 		return (free_mem(result));
 	index = skip_spaces(s, index);
 	if (s[index])
 	{
-		result[1] = ft_strdup(s + index);
+		result[1] = ft_strdup(s + index, parsing_lst);
 		if (!result[1])
 			return (free_mem(result));
 	}
@@ -79,14 +79,14 @@ char	**allocate_and_split(char const *s, char **result)
 	return (result);
 }
 
-char	**split_texture(char const *s)
+char	**split_texture(char const *s, t_list *parsing_lst)
 {
 	char	**result;
 
 	if (!s)
 		return (NULL);
-	result = (char **)malloc(3 * sizeof(char *));
+	result = (char **)gc_malloc(&parsing_lst->gc, 3 * sizeof(char *));
 	if (!result)
 		print_error("Allocation Fails!\n");
-	return (allocate_and_split(s, result));
+	return (allocate_and_split(s, result, parsing_lst));
 }

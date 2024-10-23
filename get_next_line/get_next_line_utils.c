@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 12:27:03 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/17 15:56:29 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/22 14:33:59 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	count_len_for_left(char *str)
 	return (index);
 }
 
-char	*ft_left_lines(char *all_lines)
+char	*ft_left_lines(char *all_lines, t_list *parsing)
 {
 	char	*temp;
 	int		i;
@@ -56,7 +56,8 @@ char	*ft_left_lines(char *all_lines)
 		free(all_lines);
 		return (NULL);
 	}
-	temp = (char *)malloc(sizeof(char) * (ft_strlen_get(all_lines) - i + 1));
+	temp = (char *)gc_malloc(&parsing->gc, sizeof(char) * \
+		(ft_strlen_get(all_lines) - i + 1));
 	if (!temp)
 		return (NULL);
 	i++;
@@ -68,33 +69,33 @@ char	*ft_left_lines(char *all_lines)
 	return (temp);
 }
 
-char	*ft_allocate_joined_string(char *left_str, char *buff)
+char	*ft_allocate_joined_string(char *left_str, char *buff, t_list *parsing)
 {
 	char	*str;
 
 	if (!left_str)
 	{
-		left_str = (char *)malloc(1 * sizeof(char));
+		left_str = (char *)gc_malloc(&parsing->gc, 1 * sizeof(char));
 		if (left_str == NULL)
 			return (NULL);
 		left_str[0] = '\0';
 	}
 	if (!left_str || !buff)
 		return (NULL);
-	str = malloc(sizeof(char) * \
+	str = gc_malloc(&parsing->gc, sizeof(char) * \
 		((ft_strlen_get(left_str) + ft_strlen_get(buff)) + 1));
 	if (str == NULL)
 		return (NULL);
 	return (str);
 }
 
-char	*ft_strjoin_get(char *left_str, char *buff)
+char	*ft_strjoin_get(char *left_str, char *buff, t_list *parsing)
 {
 	size_t	i;
 	size_t	j;
 	char	*str;
 
-	str = ft_allocate_joined_string(left_str, buff);
+	str = ft_allocate_joined_string(left_str, buff, parsing);
 	if (str == NULL)
 		return (NULL);
 	i = 0;

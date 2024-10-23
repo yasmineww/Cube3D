@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   data_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:44:36 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/10/21 10:27:39 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/22 16:39:28 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	load_animation_frames(t_data *data)
+void	load_animation_frames(t_data *data, t_list *parsing_lst)
 {
 	char	*filename;
 	char	*tmp;
@@ -22,7 +22,7 @@ void	load_animation_frames(t_data *data)
 	data->cross_aim = mlx_load_png("textures/crosshair.png");
 	while (i <= 6)
 	{
-		filename = ft_strjoin("textures/", ft_itoa(i));
+		filename = ft_strjoin("textures/", ft_itoa(i, parsing_lst));
 		tmp = filename;
 		filename = ft_strjoin(tmp, ".png");
 		free(tmp);
@@ -79,22 +79,22 @@ void	init_var(t_data *data, t_list *parsing_lst)
 
 void	data_init(t_data **data, t_list *parsing_lst)
 {
-	*data = malloc(sizeof(t_data));
+	*data = gc_malloc(&parsing_lst->gc, sizeof(t_data));
 	if (!*data)
 		exit(1);
-	(*data)->mlx = malloc (sizeof(t_mlx));
+	(*data)->mlx = gc_malloc (&parsing_lst->gc,sizeof(t_mlx));
 	if (!(*data)->mlx)
 		exit(1);
-	(*data)->player = malloc (sizeof(t_player));
+	(*data)->player = gc_malloc (&parsing_lst->gc,sizeof(t_player));
 	if (!(*data)->player)
 		exit(1);
-	(*data)->ray = malloc (sizeof(t_ray));
+	(*data)->ray = gc_malloc (&parsing_lst->gc,sizeof(t_ray));
 	if (!(*data)->ray)
 		exit(1);
-	(*data)->texture = malloc (sizeof(t_texture));
+	(*data)->texture = gc_malloc (&parsing_lst->gc,sizeof(t_texture));
 	if (!(*data)->texture)
 		exit(1);
-	(*data)->animation = malloc (sizeof(t_animation));
+	(*data)->animation = gc_malloc (&parsing_lst->gc,sizeof(t_animation));
 	if (!(*data)->texture)
 		exit(1);
 	init_var(*data, parsing_lst);
@@ -102,5 +102,5 @@ void	data_init(t_data **data, t_list *parsing_lst)
 	if (!(*data)->mlx->init)
 		exit(1);
 	load_textures(*data);
-	load_animation_frames(*data);
+	load_animation_frames(*data, parsing_lst);
 }

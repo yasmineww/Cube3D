@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 05:09:31 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/26 20:31:05 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/22 14:14:20 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ int	ft_custom_strlen(const char *str)
 	return (i);
 }
 
-char	*ft_custom_strdup(const char *str)
+char	*ft_custom_strdup(const char *str, t_list *parsing)
 {
 	int		i;
 	char	*p;
 
 	i = ft_custom_strlen(str);
-	p = (char *)malloc(i + 1 * 1);
+	p = (char *)gc_malloc(&parsing->gc, i + 1 * 1);
 	if (p == NULL)
 		return (NULL);
 	i = 0;

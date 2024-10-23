@@ -6,36 +6,30 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 21:22:08 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/17 15:44:35 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/22 14:06:22 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-char	**create_map(char **map, int *old_rows, int *cols)
+char	**create_map(t_list *parsing, char **map, int *old_rows, int *cols)
 {
 	t_map_create	arg;
 
 	arg.max = 0;
 	arg.new_rows = (*old_rows) - 2;
-	arg.new_map = (char **)malloc(arg.new_rows * sizeof(char *));
+	arg.new_map = (char **)gc_malloc(&parsing->gc, arg.new_rows * sizeof(char *));
 	if (!arg.new_map)
 		print_error("Allocation Fails !\n");
 	arg.i = 1;
 	arg.row_index = 0;
 	while (arg.i < *old_rows - 1)
 	{
-		arg.new_map[arg.row_index] = process_line(map[arg.i], &arg.max, *cols);
+		arg.new_map[arg.row_index] = process_line(parsing, map[arg.i], &arg.max, *cols);
 		arg.row_index++;
 		arg.i++;
 	}
 	arg.i = 0;
-	while (arg.i < *old_rows)
-	{
-		free(map[arg.i]);
-		arg.i++;
-	}
-	free(map);
 	*old_rows = arg.new_rows;
 	*cols = arg.max;
 	return (arg.new_map);
@@ -106,22 +100,20 @@ void	parsing(t_list *parsing, char **argv)
 
 	parsing->texture = NULL;
 	parsing->map = NULL;
-	pars = init_parsing(argv, &fd, &line);
-	line = process_parsing(pars, fd, line);
-	clean_str(pars);
+	pars = init_parsing(argv, &fd, &line, parsing);
+	line = process_parsing(pars, fd, line, parsing);
+	clean_str(pars, parsing);
 	process_pars(parsing, pars);
 	init_texture(parsing, pars);
 	check_texture(parsing, pars);
-	free_pars(pars);
 	pars = process_map(parsing, fd, line);
-	clean_str(pars);
+	clean_str(pars, parsing);
 	check_for_tabs(parsing, pars);
 	parsing->map = get_map(pars, &num, parsing);
 	if (check_map(parsing) == 1)
 		print_error("Invalid Map !\n");
-	parsing->map = create_map(parsing->map, &parsing->rows, &parsing->cols);
+	parsing->map = create_map(parsing, parsing->map, &parsing->rows, &parsing->cols);
 	get_player_position(parsing);
 	get_dor_position(parsing);
-	free_pars(pars);
 	close(fd);
 }

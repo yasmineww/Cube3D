@@ -3,45 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 08:45:08 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/27 11:36:25 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/22 16:44:22 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-t_pars	*init_parsing(char **argv, int *fd, char **line)
+t_pars	*init_parsing(char **argv, int *fd, char **line, t_list *parsing)
 {
 	t_pars	*pars;
 
 	*fd = open_file(argv[1]);
-	*line = get_next_line(*fd);
+	*line = get_next_line(*fd, parsing);
 	if (*line == NULL)
 	{
 		close(*fd);
 		print_error("Empty file!\n");
 	}
-	pars = allocate_pars(fd);
+	pars = allocate_pars(fd, parsing);
 	return (pars);
 }
 
-char	*parse_line(t_pars **temp, int *i, int fd, char *line)
+char	*parse_line(t_pars **temp, int *i, int fd, char *line, t_list *parsing)
 {
 	if (*i != 0)
 	{
-		(*temp)->next = allocate_pars(&fd);
+		(*temp)->next = allocate_pars(&fd, parsing);
 		*temp = (*temp)->next;
 	}
-	(*temp)->value = ft_strdup(line);
+	(*temp)->value = ft_strdup(line, parsing);
 	(*temp)->next = NULL;
-	line = get_next_line(fd);
+	line = get_next_line(fd, parsing);
 	(*i)++;
 	return (line);
 }
 
-char	*process_parsing(t_pars *pars, int fd, char *line)
+char	*process_parsing(t_pars *pars, int fd, char *line, t_list *parsing)
 {
 	int			i;
 	int			b;
@@ -55,9 +55,9 @@ char	*process_parsing(t_pars *pars, int fd, char *line)
 		if (check_line(line) == 1)
 			break ;
 		else if (skip_line(line) == 1)
-			line = get_next_line(fd);
+			line = get_next_line(fd, parsing);
 		else
-			line = parse_line(&temp, &i, fd, line);
+			line = parse_line(&temp, &i, fd, line, parsing);
 		if (line == NULL)
 			print_error("Invalid map\n");
 		b++;
@@ -69,8 +69,9 @@ char	*process_parsing(t_pars *pars, int fd, char *line)
 
 void	texture_syntax(char **arr, t_list *parsing_lst, t_pars *pars)
 {
-	free_split(arr);
-	free_list(parsing_lst, pars);
+	(void)arr;
+	(void)parsing_lst;
+	(void)pars;
 	ft_putstr_fd("Invalid map !\n", 2);
 	exit(1);
 }
@@ -83,7 +84,7 @@ void	process_pars(t_list *parsing_lst, t_pars *pars)
 	temp = pars;
 	while (temp != NULL)
 	{
-		arr = split_texture(temp->value);
+		arr = split_texture(temp->value, parsing_lst);
 		if (array_length(arr) != 2)
 			texture_syntax(arr, parsing_lst, pars);
 		temp = temp->next;
