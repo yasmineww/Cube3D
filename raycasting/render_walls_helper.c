@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   render_walls_helper.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 06:06:17 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/15 18:50:40 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/24 08:57:44 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	reverse_bytes(int c)
+int	reverse(int c)
 {
 	unsigned int	b;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 17:47:15 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/10/23 22:51:10 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/24 08:57:44 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,9 @@ void	process_pixel(t_data *data, int x, int y, int c)
 					&& var.scaled_y >= 0 && var.scaled_y < W_HEIGHT)
 				{
 					data->animation->color = (data->animation->a << 24) | \
-					(data->animation->b << 16) | (data->animation->g << 8) | data->animation->r;
-					data->animation->color = reverse_bytes(data->animation->color);
+					(data->animation->b << 16) | (data->animation->g << 8) \
+					| data->animation->r;
+					data->animation->color = reverse(data->animation->color);
 					mlx_put_pixel(data->mlx->img, \
 						var.scaled_x, var.scaled_y, data->animation->color);
 				}

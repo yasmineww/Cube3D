@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 08:45:08 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/22 16:44:22 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/24 09:03:32 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,17 @@ t_pars	*init_parsing(char **argv, int *fd, char **line, t_list *parsing)
 	return (pars);
 }
 
-char	*parse_line(t_pars **temp, int *i, int fd, char *line, t_list *parsing)
+char	*get_line(t_pars **temp, t_line_arg var, char *line, t_list *parsing)
 {
-	if (*i != 0)
+	if (*var.i != 0)
 	{
-		(*temp)->next = allocate_pars(&fd, parsing);
+		(*temp)->next = allocate_pars(&var.fd, parsing);
 		*temp = (*temp)->next;
 	}
 	(*temp)->value = ft_strdup(line, parsing);
 	(*temp)->next = NULL;
-	line = get_next_line(fd, parsing);
-	(*i)++;
+	line = get_next_line(var.fd, parsing);
+	(*var.i)++;
 	return (line);
 }
 
@@ -46,18 +46,21 @@ char	*process_parsing(t_pars *pars, int fd, char *line, t_list *parsing)
 	int			i;
 	int			b;
 	t_pars		*temp;
+	t_line_arg	var;
 
 	b = 0;
 	i = 0;
 	temp = pars;
 	while (line != NULL && line[0] != '1')
 	{
+		var.i = &i;
+		var.fd = fd;
 		if (check_line(line) == 1)
 			break ;
 		else if (skip_line(line) == 1)
 			line = get_next_line(fd, parsing);
 		else
-			line = parse_line(&temp, &i, fd, line, parsing);
+			line = get_line(&temp, var, line, parsing);
 		if (line == NULL)
 			print_error("Invalid map\n");
 		b++;

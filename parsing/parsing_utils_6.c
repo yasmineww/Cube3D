@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 18:50:01 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/23 11:39:02 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/24 08:53:39 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,21 +81,21 @@ char	*process_line(t_list *parsing, char *line, int *max_cols, int cols)
 		arg.start++;
 	while (line[arg.end] == '-' && arg.end >= arg.start)
 		arg.end--;
-	arg.new_len = arg.end - arg.start + 1;
-	if (arg.new_len > *max_cols)
-		*max_cols = arg.new_len;
-	arg.new_line = (char *)gc_malloc(&parsing->gc, (arg.new_len + 1) * sizeof(char));
-	if (!arg.new_line)
+	arg.len = arg.end - arg.start + 1;
+	if (arg.len > *max_cols)
+		*max_cols = arg.len;
+	arg.str = (char *)gc_malloc(&parsing->gc, (arg.len + 1) * sizeof(char));
+	if (!arg.str)
 		print_error("Allocation fails!\n");
 	arg.j = 0;
-	while (arg.j < arg.new_len)
+	while (arg.j < arg.len)
 	{
 		if (line[arg.start + arg.j] == ' ')
-			arg.new_line[arg.j] = '-';
+			arg.str[arg.j] = '-';
 		else
-			arg.new_line[arg.j] = line[arg.start + arg.j];
+			arg.str[arg.j] = line[arg.start + arg.j];
 		arg.j++;
 	}
-	arg.new_line[arg.j] = '\0';
-	return (arg.new_line);
+	arg.str[arg.j] = '\0';
+	return (arg.str);
 }

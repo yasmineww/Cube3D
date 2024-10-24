@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 12:27:03 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/22 14:33:59 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/24 09:06:28 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,4 +116,3 @@ char	*ft_strjoin_get(char *left_str, char *buff, t_list *parsing)
 	free(left_str);
 	return (str);
 }
-

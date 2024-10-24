@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 21:22:08 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/22 14:06:22 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/24 09:04:16 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,16 @@ char	**create_map(t_list *parsing, char **map, int *old_rows, int *cols)
 
 	arg.max = 0;
 	arg.new_rows = (*old_rows) - 2;
-	arg.new_map = (char **)gc_malloc(&parsing->gc, arg.new_rows * sizeof(char *));
+	arg.new_map = (char **)gc_malloc(&parsing->gc, \
+		arg.new_rows * sizeof(char *));
 	if (!arg.new_map)
 		print_error("Allocation Fails !\n");
 	arg.i = 1;
 	arg.row_index = 0;
 	while (arg.i < *old_rows - 1)
 	{
-		arg.new_map[arg.row_index] = process_line(parsing, map[arg.i], &arg.max, *cols);
+		arg.new_map[arg.row_index] = process_line(parsing, \
+			map[arg.i], &arg.max, *cols);
 		arg.row_index++;
 		arg.i++;
 	}
@@ -91,29 +93,29 @@ void	get_dor_position(t_list *parsing)
 	}
 }
 
-void	parsing(t_list *parsing, char **argv)
+void	parsing(t_list *data, char **argv)
 {
 	int		fd;
 	char	*line;
 	t_pars	*pars;
 	int		num;
 
-	parsing->texture = NULL;
-	parsing->map = NULL;
-	pars = init_parsing(argv, &fd, &line, parsing);
-	line = process_parsing(pars, fd, line, parsing);
-	clean_str(pars, parsing);
-	process_pars(parsing, pars);
-	init_texture(parsing, pars);
-	check_texture(parsing, pars);
-	pars = process_map(parsing, fd, line);
-	clean_str(pars, parsing);
-	check_for_tabs(parsing, pars);
-	parsing->map = get_map(pars, &num, parsing);
-	if (check_map(parsing) == 1)
+	data->texture = NULL;
+	data->map = NULL;
+	pars = init_parsing(argv, &fd, &line, data);
+	line = process_parsing(pars, fd, line, data);
+	clean_str(pars, data);
+	process_pars(data, pars);
+	init_texture(data, pars);
+	check_texture(data, pars);
+	pars = process_map(data, fd, line);
+	clean_str(pars, data);
+	check_for_tabs(data, pars);
+	data->map = get_map(pars, &num, data);
+	if (check_map(data) == 1)
 		print_error("Invalid Map !\n");
-	parsing->map = create_map(parsing, parsing->map, &parsing->rows, &parsing->cols);
-	get_player_position(parsing);
-	get_dor_position(parsing);
+	data->map = create_map(data, data->map, &data->rows, &data->cols);
+	get_player_position(data);
+	get_dor_position(data);
 	close(fd);
 }

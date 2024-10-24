@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:48:52 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/23 22:51:22 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/24 09:00:38 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,8 +130,8 @@ typedef struct s_line
 {
 	int		start;
 	int		end;
-	int		new_len;
-	char	*new_line;
+	int		len;
+	char	*str;
 	int		j;
 }	t_process_line;
 
@@ -204,17 +204,21 @@ typedef struct s_keys
 	int		center_y;
 }	t_keys;
 
+typedef struct s_line_arg
+{
+	int	*i;
+	int	fd;
+}	t_line_arg;
+
 /*-------------------------------textures-------------------------------*/
 void			*gc_malloc(t_garbage **list, size_t size);
 void			gc_free_all(t_garbage **list);
-int				reverse_bytes(int c);
+int				reverse(int c);
 void			draw_sprite(t_data *data);
 void			mouse_click_handler(mouse_key_t button, action_t action,
 					modifier_key_t mods, void *param);
 void			render_top(t_data *data, int nmbr_rays, double top);
-int				reverse_bytes(int c);
 double			get_x_offset(mlx_texture_t *ea, t_data *data);
-int				reverse_bytes(int c);
 void			render_bottom(t_data *data, int nmbr_rays, double bot);
 void			load_textures(t_data *data);
 mlx_texture_t	*get_vertical_texture(t_data *data);

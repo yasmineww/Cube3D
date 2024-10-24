@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 15:21:42 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/22 14:31:12 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/24 09:06:12 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ char	*line_maker(char *all_lines, t_list *parsing)
 		return (NULL);
 	while (all_lines[line_len] && all_lines[line_len] != '\n')
 		line_len++;
-	return_line = (char *)gc_malloc(&parsing->gc, sizeof(char) * (line_len + 2));
+	return_line = (char *)gc_malloc(&parsing->gc, \
+		sizeof(char) * (line_len + 2));
 	if (!return_line)
 		return (NULL);
 	line_len = 0;
