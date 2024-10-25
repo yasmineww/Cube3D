@@ -13,9 +13,9 @@ OBJF = $(addprefix $(OBJDIR)/, $(SRCF:.c=.o))
 
 OBJDIR = build
 
-CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 FLMLX	= -framework Cocoa -framework OpenGL -framework IOKit
-LFLAG	= MLX42/libmlx42.a -lglfw -L/Users/youbihi/goinfre/brew/opt/glfw/lib/
+LFLAG	= MLX42/libmlx42.a -lglfw -L/Users/$(USER)/.brew/opt/glfw/lib/ #-L/Users/youbihi/goinfre/brew/opt/glfw/lib/
 
 READLINEDIR = $(shell brew --prefix readline)
 
