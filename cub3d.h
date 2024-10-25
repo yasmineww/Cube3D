@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:48:52 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/24 09:00:38 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/25 22:10:55 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,6 @@ typedef struct s_map_handling
 {
 	t_pars	*temp_pars;
 	t_pars	*temp;
-	int		i;
 }	t_map_handling;
 
 typedef struct s_pixel_data
@@ -275,7 +274,6 @@ void			fill_map(char **arr, int cols, int rows, t_pars *pars);
 char			**get_map(t_pars *tmp, int *num, t_list *parsing_lst);
 void			check_for_tabs(t_list *parsing_lst, t_pars *pars);
 int				check_map(t_list *parsing_lst);
-void			fill_map(char **arr, int cols, int rows, t_pars *pars);
 int				check_comma(char *str);
 t_texture		*allocate_four_nodes(int i, t_list *parsing_lst);
 int				check_text(char *str);
@@ -287,6 +285,7 @@ void			process_pixel_data(t_data *data, int flag);
 void			process_sprite_frame(t_data *data, \
 				t_animation *animation, int flag);
 void			manage_animation_frame(t_data *data);
+void			check_door(t_list *parsing, int x, int y);
 
 /*-------------------------------utils-------------------------------*/
 

@@ -6,11 +6,17 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 08:54:21 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/24 08:51:16 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/25 22:12:46 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+void	free_and_error(t_list *parsing_lst, t_pars	*temp, char *str)
+{
+	free_list(parsing_lst, temp);
+	print_error(str);
+}
 
 t_process_map	initialize_map_dimensions(t_pars *tmp, t_process_map x, \
 					t_list *pars)

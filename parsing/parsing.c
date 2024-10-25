@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 21:22:08 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/24 09:04:16 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/25 23:11:37 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,12 @@ void	get_dor_position(t_list *parsing)
 		{
 			if (parsing->map[x][y] == 'D')
 			{
-				if ((parsing->map[x - 1][y] != '1' && \
-					parsing->map[x + 1][y] != '1') && \
-					(parsing->map[x][y + 1] != '1' && \
+				if ((parsing->map[x - 1][y] != '1' \
+					&& parsing->map[x + 1][y] != '1') \
+					&& (parsing->map[x][y + 1] != '1' && \
 					parsing->map[x][y + 1] != '1'))
-					print_error("Invalid Dor position !\n");
+					print_error("Invalid Door position !\n");
+				check_door(parsing, x, y);
 			}
 			y++;
 		}

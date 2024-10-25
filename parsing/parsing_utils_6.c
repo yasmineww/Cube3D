@@ -6,11 +6,20 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 18:50:01 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/24 08:53:39 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/25 23:11:35 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+void	check_door(t_list *parsing, int x, int y)
+{
+	if ((parsing->map[x - 1][y] == 'D' || \
+		parsing->map[x + 1][y] == 'D') || \
+		(parsing->map[x][y + 1] == 'D' || \
+		parsing->map[x][y + 1] == 'D'))
+		print_error("Invalid Door position !\n");
+}
 
 void	clean_str(t_pars *pars, t_list *parsing)
 {

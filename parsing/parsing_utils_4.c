@@ -6,16 +6,22 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 18:43:14 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/22 14:13:22 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/25 22:12:16 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	free_and_error(t_list *parsing_lst, t_pars	*temp, char *str)
+void	check_rest(char *line, int fd, t_list *parsing_lst)
 {
-	free_list(parsing_lst, temp);
-	print_error(str);
+	while (line != NULL && ft_strcmp(line, "\n") == 0)
+	{
+		line = get_next_line(fd, parsing_lst);
+		if (line == NULL)
+			break ;
+		if (skip_line(line) == 0)
+			print_error("Invalid Map");
+	}
 }
 
 t_pars	*process_map(t_list *parsing_lst, int fd, char *line)
@@ -26,7 +32,6 @@ t_pars	*process_map(t_list *parsing_lst, int fd, char *line)
 	if (v.temp == NULL)
 		print_error("Allocation Fails !\n");
 	v.temp_pars = v.temp;
-	v.i = 0;
 	if (line == NULL)
 		free_and_error(parsing_lst, NULL, "Invalid map !\n");
 	while (line && ft_strcmp(line, "\n") != 0 && skip_line(line) == 0)
@@ -44,6 +49,7 @@ t_pars	*process_map(t_list *parsing_lst, int fd, char *line)
 		else
 			v.temp->next = NULL;
 	}
+	check_rest(line, fd, parsing_lst);
 	return (v.temp_pars);
 }
 

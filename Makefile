@@ -1,4 +1,4 @@
-NAME = cub3d
+NAME = cub3D
 
 SRCF = main.c utils/ft_putstr_fd.c utils/ft_split.c utils/ft_strdup.c utils/ft_strlen.c utils/split_texture.c \
        get_next_line/get_next_line.c get_next_line/get_next_line_utils.c get_next_line/get_next_line_utils2.c \
@@ -13,9 +13,9 @@ OBJF = $(addprefix $(OBJDIR)/, $(SRCF:.c=.o))
 
 OBJDIR = build
 
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
 FLMLX	= -framework Cocoa -framework OpenGL -framework IOKit
-LFLAG	= MLX42/libmlx42.a -lglfw -L/Users/$(USER)/.brew/opt/glfw/lib/ #-L/Users/youbihi/goinfre/brew/opt/glfw/lib/
+LFLAG	= MLX42/libmlx42.a -lglfw -L/Users/youbihi/goinfre/brew/opt/glfw/lib/
 
 READLINEDIR = $(shell brew --prefix readline)
 

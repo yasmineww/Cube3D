@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:46:50 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/23 22:21:22 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/25 23:40:34 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,17 @@ void	check_file_extention(char *file, t_list	*parsing_lst)
 		print_error("Invalid file extensions !\n");
 	}
 	free_split(arr);
+}
+
+void	close_window(void *param)
+{
+	t_data	*data;
+
+	data = param;
+	mlx_delete_image(data->mlx->init, data->mlx->img);
+	mlx_close_window(data->mlx->init);
+	printf("Sad to see you leave :(\n");
+	exit(1);
 }
 
 int	main(int argc, char **argv)
@@ -46,6 +57,7 @@ int	main(int argc, char **argv)
 	mlx_set_cursor_mode(data->mlx->init, MLX_MOUSE_HIDDEN);
 	mlx_cursor_hook(data->mlx->init, &mouse, data);
 	mlx_mouse_hook(data->mlx->init, mouse_click_handler, data);
+	mlx_close_hook(data->mlx->init, &close_window, data);
 	mlx_loop(data->mlx->init);
 	gc_free_all(&parsing_lst->gc);
 	return (0);
