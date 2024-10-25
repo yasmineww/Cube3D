@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 10:37:00 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/10/23 22:03:41 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/25 23:50:59 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ void	move_player(t_player *player, t_data *data)
 	int		y;
 	double	angle;
 
-	angle = player->view_angle + player->turn + player->walk;
-	x = player->x + player->move_speed * cos(angle);
-	y = player->y + player->move_speed * sin(angle);
+	angle = player->view_angle + player->walk + player->turn;
+	x = roundf(player->x + player->move_speed * cos(angle));
+	y = roundf(player->y + player->move_speed * sin(angle));
 	if (!wall_collision(data, x, y))
 	{
 		if (player->turn || player->walk)
