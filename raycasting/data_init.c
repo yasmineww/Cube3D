@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:44:36 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/10/23 22:44:47 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/27 02:58:29 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void	data_init(t_data **data, t_list *parsing_lst)
 	(*data)->texture = gc_malloc (&parsing_lst->gc, sizeof(t_texture));
 	(*data)->animation = gc_malloc (&parsing_lst->gc, sizeof(t_animation));
 	init_var(*data, parsing_lst);
+	(*data)->doors = parsing_lst->doors;
 	(*data)->mlx->init = mlx_init(W_WIDTH, W_HEIGHT, "CUBE3D", 0);
 	if (!(*data)->mlx->init)
 		exit(1);

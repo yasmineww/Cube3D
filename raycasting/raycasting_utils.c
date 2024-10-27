@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 10:08:15 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/10/21 13:13:49 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/27 21:04:11 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,25 @@ float	normalize(float angle, t_ray *ray)
 	return (angle);
 }
 
+int	door_open(int x, int y, t_data *data)
+{
+	t_door	*door;
+
+	door = data->doors;
+	while (door)
+	{
+		if (door->y == y && door->x == x)
+		{
+			if (door->is_open == 1)
+			{
+				return (1);
+			}
+		}
+		door = door->next;
+	}
+	return (0);
+}
+
 int	is_wall(t_data *data, double x, double y)
 {
 	int	index_x;
@@ -53,8 +72,10 @@ int	is_wall(t_data *data, double x, double y)
 	if (index_x < 0 || index_x >= data->cols || index_y < 0
 		|| index_y >= data->rows || data->map[index_y][index_x] == '1')
 		return (1);
-	else if (index_x < 0 || index_x >= data->cols || index_y < 0
-		|| index_y >= data->rows || data->map[index_y][index_x] == 'D')
+	else if ((index_x < 0 || index_x >= data->cols || index_y < 0 || \
+		index_y >= data->rows || \
+		data->map[index_y][index_x] == 'D') && \
+		door_open(index_x, index_y, data) != 1)
 		return (2);
 	return (0);
 }

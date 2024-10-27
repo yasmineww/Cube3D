@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_bindings.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 11:46:37 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/10/23 22:57:00 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/27 21:01:42 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,26 @@ void	mouse(double mouse_x, double mouse_y, void *param)
 
 void	open_key(t_data *data, int key, int action)
 {
+	t_door	*door;
+
 	if (key == 'O' && action == 1)
 	{
-		if (data->open == 0)
-			data->open = 1;
-		else if (data->open == 1)
-			data->open = 0;
+		door = data->doors;
+		while (door)
+		{
+			if ((((data->player->x / CUBE_SIZE) == door->x + 1) && \
+				(data->player->y / CUBE_SIZE) == door->y) || \
+				(((data->player->x / CUBE_SIZE) == door->x - 1) && \
+				(data->player->y / CUBE_SIZE) == door->y) || \
+				(((data->player->x / CUBE_SIZE) == door->x) && \
+				(data->player->y / CUBE_SIZE) == door->y + 1) || \
+				(((data->player->x / CUBE_SIZE) == door->x) && \
+				(data->player->y / CUBE_SIZE) == door->y - 1))
+			{
+				toggle_door_state(door);
+			}
+			door = door->next;
+		}
 	}
 }
 
@@ -80,8 +94,10 @@ void	key(mlx_key_data_t datakey, void *param)
 	t_data	*data;
 	int		key;
 	int		action;
+	t_door	*door;
 
 	data = param;
+	door = data->doors;
 	key = datakey.key;
 	action = datakey.action;
 	esc_key(data, key);

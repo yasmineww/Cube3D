@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 18:50:01 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/25 23:11:35 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/27 01:57:43 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	check_door(t_list *parsing, int x, int y)
 {
-	if ((parsing->map[x - 1][y] == 'D' || \
-		parsing->map[x + 1][y] == 'D') || \
-		(parsing->map[x][y + 1] == 'D' || \
-		parsing->map[x][y + 1] == 'D'))
+	if ((parsing->map[y - 1][x] == 'D' || \
+		parsing->map[y + 1][x] == 'D') || \
+		(parsing->map[y][x + 1] == 'D' || \
+		parsing->map[y][x + 1] == 'D'))
 		print_error("Invalid Door position !\n");
 }
 

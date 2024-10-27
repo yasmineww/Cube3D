@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:48:52 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/25 22:10:55 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/27 21:01:57 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,14 @@ typedef struct s_garbage
 	void				*ptr;
 	struct s_garbage	*next;
 }	t_garbage;
+
+typedef struct s_doors
+{
+	int					x;
+	int					y;
+	int					is_open;
+	struct s_doors		*next;
+}	t_door;
 
 typedef struct s_ray
 {
@@ -124,6 +132,7 @@ typedef struct s_data
 	int				current_frame;
 	int				animation_phase;
 	int				open;
+	t_door			*doors;
 }	t_data;
 
 typedef struct s_line
@@ -160,6 +169,7 @@ typedef struct s_list
 	int			x;
 	int			y;
 	t_garbage	*gc;
+	t_door		*doors;
 }	t_list;
 
 typedef struct s_process_map
@@ -209,6 +219,20 @@ typedef struct s_line_arg
 	int	fd;
 }	t_line_arg;
 
+typedef struct s_position_dor
+{
+	int		x;
+	int		y;
+}	t_position_dor;
+
+typedef struct s_wall_collision
+{
+	int	x_min;
+	int	x_max;
+	int	y_min;
+	int	y_max;
+}	t_wall_collision;
+
 /*-------------------------------textures-------------------------------*/
 void			*gc_malloc(t_garbage **list, size_t size);
 void			gc_free_all(t_garbage **list);
@@ -235,6 +259,9 @@ void			render_wall(t_data *data, double distance, int nmbr_rays);
 float			normalize(float angle, t_ray *ray);
 void			my_put_pixel(t_data *data, int x, int y, int color);
 void			draw_ray(t_data *data, double distance);
+void			move_player(t_player *player, t_data *data);
+void			create_player(t_data *data);
+void			toggle_door_state(t_door *door);
 
 /*-------------------------------get_next_line-------------------------------*/
 
@@ -286,6 +313,11 @@ void			process_sprite_frame(t_data *data, \
 				t_animation *animation, int flag);
 void			manage_animation_frame(t_data *data);
 void			check_door(t_list *parsing, int x, int y);
+char			**create_map(t_list *parsing, char **map, \
+					int *old_rows, int *cols);
+void			get_player_position(t_list *parsing);
+void			process_door(t_list *parsing, t_position_dor var, \
+					int *c, t_door **door);
 
 /*-------------------------------utils-------------------------------*/
 

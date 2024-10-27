@@ -6,92 +6,35 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 21:22:08 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/25 23:11:37 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/27 20:45:50 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-char	**create_map(t_list *parsing, char **map, int *old_rows, int *cols)
-{
-	t_map_create	arg;
-
-	arg.max = 0;
-	arg.new_rows = (*old_rows) - 2;
-	arg.new_map = (char **)gc_malloc(&parsing->gc, \
-		arg.new_rows * sizeof(char *));
-	if (!arg.new_map)
-		print_error("Allocation Fails !\n");
-	arg.i = 1;
-	arg.row_index = 0;
-	while (arg.i < *old_rows - 1)
-	{
-		arg.new_map[arg.row_index] = process_line(parsing, \
-			map[arg.i], &arg.max, *cols);
-		arg.row_index++;
-		arg.i++;
-	}
-	arg.i = 0;
-	*old_rows = arg.new_rows;
-	*cols = arg.max;
-	return (arg.new_map);
-}
-
-int	check_curr_char(char c)
-{
-	if (c == 'N' || c == 'W' || c == 'E' || c == 'S')
-		return (1);
-	return (0);
-}
-
-void	get_player_position(t_list *parsing)
-{
-	int	x;
-	int	y;
-
-	x = 0;
-	y = 0;
-	while (x < parsing->rows)
-	{
-		while (y < parsing->cols)
-		{
-			if (check_curr_char(parsing->map[x][y]) == 1)
-			{
-				parsing->x = y;
-				parsing->y = x;
-			}
-			y++;
-		}
-		x++;
-		y = 0;
-	}
-}
-
 void	get_dor_position(t_list *parsing)
 {
-	int	x;
-	int	y;
+	t_position_dor	var;
+	int				c;
+	t_door			*door;
 
-	x = 0;
-	y = 0;
-	while (x < parsing->rows)
+	var.x = 0;
+	var.y = 0;
+	c = 0;
+	while (var.y < parsing->rows)
 	{
-		while (y < parsing->cols)
+		while (var.x < parsing->cols)
 		{
-			if (parsing->map[x][y] == 'D')
+			if (parsing->map[var.y][var.x] == 'D')
 			{
-				if ((parsing->map[x - 1][y] != '1' \
-					&& parsing->map[x + 1][y] != '1') \
-					&& (parsing->map[x][y + 1] != '1' && \
-					parsing->map[x][y + 1] != '1'))
-					print_error("Invalid Door position !\n");
-				check_door(parsing, x, y);
+				process_door(parsing, var, &c, &door);
 			}
-			y++;
+			var.x++;
 		}
-		x++;
-		y = 0;
+		var.y++;
+		var.x = 0;
 	}
+	parsing->doors = door;
 }
 
 void	parsing(t_list *data, char **argv)
