@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 18:43:14 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/25 22:12:16 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/28 15:54:27 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ t_pars	*process_map(t_list *parsing_lst, int fd, char *line)
 		print_error("Allocation Fails !\n");
 	v.temp_pars = v.temp;
 	if (line == NULL)
+	{
+		puts("7");
 		free_and_error(parsing_lst, NULL, "Invalid map !\n");
+	}
 	while (line && ft_strcmp(line, "\n") != 0 && skip_line(line) == 0)
 	{
 		v.temp->value = ft_strdup(line, parsing_lst);

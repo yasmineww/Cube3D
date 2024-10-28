@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 08:50:13 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/25 23:01:17 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/28 15:54:16 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,10 @@ void	get_color(t_list *parsing_lst, char **arr)
 	if (ft_strcmp(arr[0], "C") == 0)
 	{
 		if (nums[0] == NULL || nums[1] == NULL || nums[2] == NULL)
+		{
+			puts("2");
 			print_error("invalid Map !");
+		}
 		parsing_lst->texture->c[0] = ft_atoi(nums[0]);
 		parsing_lst->texture->c[1] = ft_atoi(nums[1]);
 		parsing_lst->texture->c[2] = ft_atoi(nums[2]);
@@ -67,7 +70,10 @@ void	get_color(t_list *parsing_lst, char **arr)
 	else
 	{
 		if (nums[0] == NULL || nums[1] == NULL || nums[2] == NULL)
+		{
+			puts("3");
 			print_error("invalid Map !");
+		}
 		parsing_lst->texture->f[0] = ft_atoi(nums[0]);
 		parsing_lst->texture->f[1] = ft_atoi(nums[1]);
 		parsing_lst->texture->f[2] = ft_atoi(nums[2]);
@@ -80,7 +86,10 @@ void	init_texture(t_list *parsing_lst, t_pars *pars)
 	t_texture	*temp;
 
 	if (pars_leght(pars) > 6 || pars_leght(pars) < 6)
+	{
+		puts("4");
 		print_error("Invalid map !\n");
+	}
 	parsing_lst->texture = allocate_four_nodes(0, parsing_lst);
 	temp = parsing_lst->texture;
 	while (pars)
@@ -88,7 +97,10 @@ void	init_texture(t_list *parsing_lst, t_pars *pars)
 		arr = split_texture(pars->value, parsing_lst);
 		if ((arr[0][0] == 'F' || arr[0][0] == 'C') && \
 			ft_strcmp(arr[1], "") == 0)
-			print_error("Invalid Map !");
+			{
+				puts("5");
+				print_error("Invalid Map !");
+			}
 		if (check_text((arr[0])) != 1)
 		{
 			temp->key = ft_strdup(arr[0], parsing_lst);
@@ -116,6 +128,7 @@ void	check_texture(t_list *parsing_lst, t_pars *pars)
 			ft_strcmp(temp->key, "F") != 0 && \
 			ft_strcmp(temp->key, "SO") != 0 && ft_strcmp(temp->key, "WE") != 0)
 		{
+			puts("6");
 			print_error("Invalid map !\n");
 		}
 		temp = temp->next;
