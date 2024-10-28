@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_5.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 18:45:01 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/22 14:13:36 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/28 22:38:10 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-t_texture	*create_node(t_list *parsing_lst)
+t_texture	*create_node(t_list *parsing)
 {
 	t_texture	*node;
 
-	node = (t_texture *)gc_malloc(&parsing_lst->gc, sizeof(t_texture));
+	node = (t_texture *)gc_malloc(&parsing->gc, sizeof(t_texture));
 	if (!node)
 		return (NULL);
 	node->key = NULL;
@@ -25,7 +25,7 @@ t_texture	*create_node(t_list *parsing_lst)
 	return (node);
 }
 
-t_texture	*allocate_four_nodes(int i, t_list *parsing_lst)
+t_texture	*allocate_four_nodes(int i, t_list *parsing)
 {
 	t_texture	*head;
 	t_texture	*current;
@@ -35,7 +35,7 @@ t_texture	*allocate_four_nodes(int i, t_list *parsing_lst)
 	current = NULL;
 	while (i < 4)
 	{
-		new_node = create_node(parsing_lst);
+		new_node = create_node(parsing);
 		if (!new_node)
 			return (NULL);
 		if (head == NULL)
@@ -75,7 +75,7 @@ int	check_text(char *str)
 	return (0);
 }
 
-int	check_comma(char *str)
+int	check_comma(char *str, t_list *parsing)
 {
 	int	i;
 	int	b;
@@ -87,7 +87,7 @@ int	check_comma(char *str)
 		if (str[i] == ',')
 			b++;
 		if (str[i] == ' ')
-			print_error("Invalid Map Space detected !\n");
+			print_error(parsing, "Invalid Map Space detected !\n");
 		i++;
 	}
 	return (b);

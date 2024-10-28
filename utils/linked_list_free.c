@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list_free.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 04:46:51 by youbihi           #+#    #+#             */
-/*   Updated: 2024/09/16 06:52:57 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/28 22:25:42 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,27 +42,27 @@ void	free_texture(t_texture *texture)
 	}
 }
 
-void	free_list(t_list *list, t_pars *pars)
+void	free_list(t_list *parsing, t_pars *pars)
 {
 	size_t	i;
 
-	if (!list)
+	if (!parsing)
 		return ;
 	if (pars)
 		free_pars(pars);
-	if (list->texture)
+	if (parsing->texture)
 	{
-		free_texture(list->texture);
+		free_texture(parsing->texture);
 	}
-	if (list->map)
+	if (parsing->map)
 	{
 		i = 0;
-		while (list->map[i])
+		while (parsing->map[i])
 		{
-			free(list->map[i]);
+			free(parsing->map[i]);
 			i++;
 		}
-		free(list->map);
+		free(parsing->map);
 	}
-	free(list);
+	free(parsing);
 }

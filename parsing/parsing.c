@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 21:22:08 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/28 22:07:10 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/28 22:37:37 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	check_curr_door(t_list *data)
 			if (data->map[i][x] == 'D')
 			{
 				if (the_check(data, i, x) == 1)
-					print_error("Invalid door position");
+					print_error(data, "Invalid door position");
 			}
 			x++;
 		}
@@ -95,12 +95,12 @@ void	check_map_valid(t_list *data)
 		while (data->map[i][x] == '-')
 			x++;
 		if (data->map[i][x] != '1')
-			print_error("invalid map");
+			print_error(data, "invalid map");
 		x = data->cols - 1;
 		while (data->map[i][x] == '-')
 			x--;
 		if (data->map[i][x] != '1')
-			print_error("invalid map");
+			print_error(data, "invalid map");
 		i++;
 		x = 0;
 	}
@@ -126,7 +126,7 @@ void	parsing(t_list *data, char **argv)
 	check_for_tabs(data, pars);
 	data->map = get_map(pars, &num, data);
 	if (check_map(data) == 1)
-		print_error("Invalid Map !\n");
+		print_error(data, "Invalid Map !\n");
 	data->map = create_map(data, data->map, &data->rows, &data->cols);
 	get_player_position(data);
 	get_dor_position(data);

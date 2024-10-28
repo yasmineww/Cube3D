@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 18:01:17 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/22 16:37:34 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/28 22:26:23 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static size_t	ft_countword(char const *s, char c)
 	return (wc);
 }
 
-static char	*words_len(const char *s, char c, size_t *w, t_list *parsing_lst)
+static char	*words_len(const char *s, char c, size_t *w, t_list *parsing)
 {
 	char		*word;
 	size_t		len;
@@ -46,7 +46,7 @@ static char	*words_len(const char *s, char c, size_t *w, t_list *parsing_lst)
 	while (s[*w] && s[*w] != c)
 		(*w)++;
 	len = *w - i;
-	word = (char *)gc_malloc(&parsing_lst->gc, (len + 1) * sizeof(char));
+	word = (char *)gc_malloc(&parsing->gc, (len + 1) * sizeof(char));
 	if (word == NULL)
 		return (NULL);
 	while (i + j < *w)
@@ -58,7 +58,7 @@ static char	*words_len(const char *s, char c, size_t *w, t_list *parsing_lst)
 	return (word);
 }
 
-char	**ft_split(char const *s, char c, t_list *parsing_lst)
+char	**ft_split(char const *s, char c, t_list *parsing)
 {
 	size_t	word;
 	char	**str;
@@ -68,14 +68,14 @@ char	**ft_split(char const *s, char c, t_list *parsing_lst)
 	if (!s)
 		return (NULL);
 	word = ft_countword(s, c);
-	str = (char **)gc_malloc(&parsing_lst->gc, (word + 1) * sizeof(char *));
+	str = (char **)gc_malloc(&parsing->gc, (word + 1) * sizeof(char *));
 	if (!str)
-		print_error("Allocation Fails !\n");
+		print_error(parsing, "Allocation Fails !\n");
 	w = 0;
 	id = 0;
 	while (w < word)
 	{
-		str[w] = words_len(s, c, &id, parsing_lst);
+		str[w] = words_len(s, c, &id, parsing);
 		w++;
 	}
 	str[word] = NULL;

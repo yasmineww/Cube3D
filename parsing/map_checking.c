@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   map_checking.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:19:03 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/15 04:17:01 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/28 22:27:50 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	check_first_and_last(t_list *parsing_lst)
+int	check_first_and_last(t_list *parsing)
 {
 	int	i;
 	int	j;
@@ -23,18 +23,18 @@ int	check_first_and_last(t_list *parsing_lst)
 	c = 0;
 	while (c < 2)
 	{
-		while (parsing_lst->map[i][j] == ' ' || parsing_lst->map[i][j] == '\t')
+		while (parsing->map[i][j] == ' ' || parsing->map[i][j] == '\t')
 		{
-			if (parsing_lst->map[i][j] == '\t')
+			if (parsing->map[i][j] == '\t')
 				return (1);
 			j++;
 		}
-		while (parsing_lst->map[i][j] == '1' || parsing_lst->map[i][j] == ' ')
+		while (parsing->map[i][j] == '1' || parsing->map[i][j] == ' ')
 			j++;
-		if (parsing_lst->map[i][j] != '-')
+		if (parsing->map[i][j] != '-')
 			return (1);
 		c++;
-		i = parsing_lst->rows - 2;
+		i = parsing->rows - 2;
 		j = 1;
 	}
 	return (0);

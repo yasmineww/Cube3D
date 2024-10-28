@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 08:45:08 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/28 22:04:54 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/28 22:26:23 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_pars	*init_parsing(char **argv, char **line, t_list *parsing)
 	if (*line == NULL)
 	{
 		close(parsing->fd);
-		print_error("Empty file!\n");
+		print_error(parsing, "Empty file!\n");
 	}
 	pars = allocate_pars(parsing);
 	return (pars);
@@ -62,24 +62,24 @@ char	*process_parsing(t_pars *pars, char *line, t_list *parsing)
 		else
 			line = get_line(&temp, var, line, parsing);
 		if (line == NULL)
-			print_error("Invalid map\n");
+			print_error(parsing, "Invalid map\n");
 		b++;
 	}
 	if (b < 6)
-		print_error("Invalid Map!\n");
+		print_error(parsing, "Invalid Map!\n");
 	return (line);
 }
 
-void	texture_syntax(char **arr, t_list *parsing_lst, t_pars *pars)
+void	texture_syntax(char **arr, t_list *parsing, t_pars *pars)
 {
 	(void)arr;
-	(void)parsing_lst;
+	(void)parsing;
 	(void)pars;
 	ft_putstr_fd("Invalid map !\n", 2);
 	exit(1);
 }
 
-void	process_pars(t_list *parsing_lst, t_pars *pars)
+void	process_pars(t_list *parsing, t_pars *pars)
 {
 	t_pars		*temp;
 	char		**arr;
@@ -87,9 +87,9 @@ void	process_pars(t_list *parsing_lst, t_pars *pars)
 	temp = pars;
 	while (temp != NULL)
 	{
-		arr = split_texture(temp->value, parsing_lst);
+		arr = split_texture(temp->value, parsing);
 		if (array_length(arr) != 2)
-			texture_syntax(arr, parsing_lst, pars);
+			texture_syntax(arr, parsing, pars);
 		temp = temp->next;
 	}
 }

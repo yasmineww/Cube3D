@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 15:21:42 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/24 09:06:12 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/28 22:26:23 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ char	*ft_read_lines(int fd, char *all_lines, t_list *parsing)
 		buff[num_of_read] = '\0';
 		all_lines = ft_strjoin_get(all_lines, buff, parsing);
 		if (all_lines == NULL)
-			print_error("Allocation Failed for columns!\n");
+			print_error(parsing, "Allocation Failed for columns!\n");
 	}
 	free (buff);
 	return (all_lines);

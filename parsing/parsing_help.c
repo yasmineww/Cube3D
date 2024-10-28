@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_help.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 20:42:49 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/27 20:45:45 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/28 22:26:23 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	**create_map(t_list *parsing, char **map, int *old_rows, int *cols)
 	arg.new_map = (char **)gc_malloc(&parsing->gc, \
 		arg.new_rows * sizeof(char *));
 	if (!arg.new_map)
-		print_error("Allocation Fails !\n");
+		print_error(parsing, "Allocation Fails !\n");
 	arg.i = 1;
 	arg.row_index = 0;
 	while (arg.i < *old_rows - 1)
@@ -96,6 +96,6 @@ void	process_door(t_list *parsing, t_position_dor var, int *c, t_door **door)
 		&& parsing->map[var.y + 1][var.x] != '1') &&
 		(parsing->map[var.y][var.x + 1] != '1' && \
 		parsing->map[var.y][var.x - 1] != '1'))
-		print_error("Invalid Door position!\n");
+		print_error(parsing, "Invalid Door position!\n");
 	check_door(parsing, var.x, var.y);
 }

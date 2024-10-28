@@ -6,16 +6,16 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 08:54:21 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/28 22:18:08 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/28 22:29:20 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	free_and_error(t_list *parsing_lst, t_pars	*temp, char *str)
+void	free_and_error(t_list *parsing, t_pars	*temp, char *str)
 {
-	free_list(parsing_lst, temp);
-	print_error(str);
+	free_list(parsing, temp);
+	print_error(parsing, str);
 }
 
 t_process_map	initialize_map_dimensions(t_pars *tmp, t_process_map x, \
@@ -34,20 +34,20 @@ t_process_map	initialize_map_dimensions(t_pars *tmp, t_process_map x, \
 	}
 	x.rows += 2;
 	x.cols += 2;
-	x.arr = (char **)gc_malloc(&pars->gc, x.rows * sizeof(char *));
+	x.arr = (char **)gc_malloc(&parsing->gc, x.rows * sizeof(char *));
 	if (x.arr == NULL)
-		print_error("Allocation Fails for rows!\n");
+		print_error(parsing, "Allocation Fails for rows!\n");
 	while (x.i < x.rows)
 	{
-		x.arr[x.i] = (char *)gc_malloc(&pars->gc, x.cols * sizeof(char));
+		x.arr[x.i] = (char *)gc_malloc(&parsing->gc, x.cols * sizeof(char));
 		if (x.arr[x.i] == NULL)
-			print_error("Allocation Failed for columns!\n");
+			print_error(parsing, "Allocation Failed for columns!\n");
 		x.i++;
 	}
 	return (x);
 }
 
-char	**get_map(t_pars *tmp, int *num, t_list *parsing_lst)
+char	**get_map(t_pars *tmp, int *num, t_list *parsing)
 {
 	t_process_map	data;
 
@@ -55,22 +55,22 @@ char	**get_map(t_pars *tmp, int *num, t_list *parsing_lst)
 	data.cols = 0;
 	data.i = 0;
 	data.values = tmp;
-	data = initialize_map_dimensions(tmp, data, parsing_lst);
+	data = initialize_map_dimensions(tmp, data, parsing);
 	if (data.rows <= 4)
-		print_error("Invalid Map !\n");
-	parsing_lst->rows = data.rows;
-	parsing_lst->cols = data.cols;
+		print_error(parsing, "Invalid Map !\n");
+	parsing->rows = data.rows;
+	parsing->cols = data.cols;
 	*num = data.cols;
 	fill_map(data.arr, data.cols, data.rows, data.values);
 	return (data.arr);
 }
 
-void	check_for_tabs(t_list *parsing_lst, t_pars *pars)
+void	check_for_tabs(t_list *parsing, t_pars *pars)
 {
 	int		i;
 	t_pars	*temp;
 
-	(void)parsing_lst;
+	(void)parsing;
 	i = 0;
 	temp = pars;
 	while (temp)
@@ -78,7 +78,7 @@ void	check_for_tabs(t_list *parsing_lst, t_pars *pars)
 		while (temp->value[i])
 		{
 			if (temp->value[i] == '\t')
-				print_error("Invalid Map : Tabs detected !\n");
+				print_error(parsing, "Invalid Map : Tabs detected !\n");
 			i++;
 		}
 		temp = temp->next;

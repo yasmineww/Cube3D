@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 08:50:13 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/28 18:11:14 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/28 22:39:42 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ int	num_len(char *str)
 	return (b);
 }
 
-int	num_is_big(char *str, t_list *parsing_lst)
+int	num_is_big(char *str, t_list *parsing)
 {
 	char	**arr;
 	int		i;
 
 	i = 0;
-	arr = ft_split(str, ',', parsing_lst);
+	arr = ft_split(str, ',', parsing);
 	while (arr[i])
 	{
 		if (num_len(arr[i]) > 3)
@@ -47,67 +47,67 @@ int	num_is_big(char *str, t_list *parsing_lst)
 	return (0);
 }
 
-void	get_color(t_list *parsing_lst, char **arr)
+void	get_color(t_list *parsing, char **arr)
 {
 	char	**nums;
 
-	if (check_comma(arr[1]) > 2)
-		print_error("Invalid Map More or less than 2 comma! \n");
-	if (num_is_big(arr[1], parsing_lst) == 1)
-		print_error("Invalid Map Color map number not valid !\n");
-	nums = ft_split(arr[1], ',', parsing_lst);
+	if (check_comma(arr[1], parsing) > 2)
+		print_error(parsing, "Invalid Map More or less than 2 comma! \n");
+	if (num_is_big(arr[1], parsing) == 1)
+		print_error(parsing, "Invalid Map Color map number not valid !\n");
+	nums = ft_split(arr[1], ',', parsing);
 	if (ft_strcmp(arr[0], "C") == 0)
 	{
 		if (nums[0] == NULL || nums[1] == NULL || nums[2] == NULL)
-			print_error("invalid Map !");
-		parsing_lst->texture->c[0] = ft_atoi(nums[0]);
-		parsing_lst->texture->c[1] = ft_atoi(nums[1]);
-		parsing_lst->texture->c[2] = ft_atoi(nums[2]);
+			print_error(parsing, "invalid Map !");
+		parsing->texture->c[0] = ft_atoi(nums[0]);
+		parsing->texture->c[1] = ft_atoi(nums[1]);
+		parsing->texture->c[2] = ft_atoi(nums[2]);
 	}
 	else
 	{
 		if (nums[0] == NULL || nums[1] == NULL || nums[2] == NULL)
-			print_error("invalid Map !");
-		parsing_lst->texture->f[0] = ft_atoi(nums[0]);
-		parsing_lst->texture->f[1] = ft_atoi(nums[1]);
-		parsing_lst->texture->f[2] = ft_atoi(nums[2]);
+			print_error(parsing, "invalid Map !");
+		parsing->texture->f[0] = ft_atoi(nums[0]);
+		parsing->texture->f[1] = ft_atoi(nums[1]);
+		parsing->texture->f[2] = ft_atoi(nums[2]);
 	}
 }
 
-void	init_texture(t_list *parsing_lst, t_pars *pars)
+void	init_texture(t_list *parsing, t_pars *pars)
 {
 	char		**arr;
 	t_texture	*temp;
 
 	if (pars_leght(pars) > 6 || pars_leght(pars) < 6)
-		print_error("Invalid map !\n");
-	parsing_lst->texture = allocate_four_nodes(0, parsing_lst);
-	temp = parsing_lst->texture;
+		print_error(parsing, "Invalid map !\n");
+	parsing->texture = allocate_four_nodes(0, parsing);
+	temp = parsing->texture;
 	while (pars)
 	{
-		arr = split_texture(pars->value, parsing_lst);
+		arr = split_texture(pars->value, parsing);
 		if ((arr[0][0] == 'F' || arr[0][0] == 'C') && \
 			ft_strcmp(arr[1], "") == 0)
-			print_error("Invalid Map !");
+			print_error(parsing, "Invalid Map !");
 		if (check_text((arr[0])) != 1)
 		{
-			temp->key = ft_strdup(arr[0], parsing_lst);
-			temp->value = ft_strdup(arr[1], parsing_lst);
+			temp->key = ft_strdup(arr[0], parsing);
+			temp->value = ft_strdup(arr[1], parsing);
 			temp = temp->next;
 		}
 		else
-			get_color(parsing_lst, arr);
+			get_color(parsing, arr);
 		free_split(arr);
 		pars = pars->next;
 	}
 }
 
-void	check_texture(t_list *parsing_lst, t_pars *pars)
+void	check_texture(t_list *parsing, t_pars *pars)
 {
 	t_texture	*temp;
 
 	(void)pars;
-	temp = parsing_lst->texture;
+	temp = parsing->texture;
 	while (temp)
 	{
 		if (ft_strcmp(temp->key, "EA") != 0 && \
@@ -115,7 +115,7 @@ void	check_texture(t_list *parsing_lst, t_pars *pars)
 			ft_strcmp(temp->key, "C") != 0 && \
 			ft_strcmp(temp->key, "F") != 0 && \
 			ft_strcmp(temp->key, "SO") != 0 && ft_strcmp(temp->key, "WE") != 0)
-			print_error("Invalid map !\n");
+			print_error(parsing, "Invalid map !\n");
 		temp = temp->next;
 	}
 }

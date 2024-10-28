@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_6.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 18:50:01 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/28 18:09:54 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/28 22:26:23 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	check_door(t_list *parsing, int x, int y)
 		parsing->map[y + 1][x] == 'D') || \
 		(parsing->map[y][x + 1] == 'D' || \
 		parsing->map[y][x + 1] == 'D'))
-		print_error("Invalid Door position !\n");
+		print_error(parsing, "Invalid Door position !\n");
 }
 
 void	clean_str(t_pars *pars, t_list *parsing)
@@ -35,7 +35,7 @@ void	clean_str(t_pars *pars, t_list *parsing)
 	}
 }
 
-int	check_unwanted_characters(t_list *parsing_lst)
+int	check_unwanted_characters(t_list *parsing)
 {
 	int	i;
 	int	j;
@@ -44,15 +44,15 @@ int	check_unwanted_characters(t_list *parsing_lst)
 	i = 1;
 	j = 1;
 	h = 0;
-	while (i < parsing_lst->rows - 2)
+	while (i < parsing->rows - 2)
 	{
-		while (j < parsing_lst->cols - 1)
+		while (j < parsing->cols - 1)
 		{
-			if (check_char(parsing_lst->map[i][j]) == 1)
+			if (check_char(parsing->map[i][j]) == 1)
 				return (1);
-			if (parsing_lst->map[i][j] == 'N' || \
-				parsing_lst->map[i][j] == 'W' || \
-				parsing_lst->map[i][j] == 'E' || parsing_lst->map[i][j] == 'S')
+			if (parsing->map[i][j] == 'N' || \
+				parsing->map[i][j] == 'W' || \
+				parsing->map[i][j] == 'E' || parsing->map[i][j] == 'S')
 				h++;
 			j++;
 		}
@@ -64,18 +64,18 @@ int	check_unwanted_characters(t_list *parsing_lst)
 	return (0);
 }
 
-int	check_map(t_list *parsing_lst)
+int	check_map(t_list *parsing)
 {
 	int	i;
 	int	j;
 
 	i = 1;
 	j = 1;
-	if (check_first_and_last(parsing_lst) == 1)
+	if (check_first_and_last(parsing) == 1)
 		return (1);
-	if (check_unwanted_characters(parsing_lst) == 1)
+	if (check_unwanted_characters(parsing) == 1)
 		return (1);
-	if (check_start_end(parsing_lst) == 1)
+	if (check_start_end(parsing) == 1)
 		return (1);
 	return (0);
 }
@@ -95,7 +95,7 @@ char	*process_line(t_list *parsing, char *line, int *max_cols, int cols)
 		*max_cols = arg.len;
 	arg.str = (char *)gc_malloc(&parsing->gc, (arg.len + 1) * sizeof(char));
 	if (!arg.str)
-		print_error("Allocation fails!\n");
+		print_error(parsing, "Allocation fails!\n");
 	arg.j = 0;
 	while (arg.j < arg.len)
 	{

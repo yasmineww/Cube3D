@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:48:52 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/28 22:12:22 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/28 22:38:45 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,7 +249,7 @@ mlx_texture_t	*get_vertical_texture(t_data *data);
 
 /*-------------------------------raycasting-------------------------------*/
 
-void			data_init(t_data **data, t_list *parsing_lst);
+void			data_init(t_data **data, t_list *parsing);
 void			render_window(void *param);
 void			key(mlx_key_data_t datakey, void *param);
 void			mouse(double mouse_x, double mouse_y, void *param);
@@ -277,10 +277,10 @@ char			*ft_strjoin_get(char *left_str, char *buff, t_list *parsing);
 
 /*-------------------------------parsing-------------------------------*/
 
-int				check_first_and_last(t_list *parsing_lst);
+int				check_first_and_last(t_list *parsing);
 int				check_character(char c);
-void			parsing(t_list *parsing, char **argv);
-void			print_error(t_list *list, char *str);
+void			parsing(t_list *data, char **argv);
+void			print_error(t_list *parsing, char *str);
 t_pars			*allocate_pars(t_list *parsing);
 int				open_file(char *argv);
 int				check_line(char *line);
@@ -289,21 +289,21 @@ t_pars			*init_parsing(char **argv, char **line, \
 					t_list *parsing);
 char			*process_parsing(t_pars *pars, char *line,
 					t_list *parsing);
-void			texture_syntax(char **arr, t_list *parsing_lst, t_pars *pars);
-void			process_pars(t_list *parsing_lst, t_pars *pars);
+void			texture_syntax(char **arr, t_list *parsing, t_pars *pars);
+void			process_pars(t_list *parsing, t_pars *pars);
 void			clean_str(t_pars *pars, t_list *parsing);
-t_texture		*create_node(t_list *parsing_lst);
+t_texture		*create_node(t_list *parsing);
 int				pars_leght(t_pars *pars);
-void			init_texture(t_list *parsing_lst, t_pars *pars);
-void			check_texture(t_list *parsing_lst, t_pars *pars);
-void			free_and_error(t_list *parsing_lst, t_pars	*temp, char *str);
-t_pars			*process_map(t_list *parsing_lst, char *line);
+void			init_texture(t_list *parsing, t_pars *pars);
+void			check_texture(t_list *parsing, t_pars *pars);
+void			free_and_error(t_list *parsing, t_pars	*temp, char *str);
+t_pars			*process_map(t_list *parsing, char *line);
 void			fill_map(char **arr, int cols, int rows, t_pars *pars);
-char			**get_map(t_pars *tmp, int *num, t_list *parsing_lst);
-void			check_for_tabs(t_list *parsing_lst, t_pars *pars);
-int				check_map(t_list *parsing_lst);
-int				check_comma(char *str);
-t_texture		*allocate_four_nodes(int i, t_list *parsing_lst);
+char			**get_map(t_pars *tmp, int *num, t_list *parsing);
+void			check_for_tabs(t_list *parsing, t_pars *pars);
+int				check_map(t_list *parsing);
+int				check_comma(char *str, t_list *parsing);
+t_texture		*allocate_four_nodes(int i, t_list *parsing);
 int				check_text(char *str);
 int				check_char(char c);
 int				check_start_end(t_list *lst);
@@ -324,18 +324,18 @@ void			process_door(t_list *parsing, t_position_dor var, \
 
 int				ft_atoi(const char *s);
 void			ft_putstr_fd(char *s, int fd);
-char			**ft_split(char const *s, char c, t_list	*parsing_lst);
-char			*ft_strdup(const char *str, t_list *parsing_lst);
+char			**ft_split(char const *s, char c, t_list	*parsing);
+char			*ft_strdup(const char *str, t_list *parsing);
 size_t			ft_strlen(const char *str);
-void			free_list(t_list *list, t_pars *pars);
+void			free_list(t_list *parsing, t_pars *pars);
 void			free_split(char **split);
 char			*ft_custom_strdup(const char *str, t_list *parsing);
 size_t			array_length(char **arr);
 int				ft_strcmp(const char *s1, const char *s2);
 void			free_pars(t_pars *pars);
-char			**split_texture(char const *s, t_list *parsing_lst);
+char			**split_texture(char const *s, t_list *parsing);
 char			*ft_strjoin(char const *s1, char const *s2);
-char			*ft_itoa(int n, t_list *parsing_lst);
+char			*ft_itoa(int n, t_list *parsing);
 void			*ft_memcpy(void *destination, const void *source, size_t num);
 
 #endif

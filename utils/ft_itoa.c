@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 21:18:35 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/22 16:40:13 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/28 22:21:48 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static long int	ft_len(int n)
 	return (len);
 }
 
-char	*ft_itoa(int n, t_list *parsing_lst)
+char	*ft_itoa(int n, t_list *parsing)
 {
 	char				*str;
 	long int			len;
@@ -48,7 +48,7 @@ char	*ft_itoa(int n, t_list *parsing_lst)
 	number = n;
 	sign = 1;
 	len = ft_len(number);
-	str = (char *)gc_malloc(&parsing_lst->gc, sizeof(char) * (len + 1));
+	str = (char *)gc_malloc(&parsing->gc, sizeof(char) * (len + 1));
 	if (!(str))
 		return (NULL);
 	str[len--] = '\0';

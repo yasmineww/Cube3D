@@ -6,17 +6,17 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:46:50 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/28 22:10:39 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/28 22:31:23 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	check_file_extention(char *file, t_list	*parsing_lst)
+void	check_file_extention(char *file, t_list	*parsing)
 {
 	char	**arr;
 
-	arr = ft_split(file, '.', parsing_lst);
+	arr = ft_split(file, '.', parsing);
 	if (array_length(arr) != 2 || ft_strcmp(arr[1], "cub") != 0)
 	{
 		free_split(arr);

@@ -6,17 +6,17 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 01:31:17 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/28 22:12:51 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/28 22:35:54 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	print_error(t_list *list, char *str)
+void	print_error(t_list *parsing, char *str)
 {
 	ft_putstr_fd("Error\n", 2);
 	ft_putstr_fd(str, 2);
-	close(list->fd);
+	close(parsing->fd);
 	exit(1);
 }
 
@@ -28,7 +28,7 @@ t_pars	*allocate_pars(t_list *parsing)
 	if (temp == NULL)
 	{
 		close(parsing->fd);
-		print_error("Allocation fails !\n");
+		print_error(parsing, "Allocation fails !\n");
 	}
 	temp->next = NULL;
 	return (temp);
@@ -40,7 +40,10 @@ int	open_file(char *argv)
 
 	fd = open(argv, O_RDONLY);
 	if (fd == -1)
-		print_error("Open syscall failed\n");
+	{
+		ft_putstr_fd("Error\n Open syscall failed!\n", 2);
+		exit(1);
+	}
 	return (fd);
 }
 
