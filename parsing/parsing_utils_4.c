@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_4.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 18:43:14 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/28 18:09:34 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/28 22:06:42 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	check_rest(char *line, int fd, t_list *parsing_lst)
+void	check_rest(char *line, t_list *parsing_lst)
 {
 	while (line != NULL && ft_strcmp(line, "\n") == 0)
 	{
-		line = get_next_line(fd, parsing_lst);
+		line = get_next_line(parsing_lst->fd, parsing_lst);
 		if (line == NULL)
 			break ;
 		if (skip_line(line) == 0)
@@ -24,7 +24,7 @@ void	check_rest(char *line, int fd, t_list *parsing_lst)
 	}
 }
 
-t_pars	*process_map(t_list *parsing_lst, int fd, char *line)
+t_pars	*process_map(t_list *parsing_lst, char *line)
 {
 	t_map_handling	v;
 
@@ -37,7 +37,7 @@ t_pars	*process_map(t_list *parsing_lst, int fd, char *line)
 	while (line && ft_strcmp(line, "\n") != 0 && skip_line(line) == 0)
 	{
 		v.temp->value = ft_strdup(line, parsing_lst);
-		line = get_next_line(fd, parsing_lst);
+		line = get_next_line(parsing_lst->fd, parsing_lst);
 		if (line != NULL && ft_strcmp(line, "\n") != 0 && skip_line(line) == 0)
 		{
 			v.temp->next = gc_malloc(&parsing_lst->gc, sizeof(t_pars));
@@ -49,7 +49,7 @@ t_pars	*process_map(t_list *parsing_lst, int fd, char *line)
 		else
 			v.temp->next = NULL;
 	}
-	check_rest(line, fd, parsing_lst);
+	check_rest(line, parsing_lst);
 	return (v.temp_pars);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 21:22:08 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/28 18:19:55 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/28 22:07:10 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,20 +109,19 @@ void	check_map_valid(t_list *data)
 
 void	parsing(t_list *data, char **argv)
 {
-	int		fd;
 	char	*line;
 	t_pars	*pars;
 	int		num;
 
 	data->texture = NULL;
 	data->map = NULL;
-	pars = init_parsing(argv, &fd, &line, data);
-	line = process_parsing(pars, fd, line, data);
+	pars = init_parsing(argv, &line, data);
+	line = process_parsing(pars, line, data);
 	clean_str(pars, data);
 	process_pars(data, pars);
 	init_texture(data, pars);
 	check_texture(data, pars);
-	pars = process_map(data, fd, line);
+	pars = process_map(data, line);
 	clean_str(pars, data);
 	check_for_tabs(data, pars);
 	data->map = get_map(pars, &num, data);
@@ -132,5 +131,5 @@ void	parsing(t_list *data, char **argv)
 	get_player_position(data);
 	get_dor_position(data);
 	check_map_valid(data);
-	close(fd);
+	close(data->fd);
 }

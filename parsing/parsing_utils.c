@@ -3,30 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 01:31:17 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/22 14:35:30 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/28 22:12:51 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	print_error(char *str)
+void	print_error(t_list *list, char *str)
 {
 	ft_putstr_fd("Error\n", 2);
 	ft_putstr_fd(str, 2);
+	close(list->fd);
 	exit(1);
 }
 
-t_pars	*allocate_pars(int *fd, t_list *parsing)
+t_pars	*allocate_pars(t_list *parsing)
 {
 	t_pars	*temp;
 
 	temp = gc_malloc(&parsing->gc, sizeof(t_pars));
 	if (temp == NULL)
 	{
-		close(*fd);
+		close(parsing->fd);
 		print_error("Allocation fails !\n");
 	}
 	temp->next = NULL;

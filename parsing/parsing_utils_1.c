@@ -3,27 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 08:45:08 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/28 18:08:22 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/28 22:04:54 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-t_pars	*init_parsing(char **argv, int *fd, char **line, t_list *parsing)
+t_pars	*init_parsing(char **argv, char **line, t_list *parsing)
 {
 	t_pars	*pars;
 
-	*fd = open_file(argv[1]);
-	*line = get_next_line(*fd, parsing);
+	parsing->fd = open_file(argv[1]);
+	*line = get_next_line(parsing->fd, parsing);
 	if (*line == NULL)
 	{
-		close(*fd);
+		close(parsing->fd);
 		print_error("Empty file!\n");
 	}
-	pars = allocate_pars(fd, parsing);
+	pars = allocate_pars(parsing);
 	return (pars);
 }
 
@@ -31,7 +31,7 @@ char	*get_line(t_pars **temp, t_line_arg var, char *line, t_list *parsing)
 {
 	if (*var.i != 0)
 	{
-		(*temp)->next = allocate_pars(&var.fd, parsing);
+		(*temp)->next = allocate_pars(parsing);
 		*temp = (*temp)->next;
 	}
 	(*temp)->value = ft_strdup(line, parsing);
@@ -41,7 +41,7 @@ char	*get_line(t_pars **temp, t_line_arg var, char *line, t_list *parsing)
 	return (line);
 }
 
-char	*process_parsing(t_pars *pars, int fd, char *line, t_list *parsing)
+char	*process_parsing(t_pars *pars, char *line, t_list *parsing)
 {
 	int			i;
 	int			b;
@@ -54,11 +54,11 @@ char	*process_parsing(t_pars *pars, int fd, char *line, t_list *parsing)
 	while (line != NULL && line[0] != '1')
 	{
 		var.i = &i;
-		var.fd = fd;
+		var.fd = parsing->fd;
 		if (check_line(line) == 1)
 			break ;
 		else if (skip_line(line) == 1)
-			line = get_next_line(fd, parsing);
+			line = get_next_line(parsing->fd, parsing);
 		else
 			line = get_line(&temp, var, line, parsing);
 		if (line == NULL)

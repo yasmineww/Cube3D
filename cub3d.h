@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:48:52 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/27 21:01:57 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/28 22:12:22 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,7 @@ typedef struct s_list
 	int			cols;
 	int			x;
 	int			y;
+	int			fd;
 	t_garbage	*gc;
 	t_door		*doors;
 }	t_list;
@@ -279,14 +280,14 @@ char			*ft_strjoin_get(char *left_str, char *buff, t_list *parsing);
 int				check_first_and_last(t_list *parsing_lst);
 int				check_character(char c);
 void			parsing(t_list *parsing, char **argv);
-void			print_error(char *str);
-t_pars			*allocate_pars(int *fd, t_list *parsing);
+void			print_error(t_list *list, char *str);
+t_pars			*allocate_pars(t_list *parsing);
 int				open_file(char *argv);
 int				check_line(char *line);
 int				skip_line(char *line);
-t_pars			*init_parsing(char **argv, int *fd, char **line, \
+t_pars			*init_parsing(char **argv, char **line, \
 					t_list *parsing);
-char			*process_parsing(t_pars *pars, int fd, char *line,
+char			*process_parsing(t_pars *pars, char *line,
 					t_list *parsing);
 void			texture_syntax(char **arr, t_list *parsing_lst, t_pars *pars);
 void			process_pars(t_list *parsing_lst, t_pars *pars);
@@ -296,7 +297,7 @@ int				pars_leght(t_pars *pars);
 void			init_texture(t_list *parsing_lst, t_pars *pars);
 void			check_texture(t_list *parsing_lst, t_pars *pars);
 void			free_and_error(t_list *parsing_lst, t_pars	*temp, char *str);
-t_pars			*process_map(t_list *parsing_lst, int fd, char *line);
+t_pars			*process_map(t_list *parsing_lst, char *line);
 void			fill_map(char **arr, int cols, int rows, t_pars *pars);
 char			**get_map(t_pars *tmp, int *num, t_list *parsing_lst);
 void			check_for_tabs(t_list *parsing_lst, t_pars *pars);

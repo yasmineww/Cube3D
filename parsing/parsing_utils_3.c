@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_3.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 08:54:21 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/25 22:12:46 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/28 22:18:08 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	free_and_error(t_list *parsing_lst, t_pars	*temp, char *str)
 }
 
 t_process_map	initialize_map_dimensions(t_pars *tmp, t_process_map x, \
-					t_list *pars)
+					t_list *parsing)
 {
 	x.rows = 0;
 	x.cols = 0;

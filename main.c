@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:46:50 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/25 23:40:34 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/28 22:10:39 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	check_file_extention(char *file, t_list	*parsing_lst)
 	if (array_length(arr) != 2 || ft_strcmp(arr[1], "cub") != 0)
 	{
 		free_split(arr);
-		print_error("Invalid file extensions !\n");
+		ft_putstr_fd("Error\n Invalid file extensions !\n", 2);
+		exit(1);
 	}
 	free_split(arr);
 }
@@ -36,18 +37,24 @@ void	close_window(void *param)
 	exit(1);
 }
 
+void f(){
+	system("leaks cub3D");
+	system("lsof -c cub3D");
+}
+
 int	main(int argc, char **argv)
 {
 	t_list	*parsing_lst;
 	t_data	*data;
 
+	atexit(f);
 	if (argc != 2)
 	{
-		print_error("Invalid arguments !!\n");
-		return (1);
+		ft_putstr_fd("Error\n Invalid arguments !!\n", 2);
+		exit(1);
 	}
 	parsing_lst = malloc(sizeof(t_list));
-	if (parsing_lst == NULL)
+	if (!parsing_lst)
 		exit(1);
 	check_file_extention(argv[1], parsing_lst);
 	parsing(parsing_lst, argv);
