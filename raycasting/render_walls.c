@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 11:40:08 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/10/28 15:47:15 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/28 18:10:55 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ void	render_wall_texture(t_data *data, int nmbr_rays, t_wall_var *value)
 		if (nmbr_rays >= M_WIDTH || value->top >= M_HEIGHT)
 		{
 			mlx_put_pixel(data->mlx->img, nmbr_rays, value->top,
-				reverse(value->var.arr[(int)value->var.y_offset * value->var.texture->width + (int)value->var.x_offset]));
+				reverse(value->var.arr[(int)value->var.y_offset * \
+				value->var.texture->width + (int)value->var.x_offset]));
 		}
 		value->var.y_offset += value->var.factor;
 		value->top++;

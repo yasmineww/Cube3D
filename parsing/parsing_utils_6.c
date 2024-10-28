@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 18:50:01 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/28 15:55:18 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/28 18:09:54 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,20 +72,11 @@ int	check_map(t_list *parsing_lst)
 	i = 1;
 	j = 1;
 	if (check_first_and_last(parsing_lst) == 1)
-	{
-		puts("13");
 		return (1);
-	}
 	if (check_unwanted_characters(parsing_lst) == 1)
-	{
-		puts("12");
 		return (1);
-	}
 	if (check_start_end(parsing_lst) == 1)
-	{
-		puts("11");
 		return (1);
-	}
 	return (0);
 }
 

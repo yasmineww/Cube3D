@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 08:45:08 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/28 15:53:11 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/28 18:08:22 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ void	texture_syntax(char **arr, t_list *parsing_lst, t_pars *pars)
 	(void)parsing_lst;
 	(void)pars;
 	ft_putstr_fd("Invalid map !\n", 2);
-	puts("1");
 	exit(1);
 }
 
