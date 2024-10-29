@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_texture.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 10:06:10 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/28 22:26:23 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/29 22:06:07 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ char	**allocate_and_split(char const *s, char **result, t_list *parsing)
 
 	index = 0;
 	result[0] = get_word(s, &index, parsing);
+	check_result(result[0], parsing);
 	if (!result[0])
 		return (free_mem(result));
 	index = skip_spaces(s, index);

@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 08:45:08 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/29 19:07:54 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/29 22:06:09 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,12 @@ char	*process_parsing(t_pars *pars, char *line, t_list *parsing)
 	return (line);
 }
 
-void	texture_syntax(char **arr, t_list *parsing, t_pars *pars)
+void	check_result(char *str, t_list *parsing)
 {
-	(void)arr;
-	(void)parsing;
-	(void)pars;
-	ft_putstr_fd("Invalid map !\n", 2);
-	exit(1);
+	if (ft_strcmp(str, "EA") != 0 && ft_strcmp(str, "NO") != 0 && \
+		ft_strcmp(str, "SO") != 0 && ft_strcmp(str, "WE") != 0 && \
+		ft_strcmp(str, "C") != 0 && ft_strcmp(str, "F") != 0)
+		print_error(parsing, "Invalid Map !");
 }
 
 void	process_pars(t_list *parsing, t_pars *pars)
@@ -89,7 +88,7 @@ void	process_pars(t_list *parsing, t_pars *pars)
 	{
 		arr = split_texture(temp->value, parsing);
 		if (array_length(arr) != 2)
-			texture_syntax(arr, parsing, pars);
+			print_error(parsing, "Invalid map !");
 		temp = temp->next;
 	}
 }

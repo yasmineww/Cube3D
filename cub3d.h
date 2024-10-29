@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:48:52 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/29 21:22:24 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/29 22:06:26 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -291,7 +291,6 @@ t_pars			*init_parsing(char **argv, char **line, \
 					t_list *parsing);
 char			*process_parsing(t_pars *pars, char *line,
 					t_list *parsing);
-void			texture_syntax(char **arr, t_list *parsing, t_pars *pars);
 void			process_pars(t_list *parsing, t_pars *pars);
 void			clean_str(t_pars *pars, t_list *parsing);
 t_texture		*create_node(t_list *parsing);
@@ -321,6 +320,7 @@ char			**create_map(t_list *parsing, char **map, \
 void			get_player_position(t_list *parsing);
 void			process_door(t_list *parsing, t_position_dor var, \
 					int *c, t_door **door);
+void			check_result(char *str, t_list *parsing);
 
 /*-------------------------------utils-------------------------------*/
 
