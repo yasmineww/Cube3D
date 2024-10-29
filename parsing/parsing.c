@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 21:22:08 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/28 22:37:37 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/29 19:09:46 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,16 @@ void	check_curr_door(t_list *data)
 	int	i;
 	int	x;
 
-	i = 1;
-	while (i < data->rows - 1)
+	i = 0;
+	while (i < data->rows)
 	{
-		x = 1;
-		while (x < data->cols - 1)
+		x = 0;
+		while (x < data->cols)
 		{
 			if (data->map[i][x] == 'D')
 			{
+				if (x == data->cols - 1 || i == data->rows - 1)
+					print_error(data, "Invalid door position");
 				if (the_check(data, i, x) == 1)
 					print_error(data, "Invalid door position");
 			}
@@ -81,30 +83,6 @@ void	check_curr_door(t_list *data)
 		}
 		i++;
 	}
-}
-
-void	check_map_valid(t_list *data)
-{
-	int	i;
-	int	x;
-
-	i = 0;
-	x = 0;
-	while (i < data->rows)
-	{
-		while (data->map[i][x] == '-')
-			x++;
-		if (data->map[i][x] != '1')
-			print_error(data, "invalid map");
-		x = data->cols - 1;
-		while (data->map[i][x] == '-')
-			x--;
-		if (data->map[i][x] != '1')
-			print_error(data, "invalid map");
-		i++;
-		x = 0;
-	}
-	check_curr_door(data);
 }
 
 void	parsing(t_list *data, char **argv)
@@ -130,6 +108,6 @@ void	parsing(t_list *data, char **argv)
 	data->map = create_map(data, data->map, &data->rows, &data->cols);
 	get_player_position(data);
 	get_dor_position(data);
-	check_map_valid(data);
+	check_curr_door(data);
 	close(data->fd);
 }

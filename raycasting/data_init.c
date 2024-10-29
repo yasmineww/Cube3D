@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:44:36 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/10/28 22:42:34 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/29 21:24:24 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,11 @@ void	init_var(t_data *data, t_list *parsing)
 	data->animation_phase = 1;
 }
 
+int	convert_color(int blue, int green, int red, int a)
+{
+	return (blue << 24 | green << 16 | red << 8 | a);
+}
+
 void	data_init(t_data **data, t_list *parsing)
 {
 	*data = gc_malloc(&parsing->gc, sizeof(t_data));
@@ -98,4 +103,8 @@ void	data_init(t_data **data, t_list *parsing)
 		exit(1);
 	load_textures(*data);
 	load_animation_frames(*data, parsing);
+	(*data)->c = convert_color((*data)->texture->c[0], \
+				(*data)->texture->c[1], (*data)->texture->c[2], 255);
+	(*data)->f = convert_color((*data)->texture->f[0], \
+				(*data)->texture->f[1], (*data)->texture->f[2], 255);
 }

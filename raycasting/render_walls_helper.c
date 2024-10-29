@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 06:06:17 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/24 08:57:44 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/29 21:25:02 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	render_bottom(t_data *data, int nmbr_rays, double bot)
 	while (i < W_HEIGHT)
 	{
 		if (nmbr_rays >= 0 && nmbr_rays < W_WIDTH && bot >= 0 && bot < W_HEIGHT)
-			mlx_put_pixel(data->mlx->img, nmbr_rays, i, 0xFFFFF1DB);
+			mlx_put_pixel(data->mlx->img, nmbr_rays, i, data->f);
 		i++;
 	}
 }
@@ -72,7 +72,7 @@ void	render_top(t_data *data, int nmbr_rays, double top)
 						mlx_put_pixel(data->mlx->img, nmbr_rays, i, 0xFFFF00);
 				}
 				else
-					mlx_put_pixel(data->mlx->img, nmbr_rays, i, 0x0000FF);
+					mlx_put_pixel(data->mlx->img, nmbr_rays, i, data->c);
 			}
 		}
 	}

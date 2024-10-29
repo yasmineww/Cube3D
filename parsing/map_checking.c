@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_checking.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:19:03 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/28 22:27:50 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/29 21:30:19 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ int	check_start_end(t_list *lst)
 	int	i;
 	int	j;
 
-	i = 2;
-	j = 1;
+	i = 0;
+	j = 0;
 	while (i < lst->rows - 2)
 	{
 		while (j < lst->cols - 1)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:46:50 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/28 22:31:23 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/10/29 21:31:32 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,11 @@ void	close_window(void *param)
 	exit(1);
 }
 
-void f(){
-	system("leaks cub3D");
-	system("lsof -c cub3D");
-}
-
 int	main(int argc, char **argv)
 {
 	t_list	*parsing_lst;
 	t_data	*data;
 
-	atexit(f);
 	if (argc != 2)
 	{
 		ft_putstr_fd("Error\n Invalid arguments !!\n", 2);
