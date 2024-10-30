@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_5.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 18:45:01 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/29 19:08:54 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/30 01:57:39 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ int	check_comma(char *str, t_list *parsing)
 	{
 		if (str[i] == ',')
 			b++;
-		if (str[i] == ' ')
-			print_error(parsing, "Invalid Map Space detected !\n");
+		if (str[i] == '\t')
+			print_error(parsing, "Invalid Map tab detected !\n");
 		i++;
 	}
 	return (b);

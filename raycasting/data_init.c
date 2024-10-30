@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:44:36 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/10/29 21:24:24 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/30 02:16:37 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	init_var(t_data *data, t_list *parsing)
 	data->open = 0;
 	data->player->rayon = 3;
 	data->player->view_angle = parsing->view_angle;
-	data->player->move_speed = 7;
+	data->player->move_speed = 5;
 	data->ray->pov = (60 * M_PI) / 180;
 	data->ray->door = 0;
 	data->current_frame = 1;

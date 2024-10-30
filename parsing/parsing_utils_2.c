@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 08:50:13 by youbihi           #+#    #+#             */
-/*   Updated: 2024/10/29 19:08:27 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/10/30 02:17:48 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,25 @@ int	num_is_big(char *str, t_list *parsing)
 {
 	char	**arr;
 	int		i;
+	char	**num;
+	int		c;
 
 	i = 0;
+	c = 0;
 	arr = ft_split(str, ',', parsing);
 	while (arr[i])
 	{
-		if (num_len(arr[i]) > 3)
+		num = ft_split(arr[i], ' ', parsing);
+		while (num[c])
+			c++;
+		if (c != 1)
+			print_error(parsing, "Invalid nums");
+		if (num_len(ft_split(arr[i], ' ', parsing)[0]) > 3)
 			return (1);
-		if (ft_atoi(arr[i]) > 255 || ft_atoi(arr[i]) < 0)
+		if (ft_atoi(ft_split(arr[i], ' ', parsing)[0]) > 255 || \
+			ft_atoi(ft_split(arr[i], ' ', parsing)[0]) < 0)
 			return (1);
+		c = 0;
 		i++;
 	}
 	return (0);
